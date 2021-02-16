@@ -4,13 +4,16 @@ import RegisterForm from '@components/RegisterForm';
 import { Breadcrumb, Form, message } from 'antd';
 import Axios  from 'axios';
 import { useHistory } from 'react-router-dom';
+import { createHashHistory } from 'history';
 
 // tslint:disable-next-line:function-name
-export default function Register() {
+export default function Register(props:any) {
   const history = useHistory();
-  const [btnLoading, setbtnLoading] = useState(false)
-
+const def = props?.history?.location?.state;
+console.log(def)
+  const [btnLoading, setbtnLoading] = useState(false);
   const onFinish = (values: any) => {
+
     const data = {
       ...values,
       DOB: values.DOB?.format(dateFormat),
@@ -19,19 +22,8 @@ export default function Register() {
   };
 
   const handleSubmitForm = async (values:JSON) =>{
-    const show = message.loading('Saving Values ...', 0);
-    setbtnLoading(true);
-    try {
-     const {data} =  await Axios.post(`register`,values);
-     setTimeout(show, 0);
-     setbtnLoading(false);
-      if (data) {
-        history.push(`/checkout`, { order: data});
-      }
-    } catch (error) {
-     setbtnLoading(false);
-     setTimeout(show, 0);
-    }
+   
+    history.push({pathname:"/confirm",state:values})
   }
 
 
@@ -42,7 +34,7 @@ export default function Register() {
         <Breadcrumb.Item>New Registration</Breadcrumb.Item>
       </Breadcrumb>
       <Form name="register" onFinish={onFinish} scrollToFirstError={true} layout="vertical">
-        <RegisterForm btnLoading={btnLoading} />
+        <RegisterForm btnLoading={btnLoading} default={def}/>
       </Form>
     </AppLayout>
   );

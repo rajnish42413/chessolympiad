@@ -19,10 +19,12 @@ const dateFormat = 'DD-MM-YYYY';
 
 interface IProps {
   btnLoading: boolean | { delay?: number | undefined } | undefined;
+  default?: any;
 }
 
 // tslint:disable-next-line:function-name
-export default function RegisterFormItems({ btnLoading }: IProps) {
+export default function RegisterFormItems(Props: IProps) {
+  const { btnLoading } = Props;
   const props = {
     name: 'file',
     action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
@@ -49,13 +51,14 @@ export default function RegisterFormItems({ btnLoading }: IProps) {
             name="first_name"
             label="First Name"
             rules={[{ required: true, message: 'Please input your first name!' }]}
+            initialValue={Props?.default?.first_name}
           >
             <Input />
           </Form.Item>
         </Col>
 
         <Col span={8}>
-          <Form.Item name="middle_name" label="Middle Name">
+          <Form.Item initialValue={Props?.default?.middle_name} name="middle_name" label="Middle Name">
             <Input />
           </Form.Item>
         </Col>
@@ -65,6 +68,7 @@ export default function RegisterFormItems({ btnLoading }: IProps) {
             name="last_name"
             label="Last Name"
             rules={[{ required: true, message: 'Please input your last name!' }]}
+            initialValue={Props?.default?.last_name}
           >
             <Input />
           </Form.Item>
@@ -74,6 +78,8 @@ export default function RegisterFormItems({ btnLoading }: IProps) {
       <Row gutter={[30, 20]}>
         <Col span={12}>
           <Form.Item
+            initialValue={Props?.default?.email}
+
             name="email"
             label="Email"
             rules={[
@@ -86,6 +92,8 @@ export default function RegisterFormItems({ btnLoading }: IProps) {
         </Col>
         <Col span={12}>
           <Form.Item
+            initialValue={Props?.default?.mobile}
+
             name="mobile"
             label="Mobile Number"
             rules={[
@@ -103,6 +111,8 @@ export default function RegisterFormItems({ btnLoading }: IProps) {
       <Row gutter={[30, 20]}>
         <Col span={12}>
           <Form.Item
+            initialValue={Props?.default?.son_daughter_of}
+
             name="son_daughter_of"
             label="Son/Daugher of"
             rules={[
@@ -118,6 +128,8 @@ export default function RegisterFormItems({ btnLoading }: IProps) {
 
         <Col span={12}>
           <Form.Item
+            initialValue={Props?.default?.relationship}
+
             name="relationship"
             label="Relationship"
             rules={[{ required: true, message: 'Select Relationship' }]}
@@ -131,13 +143,16 @@ export default function RegisterFormItems({ btnLoading }: IProps) {
 
       <Row gutter={[30, 40]}>
         <Col span={12}>
-          <Form.Item name="mother_tounge" label="Mother Tounge">
+          <Form.Item 
+            initialValue={Props?.default?.mother_tounge}
+          name="mother_tounge" label="Mother Tounge">
             <Input />
           </Form.Item>
         </Col>
 
         <Col span={12}>
           <Form.Item
+            initialValue={Props?.default?.gender}
             name="gender"
             label="Gender"
             rules={[{ required: true, message: 'Add Gender' }]}
@@ -152,6 +167,8 @@ export default function RegisterFormItems({ btnLoading }: IProps) {
       <Row gutter={[30, 20]}>
         <Col span={12}>
           <Form.Item
+            // initialValue={Props?.default?.DOB}
+          
             name="DOB"
             label="Date of Birth"
             rules={[{ required: true, message: 'Select DOB' }]}
@@ -166,7 +183,10 @@ export default function RegisterFormItems({ btnLoading }: IProps) {
           </Form.Item>
         </Col>
         <Col span={12}>
-          <Form.Item name="address" label="Address">
+          <Form.Item 
+            initialValue={Props?.default?.address}
+          
+          name="address" label="Address">
             <Input.TextArea rows={1} />
           </Form.Item>
         </Col>
@@ -174,13 +194,19 @@ export default function RegisterFormItems({ btnLoading }: IProps) {
 
       <Row gutter={[30, 20]}>
         <Col span={12}>
-          <Form.Item name="city" label="City" rules={[{ required: true, message: 'Add City' }]}>
+          <Form.Item 
+            initialValue={Props?.default?.city}
+
+          name="city" label="City" rules={[{ required: true, message: 'Add City' }]}>
             <Input />
           </Form.Item>
         </Col>
 
         <Col span={12}>
           <Form.Item
+
+initialValue={Props?.default?.district}
+
             name="district"
             label="District"
             rules={[{ required: true, message: 'Add City' }]}
@@ -191,7 +217,10 @@ export default function RegisterFormItems({ btnLoading }: IProps) {
       </Row>
       <Row gutter={[30, 20]}>
         <Col span={12}>
-          <Form.Item name="state" label="State" rules={[{ required: true, message: 'Add City' }]}>
+          <Form.Item 
+            initialValue={Props?.default?.state}
+
+          name="state" label="State" rules={[{ required: true, message: 'Add City' }]}>
             <Input />
           </Form.Item>
         </Col>
