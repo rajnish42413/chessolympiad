@@ -46,7 +46,7 @@ export default function RegisterFormItems(props: any) {
 
   const getData = async () => {
     setIsLoading(true);
-    const { data } = await Axios.get(`players`);
+    const { data } = await Axios.get(`types`);
     setPlayerTypes(data);
     setIsLoading(false);
   }
@@ -229,9 +229,9 @@ export default function RegisterFormItems(props: any) {
 
       <Row gutter={[200, 20]} style={{ marginTop: 10, marginBottom: 20 }}>
         <Col>
-          <Form.Item 
-          name="player_type" 
-          label="Player Type" 
+          <Form.Item
+          name="player_type"
+          label="Player Type"
           rules={[{ required: true }]}>
             <Checkbox.Group >
               {playerTypes?.map(item =>

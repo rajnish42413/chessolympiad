@@ -17,7 +17,7 @@ export default function AppSidebar() {
           <Link to="/">AICF Home</Link>
         </Menu.Item>
         <Menu.Item key="2" icon={<SearchOutlined />}>
-          Search
+          <Link to="/players">Search</Link>
         </Menu.Item>
         <Menu.Item key="3" icon={<FileTextOutlined />}>
           <Link to="/new-register">Register New</Link>
