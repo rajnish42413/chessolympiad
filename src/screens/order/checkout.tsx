@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Layout, Result } from 'antd';
+import { Button, Layout, Result, message } from 'antd';
 import { useHistory, useLocation } from 'react-router-dom';
-// import Axios from 'axios';
 import { SmileOutlined } from '@ant-design/icons';
+import Axios from 'axios';
 
 
 
@@ -10,22 +10,19 @@ import { SmileOutlined } from '@ant-design/icons';
 export default function Checkout() {
     const history = useHistory();
     const { state }:any = useLocation();
-    const order: any = state?.order;
+    const {contact, order}: any = state;
     const [btnLoading, setbtnLoading] = useState(false);
 
-    console.log(order);
-
     const handleCheckout = async (response: any) => {
+        console.log(response);
         setbtnLoading(true);
-
         const value = {
             payment_response_id: response.razorpay_payment_id,
             channel: 'razorpay',
         };
-        console.log(value);
         try {
-            // const { data } = await Axios.post(`orders/${order?.id}/checkout`, value);
-            // history.push('/payment/success', data);
+            const { data } = await Axios.put(`orders/${order?.id}`, value);
+            history.push('/payment/status', data);
             setbtnLoading(false);
             return;
         } catch (error) {
@@ -34,23 +31,34 @@ export default function Checkout() {
     };
 
     const handlePayment = async () => {
-        const amount = 500;
+        if(!contact){
+            message.error("Contact detail no found in our database");
+        }
+        if(!order?.amount){
+          message.error("Order Amount not found");
+        }
+        const amount = order.amount;
         const options = {
-            key: 'rzp_test_hNtKQvpYRE730Z',
-            key_secret: 'kBrFjTWgJH20GZE2B0RJrXgZ',
-            amount: +amount * 100, // 2000 paise = INR 20, amount in paisa
-            name: 'ALL INDIA CHESS FEDERATION',
-            description: `ALL INDIA CHESS FEDERATION`,
+            key: "rzp_test_hNtKQvpYRE730Z", 
+            amount: amount.toString(),
+            currency: "INR",
+            name: "ALL INDIA CHESS FEDERATION",
+            description: "ALL INDIA CHESS FEDERATION",
+            order_id: order?.order_id,
             handler(response: any) {
+                console.log(response);
                 handleCheckout(response);
             },
             prefill: {
-                name: order?.name,
-                email: order?.email,
-                contact: order?.mobile,
+                name: contact?.name,
+                email: contact?.email,
+                contact: contact?.mobile,
             },
             notes: {
-                address: 'Hello World',
+                address: "ALL INDIA CHESS FEDERATION PAYMENT",
+            },
+            theme: {
+                color: "#fff",
             },
         };
         const rzp = new (window as any).Razorpay(options);
@@ -62,7 +70,8 @@ export default function Checkout() {
         script.src = 'https://checkout.razorpay.com/v1/checkout.js';
         script.async = true;
         document.body.appendChild(script);
-    }, [history]);
+        if (!order) return history.go(-1);
+    }, [history, order]);
 
 
     return (
@@ -72,7 +81,7 @@ export default function Checkout() {
                     status="success"
                     icon={<SmileOutlined />}
                     title="Successfully Register to AICF!"
-                    subTitle={`Email: ${order?.email}, Phone Number: ${order?.mobile}`}
+                    subTitle={`Email: ${contact?.email}, Phone Number: ${contact?.mobile}`}
                     extra={[
                         <Button onClick={handlePayment} loading={btnLoading} type="primary" size="large" key="1">Pay Now</Button>,
                     ]}

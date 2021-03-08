@@ -1,1 +1,1 @@
-export const API_URL = 'https://aicf-backened.herokuapp.com/api';
+export const API_URL = 'https://admin.aicf.in/api/';
