@@ -1,15 +1,13 @@
 import React from 'react';
 import { Menu, Layout } from 'antd';
+import Headerbanner from '../assets/img/banner-aicf.png';
 
-export default function header() {
-  return (
-    <Layout.Header className="header">
-      <div className="logo" />
-      <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']}>
-        <Menu.Item key="1">nav 1</Menu.Item>
-        <Menu.Item key="2">nav 2</Menu.Item>
-        <Menu.Item key="3">nav 3</Menu.Item>
-      </Menu>
-    </Layout.Header>
-  );
+export default function AppHeader() {
+  const style = {
+    backgroundImage: `url(${Headerbanner})`,
+    backgroundPosition: 'center',
+    backgroundSize: 'cover',
+    backgroundRepeat: 'no-repeat'
+  };
+  return <Layout.Header style={style} />;
 }

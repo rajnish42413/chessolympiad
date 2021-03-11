@@ -1,21 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import AppLayout from '@layout/app';
-import { Badge, Breadcrumb, Descriptions } from 'antd';
+import { Badge, Breadcrumb, Button, Descriptions, Modal } from 'antd';
 import { useParams } from 'react-router-dom';
 import Axios from 'axios';
-import { IContact } from '../../schemas/IContact';
+import { IPlayerDetail } from '../../schemas/IContact';
 import Loader from '@components/loader/Loader';
 
 export default function ShowPlayer() {
   const { id }: any = useParams();
   const [isloading, setIsloading] = useState(true);
-  const [player, setPlayer] = useState({} as IContact);
+  const [showIdCard, setShowIdCard] = useState(false);
+  const [data, setData] = useState({} as IPlayerDetail);
+  const { player, photo } = data;
 
   const getData = async () => {
     setIsloading(true);
     try {
       const { data } = await Axios.get(`players/${id}`);
-      setPlayer(data);
+      setData(data);
       setIsloading(false);
     } catch (error) {
       setIsloading(false);
@@ -29,13 +31,13 @@ export default function ShowPlayer() {
 
   return (
     <AppLayout>
-      <Breadcrumb style={{ margin: '16px 0' }}>
+      <Breadcrumb>
         <Breadcrumb.Item>Home</Breadcrumb.Item>
         <Breadcrumb.Item>Search</Breadcrumb.Item>
         <Breadcrumb.Item>{player?.id}</Breadcrumb.Item>
       </Breadcrumb>
-      {isloading ? <Loader />:
-      <div>
+      {isloading ? <Loader /> :
+        <div>
           <Descriptions title={`${player?.first_name} ${player?.middle_name} ${player?.last_name}`} bordered={true}>
             <Descriptions.Item label="First Name">{player?.first_name}</Descriptions.Item>
             <Descriptions.Item label="Middle Name">{player?.middle_name}</Descriptions.Item>
@@ -70,7 +72,17 @@ export default function ShowPlayer() {
             </Descriptions.Item>
             <Descriptions.Item label="Are you a PIO/OCI" span={2}>{player?.poi}</Descriptions.Item>
           </Descriptions>
-          </div>}
+          <div style={{ margin:'1rem 0'}}>
+           <Button onClick={() => setShowIdCard(true)} type="primary" size="large">Show ID</Button>
+           </div>
+          <Modal
+          width="300px"
+          onCancel={() => setShowIdCard(false)} 
+          title={`${player?.first_name} ${player?.middle_name} ${player?.last_name}`} 
+          visible={showIdCard} onOk={() => setShowIdCard(false)}>
+            <img alt="example" src={photo?.original} width="100%" height="auto" />
+          </Modal>
+        </div>}
     </AppLayout>
   );
 }

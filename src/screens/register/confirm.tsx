@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import AppLayout from '@layout/app';
-import { Breadcrumb, Button, message, Descriptions, Badge } from 'antd';
+import { Breadcrumb, Button, message, Descriptions, Badge} from 'antd';
 import { useHistory, useLocation } from 'react-router-dom';
 import Loader from '../../shared/components/loader/Loader';
 
@@ -8,16 +8,14 @@ export default function Confirm(props: any) {
   const [btnLoading, setbtnLoading] = useState(false);
   const history = useHistory();
   const { state } = useLocation();
-  const {contact}: any = state;
-  console.log(state);
+  const {contact, photo, birth_certificate}: any = state;
   
 
   const handleSubmitForm = async () => {
     const show = message.loading('Saving Values ...', 0);
     setbtnLoading(false);
     setTimeout(show, 0);
-    history.push(`/checkout`,state);
-    message.success("Registration data stored successfully.");
+    history.push('checkout' ,{contact_id : contact?.id});
   };
 
 
@@ -28,7 +26,7 @@ export default function Confirm(props: any) {
 
   return (
     <AppLayout>
-      <Breadcrumb style={{ margin: '16px 0' }}>
+      <Breadcrumb>
         <Breadcrumb.Item>AICF PRS</Breadcrumb.Item>
         <Breadcrumb.Item>Confirm Details</Breadcrumb.Item>
       </Breadcrumb>
@@ -36,6 +34,9 @@ export default function Confirm(props: any) {
       { contact ?
         <div>
           <Descriptions title="Confirm Contact Information" bordered={true}>
+            <Descriptions.Item label="Passport Photo" >
+              <img src={photo?.original} width="100px" height="auto" />
+            </Descriptions.Item>
             <Descriptions.Item label="First Name">{contact?.first_name}</Descriptions.Item>
             <Descriptions.Item label="Middle Name">{contact?.middle_name}</Descriptions.Item>
             <Descriptions.Item label="Last Name">{contact?.last_name}</Descriptions.Item>

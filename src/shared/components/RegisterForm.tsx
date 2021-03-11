@@ -21,22 +21,74 @@ import { IPlayerType } from '../../schemas/IPlayertypes.d';
 
 const dateFormat = 'DD-MM-YYYY';
 
-export default function RegisterFormItems(props: any) {
-  const { btnLoading, contact } = props;
+interface IProps{
+  btnLoading: boolean;
+  contact:any;
+  setPassportPhoto:any;
+  setBirthCertificate:any;
+}
+
+export default function RegisterFormItems(props: IProps) {
+  const { btnLoading, contact, setPassportPhoto, setBirthCertificate} = props;
   const [playerTypes, setPlayerTypes] = useState<IPlayerType[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  const IFProps = {
+
+  const IPassportPhotoProps = {
     name: 'image',
     action: `${API_URL}contacts/add-image`,
     headers: {
       authorization: 'authorization-text'
+    },
+    data: {
+      type: "contact_passport_photo",
     },
     onChange(info: any) {
       if (info.file.status !== 'uploading') {
         console.log(info.file, info.fileList);
       }
       if (info.file.status === 'done') {
+        const {response} =  info?.file;
+        const image = response?.image;
+        if(image && image?.entity === "contact_passport_birth_certificate"){
+          setBirthCertificate(image.id);
+        }
+        if(image && image?.entity === "contact_passport_photo"){
+          setPassportPhoto(image.id);
+        }
+        message.success(`${info.file.name} file uploaded successfully`);
+      } else if (info.file.status === 'error') {
+        const {errors} = info?.file?.response;
+        const { image} = errors;
+        if (image) message.warning(image?.[0]);
+        // message.error(`${info.file.name} file upload failed.`);
+      }
+    }
+  };
+
+
+  const IBirtCertificateProps = {
+    name: 'image',
+    action: `${API_URL}contacts/add-image`,
+    headers: {
+      authorization: 'authorization-text'
+    },
+    data: {
+      type: "contact_passport_birth_certificate",
+    },
+    onChange(info: any) {
+      if (info.file.status !== 'uploading') {
+        console.log(info.file, info.fileList);
+      }
+      if (info.file.status === 'done') {
+        const {response} =  info?.file;
+        const image = response?.image;
+        if(image && image?.entity === "contact_passport_birth_certificate"){
+          setBirthCertificate(image.id);
+        }
+        if(image && image?.entity === "contact_passport_photo"){
+          setPassportPhoto(image.id);
+        }
         message.success(`${info.file.name} file uploaded successfully`);
       } else if (info.file.status === 'error') {
         message.error(`${info.file.name} file upload failed.`);
@@ -253,7 +305,7 @@ export default function RegisterFormItems(props: any) {
 
       <Row style={{ marginTop: '30px' }}>
         <Col span={5}>
-          <Upload {...IFProps}>
+          <Upload {...IPassportPhotoProps}>
             <Button type="default" icon={<UploadOutlined />}>
               Passport Size Photo
             </Button>
@@ -264,7 +316,7 @@ export default function RegisterFormItems(props: any) {
           </p>
         </Col>
         <Col span={8} offset={4}>
-          <Upload {...IFProps}>
+          <Upload {...IBirtCertificateProps}>
             <Button type="default" icon={<UploadOutlined />}>
               Birth Certificate
             </Button>
