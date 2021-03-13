@@ -23,6 +23,7 @@ export default function Register(props: any) {
       birth_certificate_photo:birthCertificate ? birthCertificate : null,
       id: contact ? contact.id : null
     };
+    console.log(data)
     setbtnLoading(true);
     handleSubmitForm(data);
   };

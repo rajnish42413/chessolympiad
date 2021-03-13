@@ -3,12 +3,13 @@ import AppLayout from '@layout/app';
 import { Breadcrumb, Button, message, Descriptions, Badge} from 'antd';
 import { useHistory, useLocation } from 'react-router-dom';
 import Loader from '../../shared/components/loader/Loader';
+import moment from 'moment';
 
 export default function Confirm(props: any) {
   const [btnLoading, setbtnLoading] = useState(false);
   const history = useHistory();
   const { state } = useLocation();
-  const {contact, photo, birth_certificate}: any = state;
+  const {contact, photo}: any = state;
   
 
   const handleSubmitForm = async () => {
@@ -35,7 +36,7 @@ export default function Confirm(props: any) {
         <div>
           <Descriptions title="Confirm Contact Information" bordered={true}>
             <Descriptions.Item label="Passport Photo" >
-              <img src={photo?.original} width="100px" height="auto" />
+              <img  src={photo?.original} width="100px" height="auto" alt="profile" />
             </Descriptions.Item>
             <Descriptions.Item label="First Name">{contact?.first_name}</Descriptions.Item>
             <Descriptions.Item label="Middle Name">{contact?.middle_name}</Descriptions.Item>
@@ -53,7 +54,9 @@ export default function Confirm(props: any) {
             <Descriptions.Item label="Gender" span={1}>
               <Badge status="processing" text={contact?.gender} />
             </Descriptions.Item>
-            <Descriptions.Item label="Date of Birth" span={2}>{contact?.date_of_birth}</Descriptions.Item>
+            <Descriptions.Item label="Date of Birth" span={2}>
+              {contact?.date_of_birth ? moment(contact.date_of_birth).format('DD-MM-YYYY') : null}
+              </Descriptions.Item>
 
             <Descriptions.Item label="Address" span={1}>{contact?.address}</Descriptions.Item>
             <Descriptions.Item label="Config Info" span={2}>
@@ -80,3 +83,5 @@ export default function Confirm(props: any) {
     </AppLayout>
   );
 }
+
+

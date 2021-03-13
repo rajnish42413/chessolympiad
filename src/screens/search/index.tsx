@@ -72,17 +72,31 @@ export default function SearchPlayers() {
             render: (text: any) => (<Tag color={(text === "F") ? "pink" : "#ddd"}>{text}</Tag>)
         },
         {
+            title: 'Order Status',
+            key: 'order_status',
+            dataIndex:'order_status',
+            render: (text:number) => (
+             <Space size="middle">
+                  {text === 1 &&
+                     <Tag color="green">Paid</Tag>
+                  }
+                  {text === 0 &&
+                     <Tag color="red">UnPaid</Tag>
+                  }
+                  {text === 2 &&
+                     <Tag color="red">Order not created</Tag>
+                  }
+             </Space>
+           )
+        },
+        {
             title: '#',
             key: 'actions',
             render: (record:IContact) => (
                 <Space size="middle">
                   <Button type="primary" key="1"><Link to={`/players/${record.id}`}>View</Link></Button>
                   {record?.order_status === 0 &&
-                     <Button type="primary" key="2" onClick={() => handlePayment(record.id)}>Pay Now</Button>
-                  }
-
-                  {record?.order_status === 2 &&
-                     <Tag color="red">Order not created</Tag>
+                  <Button type="primary" key="2" onClick={() => handlePayment(record.id)}>Pay Now</Button>
                   }
                 </Space>
               ),

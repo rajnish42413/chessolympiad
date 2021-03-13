@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 import Axios from 'axios';
 import { IPlayerDetail } from '../../schemas/IContact';
 import Loader from '@components/loader/Loader';
+import moment from 'moment';
 
 export default function ShowPlayer() {
   const { id }: any = useParams();
@@ -55,7 +56,7 @@ export default function ShowPlayer() {
             <Descriptions.Item label="Gender" span={1}>
               <Badge status="processing" text={player?.gender} />
             </Descriptions.Item>
-            <Descriptions.Item label="Date of Birth" span={2}>{player?.date_of_birth}</Descriptions.Item>
+            <Descriptions.Item label="Date of Birth" span={2}>{player?.date_of_birth ? moment(player.date_of_birth).format('DD-MM-YYYY') : null}</Descriptions.Item>
 
             <Descriptions.Item label="Address" span={1}>{player?.address}</Descriptions.Item>
             <Descriptions.Item label="Config Info" span={2}>

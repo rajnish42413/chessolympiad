@@ -18,6 +18,7 @@ import { API_URL } from '../../constants/general';
 import Axios from 'axios';
 import Loader from './loader/Loader';
 import { IPlayerType } from '../../schemas/IPlayertypes.d';
+import LocationAutoComplete from './LocationAutoComplete';
 
 const dateFormat = 'DD-MM-YYYY';
 
@@ -250,33 +251,7 @@ export default function RegisterFormItems(props: IProps) {
       </Row>
 
       <Row gutter={[30, 20]}>
-        <Col span={12}>
-          <Form.Item
-            initialValue={contact?.city}
-            name="city" label="City" rules={[{ required: true, message: 'Add City' }]}>
-            <Input placeholder="City name" />
-          </Form.Item>
-        </Col>
-
-        <Col span={12}>
-          <Form.Item
-            name="district"
-            initialValue={contact?.district}
-            label="District"
-            rules={[{ required: true, message: 'Add District' }]}
-          >
-            <Input placeholder="District name" />
-          </Form.Item>
-        </Col>
-      </Row>
-      <Row gutter={[30, 20]}>
-        <Col span={12}>
-          <Form.Item
-            initialValue={contact?.state}
-            name="state" label="State" rules={[{ required: true, message: 'Add State' }]}>
-            <Input placeholder="State name" />
-          </Form.Item>
-        </Col>
+         <LocationAutoComplete />
       </Row>
 
       <Row gutter={[200, 20]} style={{ marginTop: 10, marginBottom: 20 }}>

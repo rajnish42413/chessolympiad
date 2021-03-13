@@ -1,30 +1,30 @@
 import React from 'react';
 import { Button, Layout, Result } from 'antd';
-import { useLocation, useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 
 // tslint:disable-next-line:function-name
 function PaymentStatus(props: any) {
-  const { state }:any = useLocation();
   const history = useHistory();
-  const {order}  = state;
+  const { search } = useLocation();
+  const query = new URLSearchParams(search);
+  const orderId = query.get('orderId');
 
   return (
     <Layout>
-      <Layout.Content style={{ padding: '20px' }}>
+      <Layout.Content style={{ padding: '30px' }}>
         <Result
           status="success"
-          title="Successfully Purchased!"
-          subTitle={`Txt ID: ${order?.payment_response_id} `}
+          title="Payment Successfully!"
+          subTitle={`Order ID: #${orderId}`}
           extra={[
             <Button key="home" type="primary" onClick={() => history.replace('/')}>
               Home
-            </Button>,
+            </Button>
           ]}
         />
       </Layout.Content>
     </Layout>
   );
 }
-
 
 export default PaymentStatus;
