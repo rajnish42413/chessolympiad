@@ -1,0 +1,300 @@
+{
+    "states": [
+        {
+          "id": 4006,
+          "name": "Meghalaya",
+          "country_id": 101,
+          "country_code": "IN",
+          "fips_code": 18,
+          "iso2": "ML"
+        },
+        {
+          "id": 4007,
+          "name": "Haryana",
+          "country_id": 101,
+          "country_code": "IN",
+          "fips_code": 10,
+          "iso2": "HR"
+        },
+        {
+          "id": 4008,
+          "name": "Maharashtra",
+          "country_id": 101,
+          "country_code": "IN",
+          "fips_code": 16,
+          "iso2": "MH"
+        },
+        {
+          "id": 4009,
+          "name": "Goa",
+          "country_id": 101,
+          "country_code": "IN",
+          "fips_code": 33,
+          "iso2": "GA"
+        },
+        {
+          "id": 4010,
+          "name": "Manipur",
+          "country_id": 101,
+          "country_code": "IN",
+          "fips_code": 17,
+          "iso2": "MN"
+        },
+        {
+          "id": 4011,
+          "name": "Puducherry",
+          "country_id": 101,
+          "country_code": "IN",
+          "fips_code": 22,
+          "iso2": "PY"
+        },
+        {
+          "id": 4012,
+          "name": "Telangana",
+          "country_id": 101,
+          "country_code": "IN",
+          "fips_code": 40,
+          "iso2": "TG"
+        },
+        {
+          "id": 4013,
+          "name": "Odisha",
+          "country_id": 101,
+          "country_code": "IN",
+          "fips_code": 21,
+          "iso2": "OR"
+        },
+        {
+          "id": 4014,
+          "name": "Rajasthan",
+          "country_id": 101,
+          "country_code": "IN",
+          "fips_code": 24,
+          "iso2": "RJ"
+        },
+        {
+          "id": 4015,
+          "name": "Punjab",
+          "country_id": 101,
+          "country_code": "IN",
+          "fips_code": 23,
+          "iso2": "PB"
+        },
+        {
+          "id": 4016,
+          "name": "Uttarakhand",
+          "country_id": 101,
+          "country_code": "IN",
+          "fips_code": 39,
+          "iso2": "UT"
+        },
+        {
+          "id": 4017,
+          "name": "Andhra Pradesh",
+          "country_id": 101,
+          "country_code": "IN",
+          "fips_code": "02",
+          "iso2": "AP"
+        },
+        {
+          "id": 4018,
+          "name": "Nagaland",
+          "country_id": 101,
+          "country_code": "IN",
+          "fips_code": 20,
+          "iso2": "NL"
+        },
+        {
+          "id": 4019,
+          "name": "Lakshadweep",
+          "country_id": 101,
+          "country_code": "IN",
+          "fips_code": 14,
+          "iso2": "LD"
+        },
+        {
+          "id": 4020,
+          "name": "Himachal Pradesh",
+          "country_id": 101,
+          "country_code": "IN",
+          "fips_code": 11,
+          "iso2": "HP"
+        },
+        {
+          "id": 4021,
+          "name": "Delhi",
+          "country_id": 101,
+          "country_code": "IN",
+          "fips_code": "07",
+          "iso2": "DL"
+        },
+        {
+          "id": 4022,
+          "name": "Uttar Pradesh",
+          "country_id": 101,
+          "country_code": "IN",
+          "fips_code": 36,
+          "iso2": "UP"
+        },
+        {
+          "id": 4023,
+          "name": "Andaman and Nicobar Islands",
+          "country_id": 101,
+          "country_code": "IN",
+          "fips_code": "01",
+          "iso2": "AN"
+        },
+        {
+          "id": 4024,
+          "name": "Arunachal Pradesh",
+          "country_id": 101,
+          "country_code": "IN",
+          "fips_code": 30,
+          "iso2": "AR"
+        },
+        {
+          "id": 4025,
+          "name": "Jharkhand",
+          "country_id": 101,
+          "country_code": "IN",
+          "fips_code": 38,
+          "iso2": "JH"
+        },
+        {
+          "id": 4026,
+          "name": "Karnataka",
+          "country_id": 101,
+          "country_code": "IN",
+          "fips_code": 19,
+          "iso2": "KA"
+        },
+        {
+          "id": 4027,
+          "name": "Assam",
+          "country_id": 101,
+          "country_code": "IN",
+          "fips_code": "03",
+          "iso2": "AS"
+        },
+        {
+          "id": 4028,
+          "name": "Kerala",
+          "country_id": 101,
+          "country_code": "IN",
+          "fips_code": 13,
+          "iso2": "KL"
+        },
+        {
+          "id": 4029,
+          "name": "Jammu and Kashmir",
+          "country_id": 101,
+          "country_code": "IN",
+          "fips_code": 12,
+          "iso2": "JK"
+        },
+        {
+          "id": 4030,
+          "name": "Gujarat",
+          "country_id": 101,
+          "country_code": "IN",
+          "fips_code": "09",
+          "iso2": "GJ"
+        },
+        {
+          "id": 4031,
+          "name": "Chandigarh",
+          "country_id": 101,
+          "country_code": "IN",
+          "fips_code": "05",
+          "iso2": "CH"
+        },
+        {
+          "id": 4032,
+          "name": "Dadra and Nagar Haveli",
+          "country_id": 101,
+          "country_code": "IN",
+          "fips_code": "06",
+          "iso2": "DN"
+        },
+        {
+          "id": 4033,
+          "name": "Daman and Diu",
+          "country_id": 101,
+          "country_code": "IN",
+          "fips_code": 32,
+          "iso2": "DD"
+        },
+        {
+          "id": 4034,
+          "name": "Sikkim",
+          "country_id": 101,
+          "country_code": "IN",
+          "fips_code": 29,
+          "iso2": "SK"
+        },
+        {
+          "id": 4035,
+          "name": "Tamil Nadu",
+          "country_id": 101,
+          "country_code": "IN",
+          "fips_code": 25,
+          "iso2": "TN"
+        },
+        {
+          "id": 4036,
+          "name": "Mizoram",
+          "country_id": 101,
+          "country_code": "IN",
+          "fips_code": 31,
+          "iso2": "MZ"
+        },
+        {
+          "id": 4037,
+          "name": "Bihar",
+          "country_id": 101,
+          "country_code": "IN",
+          "fips_code": 34,
+          "iso2": "BR"
+        },
+        {
+          "id": 4038,
+          "name": "Tripura",
+          "country_id": 101,
+          "country_code": "IN",
+          "fips_code": 26,
+          "iso2": "TR"
+        },
+        {
+          "id": 4039,
+          "name": "Madhya Pradesh",
+          "country_id": 101,
+          "country_code": "IN",
+          "fips_code": 35,
+          "iso2": "MP"
+        },
+        {
+          "id": 4040,
+          "name": "Chhattisgarh",
+          "country_id": 101,
+          "country_code": "IN",
+          "fips_code": 37,
+          "iso2": "CT"
+        },
+        {
+          "id": 4852,
+          "name": "Ladakh",
+          "country_id": 101,
+          "country_code": "IN",
+          "fips_code": "",
+          "iso2": "LA"
+        },
+        {
+          "id": 4853,
+          "name": "West Bengal",
+          "country_id": 101,
+          "country_code": "IN",
+          "fips_code": 28,
+          "iso2": "WB"
+        }
+      ]
+}

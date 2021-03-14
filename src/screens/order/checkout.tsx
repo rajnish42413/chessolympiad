@@ -5,6 +5,7 @@ import Axios from 'axios';
 import Loader from '@components/loader/Loader';
 import { IContact } from '../../schemas/IContact';
 import AppHeader from '@layout/header';
+import { RZ_KEY } from '@constants/general';
 
 
 
@@ -58,7 +59,7 @@ export default function Checkout() {
                             <Space size="middle">
                                 <Button size="large" onClick={()=> history.go(-1)}>Back</Button>
                                 <form method="POST" action="https://api.razorpay.com/v1/checkout/embedded">
-                                <input type="hidden" name="key_id" value="rzp_test_hNtKQvpYRE730Z" />
+                                <input type="hidden" name="key_id" value={RZ_KEY} />
                                 <input type="hidden" name="order_id" value={order?.order_id} />
                                 <input type="hidden" name="amount" value={+(order?.amount) * 100} />
                                 <input type="hidden" name="currency" value={"INR"} />

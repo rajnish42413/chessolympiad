@@ -252,6 +252,15 @@ export default function RegisterFormItems(props: IProps) {
 
       <Row gutter={[30, 20]}>
          <LocationAutoComplete />
+         <Col span={12}>
+          <Form.Item
+            name="fide_id"
+            label="FIDE ID"
+            initialValue={contact?.fide_id}
+          >
+            <Input placeholder="FIDE ID" />
+          </Form.Item>
+        </Col>
       </Row>
 
       <Row gutter={[200, 20]} style={{ marginTop: 10, marginBottom: 20 }}>
@@ -287,7 +296,7 @@ export default function RegisterFormItems(props: IProps) {
           </Upload>
 
           <p style={{ marginTop: 20 }}>
-            (jpg or png images only. 160x200 pixels (width x height). Maximum size 1000 KB)
+            (jpg, png images only. Maximum size 1000 KB)
           </p>
         </Col>
         <Col span={8} offset={4}>
@@ -296,7 +305,7 @@ export default function RegisterFormItems(props: IProps) {
               Birth Certificate
             </Button>
           </Upload>
-          <p style={{ marginTop: 20 }}>(Maximum size 1000 KB)</p>
+          <p style={{ marginTop: 20 }}>(PDF, JPEG, JPG, PNG documents only. Maximum size 1000 KB) (Optional)</p>
         </Col>
       </Row>
 
@@ -321,11 +330,9 @@ const gender = [
 ];
 
 const relation = [
-  { label: 'Daughter', value: 'Daugher' },
-  { label: 'Son', value: 'Son' },
-  { label: 'Husband', value: 'Husband' },
-  { label: 'Brother', value: 'Brother' },
-  { label: 'Sister', value: 'Sister' }
+  { label: 'Father', value: 'Father' },
+  { label: 'Mother', value: 'Mother' },
+  { label: 'Other', value: 'Other' },
 ];
 
 

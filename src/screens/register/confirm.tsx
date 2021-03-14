@@ -1,23 +1,30 @@
 import React, { useState } from 'react';
 import AppLayout from '@layout/app';
-import { Breadcrumb, Button, message, Descriptions, Badge} from 'antd';
+import { Breadcrumb, Button, message, Descriptions, Badge, Checkbox } from 'antd';
 import { useHistory, useLocation } from 'react-router-dom';
 import Loader from '../../shared/components/loader/Loader';
 import moment from 'moment';
 
+
 export default function Confirm(props: any) {
   const [btnLoading, setbtnLoading] = useState(false);
+  const [termCondition, setTermCondition] = useState(false);
   const history = useHistory();
   const { state } = useLocation();
-  const {contact, photo}: any = state;
-  
+  const { contact, photo }: any = state;
+
 
   const handleSubmitForm = async () => {
+    if (!termCondition) return message.warning("Please accept the declaration");
     const show = message.loading('Saving Values ...', 0);
     setbtnLoading(false);
     setTimeout(show, 0);
-    history.push('checkout' ,{contact_id : contact?.id});
+    history.push('checkout', { contact_id: contact?.id });
   };
+
+  const onChange = (e: any) => {
+    if (e?.target?.checked) setTermCondition(e.target.checked);
+  }
 
 
   // const handleEditForm = async() =>{
@@ -34,13 +41,16 @@ export default function Confirm(props: any) {
 
       { contact ?
         <div>
-          <Descriptions title="Confirm Contact Information" bordered={true}>
+          <Descriptions title="Verify Player Information" bordered={true}>
             <Descriptions.Item label="Passport Photo" >
-              <img  src={photo?.original} width="100px" height="auto" alt="profile" />
+              <img src={photo?.original} width="100px" height="auto" alt="profile" />
             </Descriptions.Item>
-            <Descriptions.Item label="First Name">{contact?.first_name}</Descriptions.Item>
-            <Descriptions.Item label="Middle Name">{contact?.middle_name}</Descriptions.Item>
-            <Descriptions.Item label="Last Name">{contact?.last_name}</Descriptions.Item>
+            <Descriptions.Item label="Name">
+              {contact?.first_name + " " } 
+              {contact?.middle_name && contact?.middle_name} 
+              {" " + contact?.last_name}
+            </Descriptions.Item>
+
 
             <Descriptions.Item label="Email">{contact?.email}</Descriptions.Item>
             <Descriptions.Item label="Mobile No" span={2}>
@@ -56,10 +66,10 @@ export default function Confirm(props: any) {
             </Descriptions.Item>
             <Descriptions.Item label="Date of Birth" span={2}>
               {contact?.date_of_birth ? moment(contact.date_of_birth).format('DD-MM-YYYY') : null}
-              </Descriptions.Item>
+            </Descriptions.Item>
 
             <Descriptions.Item label="Address" span={1}>{contact?.address}</Descriptions.Item>
-            <Descriptions.Item label="Config Info" span={2}>
+            <Descriptions.Item label="Location" span={2}>
               City: <b>{contact?.city}</b>
               <br />
               District: <b>{contact?.district}</b>
@@ -68,15 +78,21 @@ export default function Confirm(props: any) {
               <br />
             </Descriptions.Item>
 
-            <Descriptions.Item label="Payer Type" span={1}>
+            <Descriptions.Item label="Registration Type" span={1}>
               <Badge status="processing" text={contact?.player_type} />
             </Descriptions.Item>
-            <Descriptions.Item label="Are you a PIO/OCI" span={2}>{contact?.POI}</Descriptions.Item>
+            <Descriptions.Item label="Are you a PIO/OCI">{contact?.POI}</Descriptions.Item>
+            <Descriptions.Item label="FIDE ID">{contact?.fide_id}</Descriptions.Item>
           </Descriptions>
           <div style={{ margin: '16px 0' }}>
+            <Checkbox onChange={onChange}>
+              I declare that the particulars given above are true to the best of my knowledge and belief. I shall abide by the rules and regulations and the latest amendments and decisions of the State / District Chess Association / Federation as the case may be and cooperate with the officials in participating in State and National Tournaments / Championships.
+           </Checkbox>
+          </div>
+          <div style={{ margin: '16px 0' }}>
             <Button type="primary" loading={btnLoading} onClick={() => handleSubmitForm()} size="large">
-              Confirm ( save data )
-       </Button>
+              Proceed to Pay
+             </Button>
           </div>
         </div>
         : <Loader />}

@@ -15,7 +15,7 @@ export default function SearchPlayers() {
     const getData = async () => {
         setIsloading(true);
         try {
-            const { data } = await Axios.get(`players`);
+            const { data } = await Axios.get(`players?order_status=0`);
             setPlayers(data);
             console.log(data);
             setIsloading(false);
@@ -78,7 +78,10 @@ export default function SearchPlayers() {
             render: (text:number) => (
              <Space size="middle">
                   {text === 1 &&
+                     <>
                      <Tag color="green">Paid</Tag>
+                     <Tag >Active</Tag>
+                     </>
                   }
                   {text === 0 &&
                      <Tag color="red">UnPaid</Tag>
