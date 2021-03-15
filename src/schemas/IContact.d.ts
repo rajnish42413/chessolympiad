@@ -26,6 +26,7 @@ export interface IContact {
   updated_at: string;
   resource_url: string;
   order_status?: number;
+  fide_id?:string;
 }
 
 export interface IPlayerDetail {

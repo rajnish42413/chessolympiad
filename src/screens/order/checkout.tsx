@@ -33,6 +33,12 @@ export default function Checkout() {
         setIsLoading(false);
     }
 
+    const getAmount = ():number => {
+       if(!order?.amount) return 0;
+       const amount = (+(order.amount) * 100);
+       return amount;
+    }
+
     useEffect(() => {
         if (!contact_id) return history.go(-1);
         getData();
@@ -49,7 +55,7 @@ export default function Checkout() {
                         <Col span={12}>
                             <Descriptions title="Select Payment Method" bordered={true} column={1} style={{margin:'2rem 0'}}>
                                 <Descriptions.Item label="Order ID">{order?.id}</Descriptions.Item>
-                                <Descriptions.Item label="Amount">{order?.amount}/-</Descriptions.Item>
+                                <Descriptions.Item label="Amount">{getAmount() / 100}/-</Descriptions.Item>
                                 <Descriptions.Item label="Convenience Fee">0/-</Descriptions.Item>
                                 <Descriptions.Item label="Name">{contact?.first_name} {contact?.last_name}</Descriptions.Item>
                                 <Descriptions.Item label="Email" span={2}>{contact?.email}</Descriptions.Item>
@@ -61,7 +67,7 @@ export default function Checkout() {
                                 <form method="POST" action="https://api.razorpay.com/v1/checkout/embedded">
                                 <input type="hidden" name="key_id" value={RZ_KEY} />
                                 <input type="hidden" name="order_id" value={order?.order_id} />
-                                <input type="hidden" name="amount" value={+(order?.amount) * 100} />
+                                <input type="hidden" name="amount" value={getAmount()} />
                                 <input type="hidden" name="currency" value={"INR"} />
                                 <input type="hidden" name="name" value="PRS - ALL INDIA CHESS FEDERATION" />
                                 <input type="hidden" name="description" value="PRS - ALL INDIA CHESS FEDERATION" />

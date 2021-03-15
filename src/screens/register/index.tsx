@@ -23,14 +23,12 @@ export default function Register(props: any) {
       birth_certificate_photo:birthCertificate ? birthCertificate : null,
       id: contact ? contact.id : null
     };
-    console.log(data)
-    setbtnLoading(true);
     handleSubmitForm(data);
   };
 
   const handleSubmitForm = async (values: JSON) => {
     const show = message.loading('Saving Values ...', 0);
-    setbtnLoading(false);
+    setbtnLoading(true);
     try {
       const { data } = await Axios.post(`contacts`, values);
       setTimeout(show, 0);

@@ -60,9 +60,10 @@ export default function RegisterFormItems(props: IProps) {
         message.success(`${info.file.name} file uploaded successfully`);
       } else if (info.file.status === 'error') {
         const {errors} = info?.file?.response;
-        const { image} = errors;
-        if (image) message.warning(image?.[0]);
-        // message.error(`${info.file.name} file upload failed.`);
+        if(errors){
+          const { image} = errors;
+          if (image) message.warning(image?.[0]);
+        }
       }
     }
   };
@@ -271,7 +272,7 @@ export default function RegisterFormItems(props: IProps) {
           rules={[{ required: true }]}>
             <Checkbox.Group >
               {playerTypes?.map(item =>
-                <Checkbox value={item.id} key={item.slug}>{item.name}</Checkbox>
+                <Checkbox value={item.slug} key={item.slug}>{item.name}</Checkbox>
               )}
             </Checkbox.Group>
           </Form.Item>
@@ -289,8 +290,8 @@ export default function RegisterFormItems(props: IProps) {
 
       <Row style={{ marginTop: '30px' }}>
         <Col span={5}>
-          <Upload {...IPassportPhotoProps}>
-            <Button type="default" icon={<UploadOutlined />}>
+          <Upload {...IPassportPhotoProps} multiple={false}>
+            <Button type="default" icon={<UploadOutlined />} >
               Passport Size Photo
             </Button>
           </Upload>
@@ -300,7 +301,7 @@ export default function RegisterFormItems(props: IProps) {
           </p>
         </Col>
         <Col span={8} offset={4}>
-          <Upload {...IBirtCertificateProps}>
+          <Upload {...IBirtCertificateProps} multiple={false}>
             <Button type="default" icon={<UploadOutlined />}>
               Birth Certificate
             </Button>
