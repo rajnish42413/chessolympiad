@@ -55,7 +55,7 @@ export default function Checkout() {
                         <Col span={12}>
                             <Descriptions title="Select Payment Method" bordered={true} column={1} style={{margin:'2rem 0'}}>
                                 <Descriptions.Item label="Order ID">{order?.id}</Descriptions.Item>
-                                <Descriptions.Item label="Amount">{getAmount() / 100}/-</Descriptions.Item>
+                                <Descriptions.Item label="Amount">{order?.amount}/-</Descriptions.Item>
                                 <Descriptions.Item label="Convenience Fee">0/-</Descriptions.Item>
                                 <Descriptions.Item label="Name">{contact?.first_name} {contact?.last_name}</Descriptions.Item>
                                 <Descriptions.Item label="Email" span={2}>{contact?.email}</Descriptions.Item>

@@ -17,7 +17,6 @@ export default function SearchPlayers() {
         try {
             const { data } = await Axios.get(`players?order_status=1`);
             setPlayers(data);
-            console.log(data);
             setIsloading(false);
         } catch (error) {
             setIsloading(false);
