@@ -37,5 +37,30 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-162005446-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-162005446-1');
+    </script>
+    <!-- BigRadar --><script type="text/javascript">(function(d,c) {
+    var b = d.body.appendChild(d.createElement('div')),
+        f=b.appendChild(d.createElement('iframe'));
+        b.style.display='none';f.src="";
+    f.onload = function() {
+        var fw=f.contentWindow,
+        fd=f.contentDocument,
+        s=fd.body.appendChild(fd.createElement('script'));
+        fw.widget={frame:f,container:b,config:c};s.src='https://app.bigradar.io/widget.js';
+    };
+    return b;
+})(document, {
+    app_id: 'eafe63e',
+    // name: '<name>',
+    // email: '<email>',
+});</script><!-- End BigRadar -->
   </body>
 </html>

@@ -1,22 +1,26 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import AppLayout from '@layout/app';
 import RegisterForm from '@components/RegisterForm';
 import { Breadcrumb, Form, message } from 'antd';
 import { useHistory, useLocation } from 'react-router-dom';
 import Axios from 'axios';
+import { IContact } from '../../schemas/IContact';
+import Loader from '@components/loader/Loader';
 
 export default function Register(props: any) {
+  const [isloading, setIsloading] = useState(true);
   const history = useHistory();
   const [passportPhoto, setPassportPhoto] = useState(0);
   const [birthCertificate, setBirthCertificate] = useState(0);
-  const { state }: any = useLocation();
-  const contact: any = state?.contact;
-
+  const [contact, setContact] = useState({} as IContact);
+  const { state }:any = useLocation();
+  const contact_id = state?.contact_id;
+  // const query = new URLSearchParams(search);
+  // const renewMemberShip = query.get('renew-membership');
 
   const [btnLoading, setbtnLoading] = useState(false);
   const onFinish = (values: any) => {
     const data = {
-      ...contact,
       ...values,
       date_of_birth: values?.date_of_birth?.format(dateFormat),
       passport_photo:passportPhoto ? passportPhoto : null,
@@ -51,6 +55,23 @@ export default function Register(props: any) {
     }
   }
 
+  useEffect(() => {
+    setIsloading(true);
+    if(contact_id) getData();
+    setIsloading(false);
+  }, [contact_id])
+
+  const getData = async () => {
+    setIsloading(true);
+    try {
+      const { data } = await Axios.get(`players/${contact_id}`);
+      if(data?.player) setContact(data.player);
+      setIsloading(true);
+    } catch (error) {
+      setIsloading(false);
+    }
+  };
+
 
   return (
     <AppLayout>
@@ -59,8 +80,9 @@ export default function Register(props: any) {
         <Breadcrumb.Item>New Registration</Breadcrumb.Item>
       </Breadcrumb>
       <Form name="register" onFinish={onFinish} scrollToFirstError={true} layout="vertical" >
-        <RegisterForm btnLoading={btnLoading} contact={contact} setPassportPhoto={setPassportPhoto} setBirthCertificate={setBirthCertificate} />
-      </Form>
+        {isloading ?  <Loader /> :
+          <RegisterForm btnLoading={btnLoading} contact={contact} setPassportPhoto={setPassportPhoto} setBirthCertificate={setBirthCertificate} />
+        }</Form>
     </AppLayout>
   );
 }

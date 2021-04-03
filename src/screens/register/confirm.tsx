@@ -11,15 +11,14 @@ export default function Confirm(props: any) {
   const [termCondition, setTermCondition] = useState(false);
   const history = useHistory();
   const { state } = useLocation();
-  const { contact, photo }: any = state;
-
+  const { contact, photo ,order ,location }: any = state;
 
   const handleSubmitForm = async () => {
     if (!termCondition) return message.warning("Please accept the declaration");
     const show = message.loading('Saving Values ...', 0);
     setbtnLoading(false);
     setTimeout(show, 0);
-    history.push('checkout', { contact_id: contact?.id });
+    history.push('checkout', { order_id: order?.id });
   };
 
   const onChange = (e: any) => {
@@ -35,7 +34,7 @@ export default function Confirm(props: any) {
 
       { contact ?
         <div>
-          <PlayerDetailCard player={contact} title="Verify Player Information" photo={photo} />
+          <PlayerDetailCard player={contact} title="Verify Player Information" photo={photo} location={location}/>
 
           <div style={{ margin: '16px 0' }}>
             <Checkbox onChange={onChange}>

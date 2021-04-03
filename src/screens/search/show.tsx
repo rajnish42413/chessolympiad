@@ -5,9 +5,8 @@ import { useParams, useHistory } from 'react-router-dom';
 import Axios from 'axios';
 import { IPlayerDetail } from '../../schemas/IContact';
 import Loader from '@components/loader/Loader';
-import moment from 'moment';
 import Logo from '../../assets/img/aicf-logo.png';
-import { AicfId, PlayerName } from '@utils/helpers';
+import {  PlayerName } from '@utils/helpers';
 import PlayerDetailCard from '@components/PlayerDetailCard';
 
 export default function ShowPlayer() {
@@ -16,7 +15,7 @@ export default function ShowPlayer() {
   const [isloading, setIsloading] = useState(true);
   const [showIdCard, setShowIdCard] = useState(false);
   const [data, setData] = useState({} as IPlayerDetail);
-  const { player, photo } = data;
+  const { player, photo , location, membership_expired ,order_status} = data;
 
   const getData = async () => {
     setIsloading(true);
@@ -34,6 +33,10 @@ export default function ShowPlayer() {
     // eslint-disable-next-line
   }, []);
 
+  const handleRenewPayment = (playerId:Number) =>{
+    return history.push('/nenew-membership?renew-membership=true' ,{contact_id : playerId});
+}
+
   return (
     <AppLayout>
       <Breadcrumb>
@@ -43,10 +46,15 @@ export default function ShowPlayer() {
       </Breadcrumb>
       {isloading ? <Loader /> :
         <div>
-          <PlayerDetailCard player={player} title={PlayerName(player?.first_name, player?.middle_name, player?.last_name)} />
+          <PlayerDetailCard player={player} title={PlayerName(player?.first_name, player?.middle_name, player?.last_name)} location={location} />
           <Space style={{ margin: '1rem 0' }} size="middle">
             <Button onClick={() => history.goBack()} size="large">Back</Button>
             <Button onClick={() => setShowIdCard(true)} type="primary" size="large">Show ID</Button>
+
+            {(membership_expired === false && order_status === 0) &&
+              <Button key="3" type="primary" size="large" onClick={() => handleRenewPayment(player.id)}>Renew Membership</Button>
+            }
+
           </Space>
           <Modal
             width="500px"
@@ -73,10 +81,9 @@ export default function ShowPlayer() {
               <Col span={16}>
                 <Descriptions column={1}>
                   <Descriptions.Item label="Name">{PlayerName(player.first_name, player.middle_name, player.last_name)}</Descriptions.Item>
-                  <Descriptions.Item label="AICF Regn. No.">{AicfId(player.id, player.state, player.created_at)}</Descriptions.Item>
-                  <Descriptions.Item label="State">{player?.state}</Descriptions.Item>
-                  <Descriptions.Item label="Valid Upto">{moment(player.created_at).add('1', 'y').format('DD-MM-YYYY')}</Descriptions.Item>
-                  {/* <Descriptions.Item label="Type">YES</Descriptions.Item> */}
+                  <Descriptions.Item label="AICF Regn. No.">{player?.aicf_id}</Descriptions.Item>
+                  <Descriptions.Item label="State">{location?.state_name}</Descriptions.Item>
+                  <Descriptions.Item label="Valid Upto">{(membership_expired === false && order_status === 1) ? "2022-03-31" : "Expired"}</Descriptions.Item>
                 </Descriptions>
               </Col>
             </Row>
@@ -85,3 +92,6 @@ export default function ShowPlayer() {
     </AppLayout>
   );
 }
+
+
+// 2022-03-31

@@ -1,3 +1,5 @@
+import { ILocation } from './ILocation.d';
+
 export interface IPlayers {
   status: string;
   keyword?: any;
@@ -9,16 +11,16 @@ export interface IContact {
   first_name: string;
   middle_name?: string;
   last_name: string;
-  email: string;
+  email?: string;
   mother_tounge: string;
   relationship: string;
   son_daughter_of: string;
   player_type: string;
   address: string;
-  city: string;
-  district: string;
-  state: string;
-  mobile: string;
+  city: number;
+  district: number;
+  state: number;
+  mobile?: string;
   gender: string;
   poi: number;
   date_of_birth: string;
@@ -27,12 +29,16 @@ export interface IContact {
   resource_url: string;
   order_status?: number;
   fide_id?:string;
+  aicf_id?:string;
 }
 
 export interface IPlayerDetail {
-  player: Player;
+  player: IContact;
   photo?: IPhoto;
   birth_certificate?: Photo;
+  membership_expired: boolean
+  order_status: number;
+  location:ILocation
 }
 
 export interface IPhoto {

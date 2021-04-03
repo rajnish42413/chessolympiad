@@ -16,26 +16,22 @@ function PaymentStatus(props: any) {
 
   const [OrderData, setOrderData] = useState({} as IOrderDetail);
   const [loading, setLoading] = useState(true);
-  const { order, status } = OrderData;
+  const { order ,status } = OrderData;
 
   useEffect(() => {
     getOrder();
   }, [orderId]);
 
-  const getOrder = async (rz_pay: boolean = false) => {
+  const getOrder = async (rz_pay:boolean = false) => {
     if (!orderId) return message.error('Order not found');
     setLoading(true);
-    try {
-      const { data } = await Axios.get(`orders/${orderId}?check_rz_pay=${rz_pay}`);
-      setOrderData(data);
-      setLoading(false);
-    } catch (error) {
-      setLoading(false);
-    }
+    const { data } = await Axios.get(`orders/${orderId}?check_rz_pay=${rz_pay}`);
+    setOrderData(data);
+    setLoading(false);
   };
 
-  const getDesc = (status: number): string => {
-    if (status === 1) return "Payment Successfully Completed!";
+  const getDesc = (status:number):string =>{
+    if(status ===1) return "Payment Successfully Completed!";
     return "Payment Failed!";
   }
 
@@ -44,27 +40,27 @@ function PaymentStatus(props: any) {
       <AppHeader />
       {loading ? <Loader /> :
         <Layout.Content style={{ padding: '30px' }}>
-          {order &&
-            <Result
-              status={order.status === 1 ? 'success' : 'error'}
-              title={order?.status === 1 ? "Payment Successfully Completed!" : 'Payment Failed!'}
-              subTitle={<p>
-                <b>OrderID:</b> {OrderData?.order.id} <br />
-                <b>Name:</b> {PlayerName(order?.user?.first_name, order?.user?.middle_name, order?.user?.last_name)} <br />
-                <b>Amount:</b> {order?.amount}/- <br />
-                <b>Response:</b> {getDesc(order?.status)} <br />
-                <b>Status:</b> {status?.status} <br />
-              </p>}
-              extra={[
-                <Space size="middle">
-                  <Button key="home" type="primary" onClick={() => history.replace('/')}>
-                    Home
-                  </Button>
-                  <Button onClick={() => getOrder(true)}>Check with Bank</Button>
-                </Space>
+          {order && 
+          <Result
+            status={order.status === 1 ? 'success' : 'error'}
+            title={order?.status === 1 ? "Payment Successfully Completed!" : 'Payment Failed!'}
+            subTitle={<p>
+              <b>OrderID:</b> {OrderData?.order.id} <br />
+              <b>Name:</b> {PlayerName(order?.user?.first_name, order?.user?.middle_name, order?.user?.last_name)} <br />
+              <b>Amount:</b> {order?.amount}/- <br />
+              <b>Response:</b> {getDesc(order?.status)} <br />
+              <b>Status:</b> {status?.status} <br />
+            </p>}
+            extra={[
+              <Space size="middle">
+                <Button key="home" type="primary" onClick={() => history.replace('/')}>
+                  Home
+            </Button>
+                <Button onClick={()=>getOrder(true)}>Check with Bank</Button>
+              </Space>
 
-              ]}
-            />}
+            ]}
+          />}
         </Layout.Content>}
     </Layout>
   );

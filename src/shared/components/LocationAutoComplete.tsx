@@ -1,20 +1,20 @@
 import React, { Component } from 'react';
-import { AutoComplete, Col, Form, Spin } from 'antd';
+import { AutoComplete, Col, Form, Spin, Select } from 'antd';
 import Axios from 'axios';
-import { ICity, ICState } from '../../schemas/ICountry';
+import { ICity, IIState } from '../../schemas/ILocation';
+import Loader from './loader/Loader';
 
 interface IProps {
-  state?: string;
-  city?: string;
+  state?: number;
+  city?: number;
+  district?:number;
 }
 interface IState {
   loading: boolean;
   cities: Array<ICity>;
-  states: Array<ICState>;
+  states: Array<IIState>;
   filteredCities: Array<ICity>;
-  filteredStates: Array<ICState>;
-  state: string | null;
-  city: string | null;
+  filteredStates: Array<IIState>;
 }
 
 class LocationAutoComplete extends Component<IProps, IState> {
@@ -26,26 +26,26 @@ class LocationAutoComplete extends Component<IProps, IState> {
       cities: [],
       filteredCities: [],
       filteredStates: [],
-      state: this.props?.state ? this.props.state : null,
-      city: this.props?.city ? this.props.city : null,
     };
   }
 
   getStates = async () => {
     this.setState({ loading: true });
-    const { data } = await Axios(`countries/${101}/states`);
+    const { data } = await Axios(`states`);
     this.setState({ states: data, filteredStates: data, loading: false });
-    if (this.state.state && this.state.city) this.getCities(this.state.state);
+    if (this.props.state && this.props.city) this.getCities(this.props.state);
   };
 
-  getCities = async (city: string) => {
+  getCities = async (state: number) => {
     this.setState({ loading: true });
-    const { data } = await Axios(`states/${city}/cities`);
+    const { data } = await Axios(`states/${state}/cities`);
     this.setState({ cities: data, filteredCities: data, loading: false });
   };
 
   componentDidMount() {
+    this.setState({ loading: true });
     this.getStates();
+    this.setState({ loading: false });
   }
 
   handleSelectState = (value: any) => {
@@ -55,7 +55,7 @@ class LocationAutoComplete extends Component<IProps, IState> {
   onSearchState = (keyword: string) => {
     if (!keyword) return;
     const data = this.state.states?.filter((element) =>
-      element?.name?.toLowerCase().includes(keyword.toLowerCase())
+      element?.state_name?.toLowerCase().includes(keyword.toLowerCase())
     );
     this.setState({ filteredStates: data });
   };
@@ -63,23 +63,22 @@ class LocationAutoComplete extends Component<IProps, IState> {
   onSearchCity = (keyword: string) => {
     if (!keyword) return;
     const data = this.state.cities?.filter((element) =>
-      element?.name?.toLowerCase().includes(keyword.toLowerCase())
+      element?.city_name?.toLowerCase().includes(keyword.toLowerCase())
     );
     this.setState({ filteredCities: data });
   };
 
   render() {
     return (
-      <>
+       this.state.loading ? <Loader /> : <>
         {this.state.filteredStates && (
           <Col span={12}>
             <Form.Item
               name="state"
               label="State"
               rules={[{ required: true, message: 'Please input your state!' }]}
-              initialValue={this.state.state ? this.state.state : null}
             >
-              <AutoComplete
+              <Select
                 style={{ width: '100%' }}
                 showSearch={true}
                 onSearch={this.onSearchState}
@@ -89,11 +88,11 @@ class LocationAutoComplete extends Component<IProps, IState> {
                 placeholder="state"
               >
                 {this.state.filteredStates?.map((state) => (
-                  <AutoComplete.Option value={state.name} key={state.id}>
-                    {state.name}
-                  </AutoComplete.Option>
+                  <Select.Option key={state.id} value={state.id} label={state.state_name}>
+                    {state.state_name}
+                  </Select.Option>
                 ))}
-              </AutoComplete>
+              </Select>
             </Form.Item>
           </Col>
         )}
@@ -104,9 +103,8 @@ class LocationAutoComplete extends Component<IProps, IState> {
               name="city"
               label="City"
               rules={[{ required: true, message: 'Please input your city!' }]}
-              initialValue={this.state.city ? this.state.city : null}
             >
-              <AutoComplete
+              <Select
                 style={{ width: '100%' }}
                 showSearch={true}
                 onSearch={this.onSearchCity}
@@ -115,11 +113,11 @@ class LocationAutoComplete extends Component<IProps, IState> {
                 placeholder="city"
               >
                 {this.state.filteredCities?.map((city) => (
-                  <AutoComplete.Option value={city.name} key={city.id}>
-                    {city.name}
-                  </AutoComplete.Option>
+                  <Select.Option value={city.id} key={city.id} label={city.city_name}>
+                    {city.city_name}
+                  </Select.Option>
                 ))}
-              </AutoComplete>
+              </Select>
             </Form.Item>
           </Col>
         )}
@@ -131,7 +129,7 @@ class LocationAutoComplete extends Component<IProps, IState> {
               label="District"
               rules={[{ required: true, message: 'Please input your district!' }]}
             >
-              <AutoComplete
+              <Select
                 style={{ width: '100%' }}
                 showSearch={true}
                 onSearch={this.onSearchCity}
@@ -140,11 +138,11 @@ class LocationAutoComplete extends Component<IProps, IState> {
                 placeholder="District"
               >
                 {this.state.filteredCities?.map((city) => (
-                  <AutoComplete.Option value={city.name} key={city.id}>
-                    {city.name}
-                  </AutoComplete.Option>
+                  <Select.Option value={city.id} key={city.id} label={city.city_name}>
+                    {city.city_name}
+                  </Select.Option>
                 ))}
-              </AutoComplete>
+              </Select>
             </Form.Item>
           </Col>
         )}

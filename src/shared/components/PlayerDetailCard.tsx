@@ -2,15 +2,18 @@ import React from 'react';
 import {Badge, Descriptions } from 'antd';
 import { IContact, IPhoto } from '../../schemas/IContact';
 import moment from 'moment';
+import { ILocation } from '../../schemas/ILocation.d';
 
 interface IProps{
   player:IContact;
   title:string;
   photo?:IPhoto
+  location?:ILocation
 }
-export default function PlayerDetailCard({player, title, photo}:IProps) {
+export default function PlayerDetailCard({player, title, photo, location}:IProps) {
 
   return (
+
     <Descriptions title={title} bordered={true}>
     {photo?.original && <Descriptions.Item label="Passport Photo" >
       <img src={photo?.original} width="100px" height="auto" alt="profile" />
@@ -35,17 +38,19 @@ export default function PlayerDetailCard({player, title, photo}:IProps) {
       <Badge status="processing" text={player?.gender} />
     </Descriptions.Item>
     <Descriptions.Item label="Date of Birth" span={2}>
-      {player?.date_of_birth ? moment(player.date_of_birth).format('DD-MM-YYYY') : null}
+      {player?.date_of_birth ? moment(player.date_of_birth).format('YYYY') : null}
     </Descriptions.Item>
 
     <Descriptions.Item label="Address" span={1}>{player?.address}</Descriptions.Item>
     <Descriptions.Item label="Location" span={2}>
-      City: <b>{player?.city}</b>
+      {location ? <> 
+      City: <b>{location?.city_name}</b>
       <br />
-      District: <b>{player?.district}</b>
+      District: <b>{location?.district_name}</b>
       <br />
-      State: <b>{player?.state}</b>
+      State: <b>{location?.state_name}</b>
       <br />
+       </> :  null}
     </Descriptions.Item>
 
     <Descriptions.Item label="Registration Type" span={1}>
@@ -53,6 +58,9 @@ export default function PlayerDetailCard({player, title, photo}:IProps) {
     </Descriptions.Item>
     <Descriptions.Item label="Are you a PIO/OCI">{player?.poi}</Descriptions.Item>
     <Descriptions.Item label="FIDE ID">{player?.fide_id}</Descriptions.Item>
+    <Descriptions.Item label="AICF ID">
+      {player?.aicf_id }
+    </Descriptions.Item>
   </Descriptions>
   );
 }

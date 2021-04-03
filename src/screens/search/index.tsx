@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import AppLayout from '@layout/app';
 import { Breadcrumb, Table, Tag, Input, Button, Space } from 'antd';
-import { IContact, IPlayers } from '../../schemas/IContact';
 import Axios from 'axios';
 import { Link, useHistory } from 'react-router-dom';
+import { IPlayerData, IPlayer} from '../../schemas/IPlayer';
 
 
 export default function SearchPlayers() {
-    const [players, setPlayers] = useState({} as IPlayers);
+    const [players, setPlayers] = useState({} as IPlayerData);
     const result = players?.data;
     const history = useHistory();
     const [isloading, setIsloading] = useState(true);
@@ -15,7 +15,7 @@ export default function SearchPlayers() {
     const getData = async () => {
         setIsloading(true);
         try {
-            const { data } = await Axios.get(`players?order_status=1`);
+            const { data } = await Axios.get(`players`);
             setPlayers(data);
             setIsloading(false);
         } catch (error) {
@@ -56,13 +56,13 @@ export default function SearchPlayers() {
         },
         {
             title: 'City',
-            dataIndex: 'city',
-            key: 'city'
+            dataIndex: 'city_name',
+            key: 'city_name'
         },
         {
             title: 'State',
-            dataIndex: 'state',
-            key: 'state'
+            dataIndex: 'state_name',
+            key: 'state_name'
         },
         {
             title: 'Gender',
@@ -71,34 +71,31 @@ export default function SearchPlayers() {
             render: (text: any) => (<Tag color={(text === "F") ? "pink" : "#ddd"}>{text}</Tag>)
         },
         {
-            title: 'Order Status',
-            key: 'order_status',
-            dataIndex:'order_status',
+            title: 'Status',
+            key: 'membership_expired',
+            dataIndex:'membership_expired',
             render: (text:number) => (
              <Space size="middle">
-                  {text === 1 &&
-                     <>
-                     <Tag color="green">Paid</Tag>
+                  {text  ?
                      <Tag >Active</Tag>
-                     </>
+                  :
+                     <Tag color="red">Not Active</Tag>
                   }
-                  {text === 0 &&
-                     <Tag color="red">UnPaid</Tag>
-                  }
-                  {text === 2 &&
-                     <Tag color="red">Order not created</Tag>
-                  }
+
              </Space>
            )
         },
         {
             title: '#',
             key: 'actions',
-            render: (record:IContact) => (
+            render: (record:IPlayer) => (
                 <Space size="middle">
-                  <Button type="primary" key="1"><Link to={`/players/${record.id}`}>View</Link></Button>
-                  {record?.order_status === 0 &&
-                  <Button type="primary" key="2" onClick={() => handlePayment(record.id)}>Pay Now</Button>
+                  <Button key="1"><Link to={`/players/${record.id}`}>View</Link></Button>
+                  {/* {record?.order_status === 0 &&
+                   <Button key="2" onClick={() => handlePayment(record.id)}>Pay Now</Button>
+                  } */}
+                  {!record?.membership_expired  &&
+                   <Button key="3" type="primary" onClick={() => handleRenewPayment(record.id)}>Renew Membership</Button>
                   }
                 </Space>
               ),
@@ -107,17 +104,23 @@ export default function SearchPlayers() {
 
 
     const handlePayment = (playerId:Number) =>{
-      return history.push('checkout' ,{contact_id : playerId});
+      return history.push('new-register?payment=true' ,{contact_id : playerId});
+    }
+
+    const handleRenewPayment = (playerId:Number) =>{
+        return history.push('/nenew-membership?renew-membership=true' ,{contact_id : playerId});
     }
 
     return (
         <AppLayout>
             <Breadcrumb >
                 <Breadcrumb.Item>Home</Breadcrumb.Item>
-                <Breadcrumb.Item>Search</Breadcrumb.Item>
+                <Breadcrumb.Item>Search Player</Breadcrumb.Item>
             </Breadcrumb>
-            <Input.Search placeholder="input search loading default" size="large" enterButton="Search" style={{ margin: '1rem 0' }} onSearch={handleSearch} />
-            <Table columns={columns} dataSource={result} loading={isloading} />
+            <Input.Search placeholder="Search by name, fideId, aicfId or email..." size="large" enterButton="Search" style={{ margin: '1rem 0' }} onSearch={handleSearch} />
+            <Table columns={columns} dataSource={result} loading={isloading} 
+              pagination={{ position: ["bottomLeft"] }}
+             />
         </AppLayout>
     );
 }

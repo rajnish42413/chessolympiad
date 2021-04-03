@@ -17,7 +17,7 @@ export const AicfId = (id:number,st:string, date:string):string =>{
 }
 
 
-export const PlayerName= (first:string,middle:string,last:string) =>{
+export const PlayerName= (first:string,middle?:string,last?:string) =>{
   let name = "";
   if(first) name = name + first + " ";
   if(middle) name = name + middle + " ";

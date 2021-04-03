@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Layout, message, Row, Col, Descriptions, Space } from 'antd';
+import { Button, Layout, Row, Col, Descriptions, Space } from 'antd';
 import { useHistory, useLocation } from 'react-router-dom';
 import Axios from 'axios';
 import Loader from '@components/loader/Loader';
-import { IContact } from '../../schemas/IContact';
 import AppHeader from '@layout/header';
 import { RZ_KEY } from '@constants/general';
 
@@ -13,24 +12,20 @@ import { RZ_KEY } from '@constants/general';
 export default function Checkout() {
     const history = useHistory();
     const { state }: any = useLocation();
-    const { contact_id }: any = state;
+    const { order_id }: any = state;
     const [isLoading, setIsLoading] = useState(false);
     const [order, setOrder] = useState({} as any);
-    const [contact, setContact] = useState({} as IContact);
+    const contact = order?.user;
 
     const getData = async () => {
         setIsLoading(true);
-        const { data } = await Axios.get(`players/${contact_id}`);
-        if (data) {
-            const { order, player } = data;
-            if (!order) {
-                message.warning("Order Detail not found or Invalid");
-                return history.go(-1);
-            }
-            setContact(player);
-            setOrder(order);
+        try {
+            const { data } = await Axios.get(`orders/${order_id}/checkout`);
+            setOrder(data);
+            setIsLoading(false);
+        } catch (error) {
+            setIsLoading(false);
         }
-        setIsLoading(false);
     }
 
     const getAmount = ():number => {
@@ -40,10 +35,10 @@ export default function Checkout() {
     }
 
     useEffect(() => {
-        if (!contact_id) return history.go(-1);
+        if (!order_id) return history.go(-1);
         getData();
     // eslint-disable-next-line
-    }, [contact_id,history]);
+    }, [order_id,history]);
 
 
     return (
