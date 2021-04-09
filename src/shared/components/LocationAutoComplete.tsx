@@ -30,16 +30,14 @@ class LocationAutoComplete extends Component<IProps, IState> {
   }
 
   getStates = async () => {
-    this.setState({ loading: true });
     const { data } = await Axios(`states`);
-    this.setState({ states: data, filteredStates: data, loading: false });
+    this.setState({ states: data, filteredStates: data});
     if (this.props.state && this.props.city) this.getCities(this.props.state);
   };
 
   getCities = async (state: number) => {
-    this.setState({ loading: true });
     const { data } = await Axios(`states/${state}/cities`);
-    this.setState({ cities: data, filteredCities: data, loading: false });
+    this.setState({ cities: data, filteredCities: data });
   };
 
   componentDidMount() {
@@ -77,12 +75,13 @@ class LocationAutoComplete extends Component<IProps, IState> {
               name="state"
               label="State"
               rules={[{ required: true, message: 'Please input your state!' }]}
+              initialValue={this.props.state}
             >
               <Select
                 style={{ width: '100%' }}
                 showSearch={true}
                 onSearch={this.onSearchState}
-                notFoundContent={!this.state.filteredStates ? <Spin size="small" /> : null}
+                notFoundContent={!this.state.filteredStates ? <Spin size="small" /> : ""}
                 filterOption={false}
                 onSelect={this.handleSelectState}
                 placeholder="state"
@@ -103,12 +102,13 @@ class LocationAutoComplete extends Component<IProps, IState> {
               name="city"
               label="City"
               rules={[{ required: true, message: 'Please input your city!' }]}
+              initialValue={this.props.city}
             >
               <Select
                 style={{ width: '100%' }}
                 showSearch={true}
                 onSearch={this.onSearchCity}
-                notFoundContent={!this.state.filteredCities ? <Spin size="small" /> : null}
+                notFoundContent={!this.state.filteredCities ? <Spin size="small" /> : ""}
                 filterOption={false}
                 placeholder="city"
               >
@@ -127,13 +127,14 @@ class LocationAutoComplete extends Component<IProps, IState> {
             <Form.Item
               name="district"
               label="District"
+              initialValue={this.props.district}
               rules={[{ required: true, message: 'Please input your district!' }]}
             >
               <Select
                 style={{ width: '100%' }}
                 showSearch={true}
                 onSearch={this.onSearchCity}
-                notFoundContent={!this.state.filteredCities ? <Spin size="small" /> : null}
+                notFoundContent={!this.state.filteredCities ? <Spin size="small" /> : ""}
                 filterOption={false}
                 placeholder="District"
               >

@@ -1,27 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import AppLayout from '@layout/app';
 import { Breadcrumb, Form, message } from 'antd';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory, useLocation, useParams } from 'react-router-dom';
 import Axios from 'axios';
 import { IContact } from '../../schemas/IContact';
 import Loader from '@components/loader/Loader';
-import RenewForm from '@components/RenewForm';
+import RegisterForm from '@components/RegisterForm';
 
-export default function Renew(props: any) {
+export default function EditPlayer(props: any) {
     const [isloading, setIsloading] = useState(true);
     const history = useHistory();
     const [passportPhoto, setPassportPhoto] = useState(0);
     const [birthCertificate, setBirthCertificate] = useState(0);
     const [contact, setContact] = useState({} as IContact);
-    const { state }: any = useLocation();
-    const contact_id = state?.contact_id;
-    // const query = new URLSearchParams(search);
-    // const renewMemberShip = query.get('renew-membership');
+    const { search }: any = useLocation();
+    const {id}:any = useParams();
+    const query = new URLSearchParams(search);
+    const hash = query.get('hash');
 
     const [btnLoading, setbtnLoading] = useState(false);
     const onFinish = (values: any) => {
         const data = {
-            ...contact,
             ...values,
             date_of_birth: values?.date_of_birth?.format(dateFormat),
             passport_photo: passportPhoto ? passportPhoto : null,
@@ -38,13 +37,11 @@ export default function Renew(props: any) {
         const show = message.loading('Saving Values ...', 0);
         setbtnLoading(true);
         try {
-            const { data } = await Axios.post(`contacts`, values);
+            const { data } = await Axios.post(`contacts?action=update`, values);
             setTimeout(show, 0);
-            if (data?.contact) {
-                message.success("Data stored successfully.");
-                setbtnLoading(false);
-                history.push('/confirm', data);
-            }
+            message.success("Updated successfully.");
+            history.replace('/');
+            setbtnLoading(false);
         } catch (error) {
             setTimeout(show, 0);
             setbtnLoading(false);
@@ -60,17 +57,18 @@ export default function Renew(props: any) {
     }
 
     useEffect(() => {
-        if (!contact_id) {
+        if (id && hash) getData();
+        else{
             message.error("Player not found");
             return history.go(-1);
         }
-        if (contact_id) getData();
-    }, [contact_id])
+    }, [id])
 
     const getData = async () => {
         setIsloading(true);
         try {
-            const { data } = await Axios.get(`players/${contact_id}?with_no_hash=1`);
+            // &hash=${hash}
+            const { data } = await Axios.get(`players/${id}?with_no_hash=1&hash=${hash}`);
             if (data?.player) setContact(data.player);
             setIsloading(false);
         } catch (error) {
@@ -85,8 +83,9 @@ export default function Renew(props: any) {
                 <Breadcrumb.Item>AICF PRS</Breadcrumb.Item>
                 <Breadcrumb.Item>New Registration</Breadcrumb.Item>
             </Breadcrumb>
-              {isloading ? <Loader /> : <Form name="register" onFinish={onFinish} scrollToFirstError={true} layout="vertical" >
-                <RenewForm btnLoading={btnLoading} contact={contact} setPassportPhoto={setPassportPhoto} setBirthCertificate={setBirthCertificate} />
+            {isloading ? <Loader /> :
+            <Form name="register" onFinish={onFinish} scrollToFirstError={true} layout="vertical" >
+                   <RegisterForm btnLoading={btnLoading} contact={contact} setPassportPhoto={setPassportPhoto} setBirthCertificate={setBirthCertificate} />
             </Form>}
         </AppLayout>
     );

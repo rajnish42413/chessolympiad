@@ -269,6 +269,7 @@ export default function RegisterFormItems(props: IProps) {
           <Form.Item
           name="player_type"
           label="Player Type"
+          initialValue={contact?.player_type?.split(',')}
           rules={[{ required: true }]}>
             <Checkbox.Group >
               {playerTypes?.map(item =>

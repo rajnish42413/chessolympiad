@@ -13,6 +13,7 @@ const Confirm = React.lazy(() => import('../screens/register/confirm'));
 const SearchPlayers = React.lazy(() => import('../screens/search/index'));
 const ShowPlayer = React.lazy(() => import('../screens/search/show'));
 const NationalTournamentRegistration = React.lazy(() => import('../screens/event/NTR'));
+const EditPlayer = React.lazy(() => import('../screens/register/edit'));
 
 const publicPaths = [
   { exact: true, path: '/', component: SearchPlayers },
@@ -23,6 +24,7 @@ const publicPaths = [
   { exact: true, path: '/players', component: SearchPlayers },
   { exact: true, path: '/players/:id', component: ShowPlayer },
   { exact: true, path: '/nenew-membership', component: Renew },
+  { exact: true, path: '/players/:id/edit', component: EditPlayer },
   {
     exact: true,
     path: '/national-tournament-registration',
