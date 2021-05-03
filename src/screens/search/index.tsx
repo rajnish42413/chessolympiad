@@ -134,9 +134,9 @@ export default function SearchPlayers() {
     ];
 
 
-    const handlePayment = (playerId: Number) => {
-        return history.push('new-register?payment=true', { contact_id: playerId });
-    }
+    // const handlePayment = (playerId: Number) => {
+    //     return history.push('new-register?payment=true', { contact_id: playerId });
+    // }
 
     const handleRenewPayment = (playerId: Number) => {
         return history.push('/nenew-membership?renew-membership=true', { contact_id: playerId });

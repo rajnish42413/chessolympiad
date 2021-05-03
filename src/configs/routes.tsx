@@ -4,6 +4,7 @@ import Ploader from '@components/loader/PLoader';
 import nprogress from 'nprogress';
 import 'nprogress/nprogress.css';
 import Renew from '../screens/register/renew';
+import OtherPayment from '../screens/register/otherPay';
 
 // const Home = React.lazy(() => import('../screens/home/Home'));
 const Register = React.lazy(() => import('../screens/register/index'));
@@ -17,6 +18,7 @@ const EditPlayer = React.lazy(() => import('../screens/register/edit'));
 
 const publicPaths = [
   { exact: true, path: '/', component: SearchPlayers },
+  { exact: true, path: '/pay', component: OtherPayment },
   { exact: true, path: '/new-register', component: Register },
   { exact: true, path: '/confirm', component: Confirm },
   { exact: true, path: '/checkout', component: Checkout },
