@@ -203,9 +203,11 @@ export default function SearchPlayers() {
                     <Input.Search placeholder="Search by name, fideId, aicfId or email..." size="large" enterButton="Search" style={{ margin: '1rem 0' }} onSearch={handleSearch} />
                 </Col>
             </Row>
-            <Table columns={columns} dataSource={result} loading={isloading}
+            <div style={{overflowX:'auto'}}>
+              <Table columns={columns} dataSource={result} loading={isloading}
                 pagination={{ position: ["bottomLeft"] }}
-            />
+             />
+            </div>
         </AppLayout>
     );
 }

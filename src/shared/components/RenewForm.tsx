@@ -108,7 +108,7 @@ export default function RenewForm(props: IProps) {
   return isLoading ? <Loader /> :
     <>
       <Row gutter={[30, 20]}>
-        {contact?.first_name && <Col span={8}>
+        {contact?.first_name && <Col xs={24} sm={24} md={8} lg={8} xl={8}>
           <Form.Item
             name="first_name"
             label="First Name"
@@ -119,13 +119,13 @@ export default function RenewForm(props: IProps) {
           </Form.Item>
         </Col>}
 
-        {contact?.middle_name && <Col span={8}>
+        {contact?.middle_name && <Col xs={24} sm={24} md={8} lg={8} xl={8}>
           <Form.Item name="middle_name" label="Middle Name" initialValue={contact.middle_name}>
             <Input placeholder="Middle name" readOnly={true} disabled={true} />
           </Form.Item>
         </Col>}
 
-        {contact?.last_name && <Col span={8}>
+        {contact?.last_name && <Col xs={24} sm={24} md={8} lg={8} xl={8}>
           <Form.Item
             name="last_name"
             label="Last Name"
@@ -196,7 +196,7 @@ export default function RenewForm(props: IProps) {
 
 
       <Row style={{ marginTop: '30px' }}>
-        <Col span={5}>
+      <Col xs={24} sm={24} md={12} lg={12} xl={12}>
           <Upload {...IPassportPhotoProps} multiple={false}>
             <Button type="default" icon={<UploadOutlined />} >
               Passport Size Photo
@@ -207,7 +207,7 @@ export default function RenewForm(props: IProps) {
             (jpg, png images only. Maximum size 1000 KB)
           </p>
         </Col>
-        <Col span={8} offset={4}>
+        <Col xs={24} sm={24} md={12} lg={12} xl={12}>
           <Upload {...IBirtCertificateProps} multiple={false}>
             <Button type="default" icon={<UploadOutlined />}>
               Birth Certificate

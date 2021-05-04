@@ -38,3 +38,31 @@ html {
   width: 100%;
   width: 100%;
 }
+.ant-layout .ant-layout-header {
+  background-position: center center;
+}
+.mobile-navabar-btn {
+  display: none;
+  position: absolute;
+  right: 20px;
+  top: 34px;
+}
+
+.prs-sidebar {
+  .ant-layout-sider {
+    height: 100%;
+  }
+}
+
+@media (max-width: 992px) {
+  .prs-sidebar {
+    border: 1px solid saddlebrown;
+    display: none;
+  }
+  .ant-layout .ant-layout-header {
+    background-position: left;
+  }
+  .mobile-navabar-btn {
+    display: block;
+  }
+}

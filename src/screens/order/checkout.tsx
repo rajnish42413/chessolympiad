@@ -46,8 +46,8 @@ export default function Checkout() {
             <AppHeader />
             { isLoading ? <Loader /> :
                 <Layout.Content>
-                    <Row justify="center" align="middle">
-                        <Col span={12}>
+                    <Row justify="center" align="middle" style={{marginBottom:'2rem'}}>
+                    <Col xs={20} sm={20} md={12} lg={12} xl={12}>
                             <Descriptions title="Select Payment Method" bordered={true} column={1} style={{margin:'2rem 0'}}>
                                 <Descriptions.Item label="Order ID">{order?.id}</Descriptions.Item>
                                 <Descriptions.Item label="Amount">{order?.amount}/-</Descriptions.Item>

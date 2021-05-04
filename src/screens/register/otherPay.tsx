@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import AppLayout from '@layout/app';
-import { Breadcrumb, Button, Col, Form, Input, message, Row } from 'antd';
+import { Breadcrumb, Button, Col, Form, Input, message, Row, Typography} from 'antd';
 import { useHistory } from 'react-router-dom';
 import Axios from 'axios';
 import Loader from '@components/loader/Loader';
@@ -11,7 +11,15 @@ export default function OtherPayment() {
 
     const [btnLoading, setbtnLoading] = useState(false);
     const onFinish = (values: any) => {
-        handleSubmitForm(values);
+        const fullName = values.full_name.split(' ');
+        const last_name = fullName.pop();
+        const first_name = fullName.join(' ');
+        const data = {
+            ...values,
+            first_name,
+            last_name
+        }
+        handleSubmitForm(data);
     };
 
     const handleSubmitForm = async (values: JSON) => {
@@ -40,32 +48,17 @@ export default function OtherPayment() {
                 <Breadcrumb.Item>Other Payment</Breadcrumb.Item>
             </Breadcrumb>
             {isloading ? <Loader /> :
-                <Form name="register" onFinish={onFinish} scrollToFirstError={true} layout="vertical" >
+                <Form name="register" onFinish={onFinish} scrollToFirstError={true} layout="vertical" style={{ marginTop: '1rem' }}>
+                      <Typography.Title>Donate for Checkmate Covid Initiative</Typography.Title>
                     <>
-                        <Row gutter={[30, 20]} style={{ marginTop: '2rem' }}>
-                            <Col span={8}>
+                        <Row gutter={[30, 20]} >
+                            <Col xs={24} sm={24} md={24} lg={24} xl={24}>
                                 <Form.Item
-                                    name="first_name"
-                                    label="First Name"
-                                    rules={[{ required: true, message: 'Please input your first name!' }]}
+                                    name="full_name"
+                                    label="Full Name"
+                                    rules={[{ required: true, message: 'Please input your full name!' }]}
                                 >
-                                    <Input placeholder="First name" />
-                                </Form.Item>
-                            </Col>
-
-                            <Col span={8}>
-                                <Form.Item name="middle_name" label="Middle Name" >
-                                    <Input placeholder="Middle name" />
-                                </Form.Item>
-                            </Col>
-
-                            <Col span={8}>
-                                <Form.Item
-                                    name="last_name"
-                                    label="Last Name"
-                                    rules={[{ required: true, message: 'Please input your last name!' }]}
-                                >
-                                    <Input placeholder="Last name" />
+                                    <Input placeholder="Full name" />
                                 </Form.Item>
                             </Col>
                         </Row>
@@ -111,22 +104,26 @@ export default function OtherPayment() {
                         </Row>
                         <Row>
                             <Col span={24}>
-                            <Form.Item
+                                <Form.Item
                                     name="message"
                                     label="Payment For"
                                     rules={[
                                         { required: true, message: 'Please input your payment for!' },
                                     ]}
+                                    initialValue="Donation for Checkmate Covid"
                                 >
-                                <Input.TextArea rows={4}/>
+                                    <Input.TextArea rows={4} />
                                 </Form.Item>
                             </Col>
                         </Row>
                         <Row style={{ marginTop: '30px' }}>
                             <Col>
                                 <Button type="primary" size="large" htmlType="submit" loading={btnLoading}>
-                                    Submit Form
+                                    Donate Now 
                                 </Button>
+                                <Typography.Paragraph style={{marginTop:'1rem'}}>
+                                  <small>(Credit Card, Debit, Netbanking accepted)</small>
+                                </Typography.Paragraph>
                             </Col>
                         </Row>
                     </>

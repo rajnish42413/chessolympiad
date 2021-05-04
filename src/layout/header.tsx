@@ -5,7 +5,6 @@ import Headerbanner from '../assets/img/banner-aicf.png';
 export default function AppHeader() {
   const style = {
     backgroundImage: `url(${Headerbanner})`,
-    backgroundPosition: 'center',
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat'
   };
