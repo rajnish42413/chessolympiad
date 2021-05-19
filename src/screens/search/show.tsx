@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import AppLayout from '@layout/app';
-import { Breadcrumb, Button, Col, Descriptions, Modal, Row, Space, Typography } from 'antd';
+import { Breadcrumb, Button, Col, Descriptions, Modal, Row, Space, Typography, Badge} from 'antd';
 import { useParams, useHistory } from 'react-router-dom';
 import Axios from 'axios';
 import { IPlayerDetail } from '../../schemas/IContact';
@@ -83,6 +83,7 @@ export default function ShowPlayer() {
                   <Descriptions.Item label="Name">{PlayerName(player.first_name, player.middle_name, player.last_name)}</Descriptions.Item>
                   <Descriptions.Item label="AICF Regn. No.">{player?.aicf_id}</Descriptions.Item>
                   <Descriptions.Item label="State">{location?.state_name}</Descriptions.Item>
+                  <Descriptions.Item label="Player Type"><Badge status="processing" text={player?.player_type} /></Descriptions.Item>
                   <Descriptions.Item label="Valid Upto">{(membership_expired === false && order_status === 1) ? "2022-03-31" : "Expired"}</Descriptions.Item>
                 </Descriptions>
               </Col>

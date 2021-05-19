@@ -29,6 +29,7 @@ interface IProps {
 export default function RenewForm(props: IProps) {
   const { btnLoading, contact, setPassportPhoto, setBirthCertificate } = props;
   const [playerTypes, setPlayerTypes] = useState<IPlayerType[]>([]);
+  const [selectedPlayerTypes, setSelectedPlayerTypes] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   const IPassportPhotoProps = {
@@ -99,6 +100,20 @@ export default function RenewForm(props: IProps) {
     setPlayerTypes(data);
   }
 
+  const getAmount = (types:Array<string>) =>{
+   let amount = 0;
+   types.map(type=>{
+     const ft = playerTypes.find(f => f.slug === type);
+     if(ft) amount+=+ft.amount;
+   });
+   return amount;
+  }
+
+  const handleChangePtype =(e:any)=>{
+    setSelectedPlayerTypes(e);
+    console.log(getAmount(e))
+  }
+
   useEffect(() => {
     setIsLoading(true);
     getData();
@@ -138,38 +153,26 @@ export default function RenewForm(props: IProps) {
       </Row>
 
       <Row gutter={[30, 20]}>
-        {contact?.email && <Col span={12}>
+        {contact?.fide_id && <Col span={12}>
           <Form.Item
-            initialValue={contact?.email}
-            name="email"
-            label="Email"
-            rules={[
-              { required: true, message: 'Please input your email!' },
-              { type: 'email', message: 'Please enter valid email' }
-            ]}
+            initialValue={contact?.fide_id}
+            name="fide_id"
+            label="FIDE ID"
           >
-            <Input placeholder="Email" />
+            <Input placeholder="FIDE ID" readOnly={true} disabled={true} />
           </Form.Item>
         </Col>}
-        {contact?.mobile && <Col span={12}>
+
+        {contact?.aicf_id && <Col span={12}>
           <Form.Item
-            name="mobile"
-            initialValue={contact?.mobile}
-            label="Mobile Number"
-            rules={[
-              { required: true, message: 'Please input your phone number!' },
-              { max: 10, min: 10, message: 'Please enter valid phone number!' }
-            ]}
+            name="aicf_id"
+            initialValue={contact?.aicf_id}
+            label="AICF ID"
           >
-            <Input type="number" placeholder="Mobile number" />
+            <Input type="text" placeholder="AICF ID" readOnly={true} disabled={true} />
           </Form.Item>
         </Col>}
       </Row>
-
-      {contact?.id && <Row gutter={[30, 20]}>
-        <LocationAutoComplete state={contact?.state} city={contact?.city} district={contact?.district} />
-      </Row>}
-
 
       <Row gutter={[200, 20]} style={{ marginTop: 10, marginBottom: 20 }}>
         <Col>
@@ -177,7 +180,7 @@ export default function RenewForm(props: IProps) {
             name="player_type"
             label="Player Type"
             rules={[{ required: true }]}>
-            <Checkbox.Group >
+            <Checkbox.Group onChange={handleChangePtype}>
               {playerTypes?.map(item =>
                 <Checkbox value={item.slug} key={item.slug}>{item.name}</Checkbox>
               )}
@@ -196,7 +199,7 @@ export default function RenewForm(props: IProps) {
 
 
       <Row style={{ marginTop: '30px' }}>
-      <Col xs={24} sm={24} md={12} lg={12} xl={12}>
+        <Col xs={24} sm={24} md={12} lg={12} xl={12}>
           <Upload {...IPassportPhotoProps} multiple={false}>
             <Button type="default" icon={<UploadOutlined />} >
               Passport Size Photo
@@ -222,6 +225,7 @@ export default function RenewForm(props: IProps) {
           <Button type="primary" size="large" htmlType="submit" loading={btnLoading}>
             Submit Form
           </Button>
+          {selectedPlayerTypes.length > 0 && <strong style={{ margin:'0 2rem'}}>* Pay INR {getAmount(selectedPlayerTypes)}</strong>}
         </Col>
       </Row>
     </>
