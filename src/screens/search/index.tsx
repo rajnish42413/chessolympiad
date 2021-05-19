@@ -164,7 +164,7 @@ export default function SearchPlayers() {
         <AppLayout>
             <Breadcrumb >
                 <Breadcrumb.Item>Home</Breadcrumb.Item>
-                <Breadcrumb.Item>Search Player</Breadcrumb.Item>
+                <Breadcrumb.Item>Search Players</Breadcrumb.Item>
             </Breadcrumb>
             <Row align="middle" gutter={16}>
                 <Col xs={24} sm={24} md={24} lg={4} xl={4}>
