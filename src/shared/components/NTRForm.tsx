@@ -1,153 +1,106 @@
 import React, { useState } from 'react';
-import { Form, Input, Select, Row, Col, Button, DatePicker } from 'antd';
+import { Form, Input, Select, Row, Col, Button, DatePicker, Radio } from 'antd';
 import moment from 'moment';
 import Loader from './loader/Loader';
-
-const dateFormat = 'DD-MM-YYYY';
+import { IEvent } from '../../schemas/IEvent';
+import Axios from 'axios';
+import { Link } from 'react-router-dom';
+import { IPlayerDetail } from '../../schemas/IContact';
+import PlayerDetailCard from './PlayerDetailCard';
+import { PlayerName } from '@utils/helpers';
 
 interface IProps {
   btnLoading: boolean;
+  events: Array<IEvent>;
+  setPlayerId:any
 }
 
 export default function NTRFormItems(props: IProps) {
   const [isLoading, setIsLoading] = useState(false);
+  const [playerData, setPlayerData] = useState({} as IPlayerDetail);
+  const { player, photo, location} = playerData;
+  const [searchloading, setSearchloading] = useState(false);
+  const [selectedEvent, setSelectedEvent] = useState({} as IEvent);
+
+  const { events ,setPlayerId} = props;
+
+  const handlePlayerAICFID = async (value: string, event: any) => {
+    if (!value) return;
+    const { data } = await Axios.get(`aicfid/${value}`);
+    setPlayerData(data);
+    setPlayerId(data?.player?.id);
+  }
+
+  const handleSelectEvent = (value:string) =>{
+   if(!value) return;
+   const event = events.find(e => e.id === +value);
+   if(event) setSelectedEvent(event);
+  }
 
   return isLoading ? (
     <Loader />
   ) : (
     <>
       <Row gutter={[30, 20]}>
-        <Col span={8}>
+        <Col span={24}>
           <Form.Item
-            name="first_name"
-            label="First Name"
-            rules={[{ required: true, message: 'Please input your first name!' }]}
+            name="event"
+            label="Select Event"
+            rules={[{ required: true, message: 'Please select event!' }]}
           >
-            <Input placeholder="First name" />
-          </Form.Item>
-        </Col>
-
-        <Col span={8}>
-          <Form.Item name="middle_name" label="Middle Name">
-            <Input placeholder="Middle name" />
-          </Form.Item>
-        </Col>
-
-        <Col span={8}>
-          <Form.Item
-            name="last_name"
-            label="Last Name"
-            rules={[{ required: true, message: 'Please input your last name!' }]}
-          >
-            <Input placeholder="Last name" />
+            <Select placeholder="select event" onChange={handleSelectEvent}>
+              {events?.map(e => <Select.Option value={e.id} key={e.id}>{e.name}</Select.Option>)}
+            </Select>
           </Form.Item>
         </Col>
       </Row>
 
       <Row gutter={[30, 20]}>
-        <Col span={12}>
+        <Col span={24}>
           <Form.Item
-            name="email"
-            label="Email"
+            name="aicf_id"
+            label="Enter AICF ID"
             rules={[
-              { required: true, message: 'Please input your email!' },
-              { type: 'email', message: 'Please enter valid email' }
+              { required: true, message: 'Please input your aicf_id!' },
             ]}
           >
-            <Input placeholder="Email" />
+            <Input.Search placeholder="input search text" enterButton="Search" onSearch={handlePlayerAICFID} loading={searchloading} />
           </Form.Item>
-        </Col>
-        <Col span={12}>
-          <Form.Item
-            name="mobile"
-            label="Mobile Number"
-            rules={[
-              { required: true, message: 'Please input your phone number!' },
-              { max: 10, min: 10, message: 'Please enter valid phone number!' }
-            ]}
-          >
-            <Input type="number" placeholder="Mobile number" />
-          </Form.Item>
+          <p>** (If you don't remember your AICF ID, please search <Link to="/players">here</Link>) **</p>
         </Col>
       </Row>
 
-      {/* Row number 3 */}
+      {player && <Row style={{marginTop:'15px'}}>
+        <Col span={24}>
+          <PlayerDetailCard 
+           player={player} 
+           title={PlayerName(player?.first_name, player?.middle_name, player?.last_name)} 
+           location={location} 
+           photo={photo}
+           />
+        </Col>
+      </Row>}
 
-      <Row gutter={[30, 20]}>
-        <Col span={12}>
+
+      {selectedEvent && <Row gutter={[30, 20]}>
+        <Col span={24}>
           <Form.Item
-            name="son_daughter_of"
-            label="Son/Daugher of"
-            rules={[
-              {
-                required: true,
-                message: 'Please add your fathers name!'
-              }
-            ]}
+            name="event_fee_id"
+            label="Select registration type"
+            rules={[{ required: true, message: 'Please select event!' }]}
           >
-            <Input placeholder="father/mother or parent name" />
+            <Radio.Group>
+              {selectedEvent?.fees?.map(e => 
+               <Radio value={e.id}>{e.name} (IRN {e.amount})</Radio>  
+              )}
+            </Radio.Group>
           </Form.Item>
         </Col>
-
-        <Col span={12}>
-          <Form.Item
-            name="relationship"
-            label="Relationship"
-            rules={[{ required: true, message: 'Select Relationship' }]}
-          >
-            <Select options={relation} placeholder="Select Relationship" />
-          </Form.Item>
-        </Col>
-      </Row>
-
-      {/* Row number 4 */}
-
-      <Row gutter={[30, 40]}>
-        <Col span={12}>
-          <Form.Item name="mother_tounge" label="Mother Tounge">
-            <Input placeholder="eg. Hindi ,English or ...." />
-          </Form.Item>
-        </Col>
-
-        <Col span={12}>
-          <Form.Item
-            name="gender"
-            label="Gender"
-            rules={[{ required: true, message: 'Add Gender' }]}
-          >
-            <Select options={gender} placeholder="Select Gender" />
-          </Form.Item>
-        </Col>
-      </Row>
-
-      {/* Row number 5 */}
-
-      <Row gutter={[30, 20]}>
-        <Col span={12}>
-          <Form.Item
-            name="date_of_birth"
-            label="Date of Birth"
-            rules={[{ required: true, message: 'Select DOB' }]}
-          >
-            <DatePicker
-              style={{ width: '100%' }}
-              showToday={false}
-              disabledDate={disabledDate}
-              format={dateFormat}
-              placeholder="DD-MM-YYYY"
-            />
-          </Form.Item>
-        </Col>
-        <Col span={12}>
-          <Form.Item name="address" label="Address">
-            <Input.TextArea rows={1} placeholder="Address" />
-          </Form.Item>
-        </Col>
-      </Row>
+      </Row>}
 
       <Row style={{ marginTop: '30px' }}>
         <Col>
-          <Button type="primary" size="large" htmlType="submit">
+          <Button type="primary" size="large" htmlType="submit" disabled={!player}>
             Submit Form
           </Button>
         </Col>
@@ -155,19 +108,3 @@ export default function NTRFormItems(props: IProps) {
     </>
   );
 }
-
-function disabledDate(current: any) {
-  return current && current > moment().endOf('day');
-}
-
-const gender = [
-  { label: 'Male', value: 'M' },
-  { label: 'Female', value: 'F' },
-  { label: 'Other', value: 'O' }
-];
-
-const relation = [
-  { label: 'Father', value: 'Father' },
-  { label: 'Mother', value: 'Mother' },
-  { label: 'Other', value: 'Other' }
-];
