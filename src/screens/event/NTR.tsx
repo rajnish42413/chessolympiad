@@ -40,7 +40,7 @@ export default function NationalTournamentRegistration() {
       setbtnLoading(true);
       const { data } = await Axios.post(`events/${params.event}/register`, params);
       setTimeout(show, 0);
-      // history.push('checkout', { order_id: data?.order?.id });
+      history.push('checkout', { order_id: data?.order?.id });
       setbtnLoading(false);
     } catch (error) {
       setbtnLoading(false);

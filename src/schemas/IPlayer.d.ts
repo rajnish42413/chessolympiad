@@ -18,4 +18,5 @@ export interface IPlayer {
   city_name?: string;
   district_name?: string;
   state_name?: string;
+  aicf_id?:string;
 }

@@ -76,6 +76,11 @@ export default function SearchPlayers() {
             key: 'id',
         },
         {
+            title: 'AICF ID',
+            dataIndex: 'aicf_id',
+            key: 'aicf_id',
+        },
+        {
             title: 'First Name',
             dataIndex: 'first_name',
             key: 'first_name',
