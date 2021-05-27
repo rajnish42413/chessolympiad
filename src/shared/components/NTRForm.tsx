@@ -91,7 +91,7 @@ export default function NTRFormItems(props: IProps) {
           >
             <Radio.Group>
               {selectedEvent?.fees?.map(e => 
-               <Radio value={e.id}>{e.name} (IRN {e.amount})</Radio>  
+               <Radio value={e.id}>{e.name} (INR {e.amount})</Radio>  
               )}
             </Radio.Group>
           </Form.Item>
