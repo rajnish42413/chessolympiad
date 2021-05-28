@@ -13,6 +13,7 @@ export default function NationalTournamentRegistration() {
   const [loading, setLoading] = useState(false);
   const [btnLoading, setbtnLoading] = useState(false);
   const [playerId, setPlayerId] = useState(0);
+  const [birthCertificate, setBirthCertificate] = useState(0);
 
   const getData = async () => {
     setLoading(true);
@@ -33,7 +34,8 @@ export default function NationalTournamentRegistration() {
     if (!playerId) return message.error('Player detail required');
     const params = {
       ...values,
-      contact_id: playerId
+      contact_id: playerId,
+      birth_certificate_photo:birthCertificate ? birthCertificate : null,
     };
     const show = message.loading('Saving Values ...', 0);
     try {
@@ -63,7 +65,7 @@ export default function NationalTournamentRegistration() {
         {loading ? (
           <Loader />
         ) : (
-          <NTRFormItems btnLoading={btnLoading} events={events} setPlayerId={setPlayerId} />
+          <NTRFormItems btnLoading={btnLoading} events={events} setPlayerId={setPlayerId} setBirthCertificate={setBirthCertificate}/>
         )}
       </Form>
     </AppLayout>

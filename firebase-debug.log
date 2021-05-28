@@ -1,0 +1,32 @@
+[debug] [2021-05-26T14:15:49.642Z] ----------------------------------------------------------------------
+[debug] [2021-05-26T14:15:49.644Z] Command:       /usr/local/bin/node /usr/local/bin/firebase deploy
+[debug] [2021-05-26T14:15:49.644Z] CLI Version:   9.5.0
+[debug] [2021-05-26T14:15:49.644Z] Platform:      linux
+[debug] [2021-05-26T14:15:49.644Z] Node Version:  v15.0.1
+[debug] [2021-05-26T14:15:49.646Z] Time:          Wed May 26 2021 19:45:49 GMT+0530 (India Standard Time)
+[debug] [2021-05-26T14:15:49.646Z] ----------------------------------------------------------------------
+[debug] [2021-05-26T14:15:49.646Z] 
+[debug] [2021-05-26T14:15:49.648Z] >>> [apiv2][query] GET https://firebase-public.firebaseio.com/cli.json [none]
+[debug] [2021-05-26T14:15:49.665Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2021-05-26T14:15:49.666Z] > authorizing via signed-in user
+[debug] [2021-05-26T14:15:49.666Z] [iam] checking project aicf-panel for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2021-05-26T14:15:49.667Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2021-05-26T14:15:49.667Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2021-05-26T14:15:56.895Z] <<< HTTP RESPONSE 200 {"date":"Wed, 26 May 2021 14:11:46 GMT","expires":"Mon, 01 Jan 1990 00:00:00 GMT","cache-control":"no-cache, no-store, max-age=0, must-revalidate","pragma":"no-cache","content-type":"application/json; charset=utf-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","server":"scaffolding on HTTPServer2","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2021-05-26T14:15:56.914Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/aicf-panel:testIamPermissions  
+ {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2021-05-26T14:17:41.764Z] ----------------------------------------------------------------------
+[debug] [2021-05-26T14:17:41.765Z] Command:       /usr/local/bin/node /usr/local/bin/firebase deploy
+[debug] [2021-05-26T14:17:41.766Z] CLI Version:   9.5.0
+[debug] [2021-05-26T14:17:41.766Z] Platform:      linux
+[debug] [2021-05-26T14:17:41.766Z] Node Version:  v15.0.1
+[debug] [2021-05-26T14:17:41.766Z] Time:          Wed May 26 2021 19:47:41 GMT+0530 (India Standard Time)
+[debug] [2021-05-26T14:17:41.766Z] ----------------------------------------------------------------------
+[debug] [2021-05-26T14:17:41.766Z] 
+[debug] [2021-05-26T14:17:41.768Z] >>> [apiv2][query] GET https://firebase-public.firebaseio.com/cli.json [none]
+[debug] [2021-05-26T14:17:41.786Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2021-05-26T14:17:41.787Z] > authorizing via signed-in user
+[debug] [2021-05-26T14:17:41.788Z] [iam] checking project aicf-panel for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2021-05-26T14:17:41.790Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/aicf-panel:testIamPermissions  
+ {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}

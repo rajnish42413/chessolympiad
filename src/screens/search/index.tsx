@@ -176,7 +176,7 @@ export default function SearchPlayers() {
                     <Select size="large" 
                     style={{ width: '100%' }} 
                     onSelect={handleSelectState} 
-                    onSearch={onSearchState} value={selectedState ? selectedState : ""}
+                    onSearch={onSearchState} value={selectedState ? selectedState : ''}
                     placeholder="Select State"
                     showSearch={true}
                     notFoundContent={!filteredStates ? <Spin size="small" /> : null}
@@ -192,7 +192,7 @@ export default function SearchPlayers() {
                     style={{ width: '100%' }} 
                     onSelect={handleSelectCity} 
                     onSearch={onSearchCity} 
-                    value={selectedCity ? selectedCity : ""}
+                    value={selectedCity ? selectedCity : ''}
                     placeholder="Select City"
                     showSearch={true}
                     notFoundContent={!cities ? <Spin size="small" /> : null}

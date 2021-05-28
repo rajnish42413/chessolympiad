@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Form, Input, Select, Row, Col, Button, DatePicker, Radio } from 'antd';
+import { Form, Input, Select, Row, Col, Button, DatePicker, Radio, Upload, message } from 'antd';
 import moment from 'moment';
 import Loader from './loader/Loader';
 import { IEvent } from '../../schemas/IEvent';
@@ -8,21 +8,25 @@ import { Link } from 'react-router-dom';
 import { IPlayerDetail } from '../../schemas/IContact';
 import PlayerDetailCard from './PlayerDetailCard';
 import { PlayerName } from '@utils/helpers';
+import { UploadOutlined } from '@ant-design/icons';
+import { API_URL } from '@constants/general';
+import LocationAutoComplete from './LocationAutoComplete';
 
 interface IProps {
   btnLoading: boolean;
   events: Array<IEvent>;
-  setPlayerId:any
+  setPlayerId: any,
+  setBirthCertificate:any;
 }
 
 export default function NTRFormItems(props: IProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [playerData, setPlayerData] = useState({} as IPlayerDetail);
-  const { player, photo, location} = playerData;
+  const { player, photo, location , birth_certificate} = playerData;
   const [searchloading, setSearchloading] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState({} as IEvent);
 
-  const { events ,setPlayerId} = props;
+  const { events, setPlayerId, setBirthCertificate} = props;
 
   const handlePlayerAICFID = async (value: string, event: any) => {
     if (!value) return;
@@ -31,11 +35,38 @@ export default function NTRFormItems(props: IProps) {
     setPlayerId(data?.player?.id);
   }
 
-  const handleSelectEvent = (value:string) =>{
-   if(!value) return;
-   const event = events.find(e => e.id === +value);
-   if(event) setSelectedEvent(event);
+  const handleSelectEvent = (value: string) => {
+    if (!value) return;
+    const event = events.find(e => e.id === +value);
+    if (event) setSelectedEvent(event);
   }
+
+
+  const IBirtCertificateProps = {
+    name: 'image',
+    action: `${API_URL}contacts/add-image`,
+    headers: {
+      authorization: 'authorization-text'
+    },
+    data: {
+      type: "contact_passport_birth_certificate",
+    },
+    onChange(info: any) {
+      if (info.file.status !== 'uploading') {
+        console.log(info.file, info.fileList);
+      }
+      if (info.file.status === 'done') {
+        const {response} =  info?.file;
+        const image = response?.image;
+        if(image && image?.entity === "contact_passport_birth_certificate"){
+          setBirthCertificate(image.id);
+        }
+        message.success(`${info.file.name} file uploaded successfully`);
+      } else if (info.file.status === 'error') {
+        message.error(`${info.file.name} file upload failed.`);
+      }
+    }
+  };
 
   return isLoading ? (
     <Loader />
@@ -70,14 +101,14 @@ export default function NTRFormItems(props: IProps) {
         </Col>
       </Row>
 
-      {player && <Row style={{marginTop:'15px'}}>
+      {player && <Row style={{ marginTop: '15px' }}>
         <Col span={24}>
-          <PlayerDetailCard 
-           player={player} 
-           title={PlayerName(player?.first_name, player?.middle_name, player?.last_name)} 
-           location={location} 
-           photo={photo}
-           />
+          <PlayerDetailCard
+            player={player}
+            title={PlayerName(player?.first_name, player?.middle_name, player?.last_name)}
+            location={location}
+            photo={photo}
+          />
         </Col>
       </Row>}
 
@@ -90,13 +121,30 @@ export default function NTRFormItems(props: IProps) {
             rules={[{ required: true, message: 'Please select event!' }]}
           >
             <Radio.Group>
-              {selectedEvent?.fees?.map(e => 
-               <Radio value={e.id}>{e.name} (INR {e.amount})</Radio>  
+              {selectedEvent?.fees?.map(e =>
+                <Radio value={e.id}>{e.name} (INR {e.amount})</Radio>
               )}
             </Radio.Group>
           </Form.Item>
         </Col>
       </Row>}
+
+      {(player && !birth_certificate) && <Row >
+        <Col xs={24}>
+          <Upload {...IBirtCertificateProps} multiple={false}>
+            <Button type="default" icon={<UploadOutlined />}>
+              Birth Certificate
+            </Button>
+          </Upload>
+          <p style={{ marginTop: 20 }}>(PDF, JPEG, JPG, PNG documents only. Maximum size 1000 KB) (Optional)</p>
+        </Col>
+      </Row>}
+
+      {(player && !location?.state_name) &&
+       <Row gutter={[30, 20]}>
+         <LocationAutoComplete  />
+       </Row>
+      }
 
       <Row style={{ marginTop: '30px' }}>
         <Col>
