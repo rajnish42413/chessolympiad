@@ -16,6 +16,7 @@ export default function AppSidebar() {
   if (location.pathname === '/players') intialSelected = ['2'];
   if (location.pathname === '/new-register') intialSelected = ['3'];
   if (location.pathname === '/pay') intialSelected = ['4'];
+  if (location.pathname === '/entry') intialSelected = ['5'];
   const [selectedMenu, setSelectedMenu] = useState(intialSelected);
 
   const onSelect = ({ key }: any) => {
@@ -62,6 +63,9 @@ const menu = (theme: 'dark' | 'light', selectedKey: Array<string>, onSelect: any
       </Menu.Item>
       <Menu.Item key="4" icon={<PayCircleFilled />}>
         <Link to="/pay">Donate</Link>
+      </Menu.Item>
+      <Menu.Item key="5" icon={<FileTextOutlined />}>
+        <Link to="/entry">Online Entry</Link>
       </Menu.Item>
       {/* <Menu.Item key="4" icon={<DollarCircleOutlined />}>
           Renew Membership

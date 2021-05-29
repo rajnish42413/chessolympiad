@@ -71,11 +71,6 @@ export default function SearchPlayers() {
 
     const columns = [
         {
-            title: 'ID',
-            dataIndex: 'id',
-            key: 'id',
-        },
-        {
             title: 'AICF ID',
             dataIndex: 'aicf_id',
             key: 'aicf_id',
@@ -175,10 +170,10 @@ export default function SearchPlayers() {
                 <Col xs={24} sm={24} md={24} lg={4} xl={4}>
                     <Select size="large" 
                     style={{ width: '100%' }} 
+                    placeholder="Select State"
+                    showSearch
                     onSelect={handleSelectState} 
                     onSearch={onSearchState} value={selectedState ? selectedState : ''}
-                    placeholder="Select State"
-                    showSearch={true}
                     notFoundContent={!filteredStates ? <Spin size="small" /> : null}
                     filterOption={false}
                     >
@@ -190,11 +185,11 @@ export default function SearchPlayers() {
                 {cities && <Col xs={24} sm={24} md={24} lg={4} xl={4}>
                     <Select size="large" 
                     style={{ width: '100%' }} 
+                    placeholder="Select City"
+                    showSearch
                     onSelect={handleSelectCity} 
                     onSearch={onSearchCity} 
                     value={selectedCity ? selectedCity : ''}
-                    placeholder="Select City"
-                    showSearch={true}
                     notFoundContent={!cities ? <Spin size="small" /> : null}
                      filterOption={false}
                     >
@@ -205,7 +200,7 @@ export default function SearchPlayers() {
                 </Col>}
 
                 <Col xs={24} sm={24} md={24} lg={12} xl={12}>
-                    <Input.Search placeholder="Search by name, fideId, aicfId or email..." size="large" enterButton="Search" style={{ margin: '1rem 0' }} onSearch={handleSearch} />
+                    <Input.Search placeholder="Search by First name or last name, AICF ID, FIDE ID" size="large" enterButton="Search" style={{ margin: '1rem 0' }} onSearch={handleSearch} />
                 </Col>
             </Row>
             <div style={{overflowX:'auto'}}>
