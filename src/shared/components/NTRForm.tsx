@@ -76,8 +76,8 @@ export default function NTRFormItems(props: IProps) {
         <Col span={24}>
           <Form.Item
             name="event"
-            label="Select Event"
-            rules={[{ required: true, message: 'Please select event!' }]}
+            label="Choose a Tournament to apply for"
+            rules={[{ required: true, message: 'Click here to select' }]}
           >
             <Select placeholder="select event" onChange={handleSelectEvent}>
               {events?.map(e => <Select.Option value={e.id} key={e.id}>{e.name}</Select.Option>)}
@@ -87,7 +87,7 @@ export default function NTRFormItems(props: IProps) {
       </Row>
 
       <Row gutter={[30, 20]}>
-        <Col span={24}>
+        <Col span={9}>
           <Form.Item
             name="aicf_id"
             label="Enter AICF ID"
@@ -95,7 +95,7 @@ export default function NTRFormItems(props: IProps) {
               { required: true, message: 'Please input your aicf_id!' },
             ]}
           >
-            <Input.Search placeholder="input search text" enterButton="Search" onSearch={handlePlayerAICFID} loading={searchloading} />
+            <Input.Search placeholder="AICF ID like: 24232DEL2021" enterButton="Fetch Details" onSearch={handlePlayerAICFID} loading={searchloading} />
           </Form.Item>
           <p>** (If you don't remember your AICF ID, please search <Link to="/players">here</Link>) **</p>
         </Col>
@@ -149,7 +149,7 @@ export default function NTRFormItems(props: IProps) {
       <Row style={{ marginTop: '30px' }}>
         <Col>
           <Button type="primary" size="large" htmlType="submit" disabled={!player}>
-            Submit Form
+            Proceed to Payment
           </Button>
         </Col>
       </Row>
