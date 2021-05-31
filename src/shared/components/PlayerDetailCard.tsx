@@ -38,7 +38,7 @@ export default function PlayerDetailCard({player, title, photo, location}:IProps
       <Badge status="processing" text={player?.gender} />
     </Descriptions.Item>
     <Descriptions.Item label="Date of Birth" span={2}>
-      {player?.date_of_birth ? moment(player.date_of_birth).format('YYYY') : null}
+      {player?.date_of_birth}
     </Descriptions.Item>
 
     <Descriptions.Item label="Address" span={1}>{player?.address}</Descriptions.Item>

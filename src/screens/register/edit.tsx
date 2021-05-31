@@ -14,7 +14,7 @@ export default function EditPlayer(props: any) {
     const [birthCertificate, setBirthCertificate] = useState(0);
     const [contact, setContact] = useState({} as IContact);
     const { search }: any = useLocation();
-    const {id}:any = useParams();
+    const { id }: any = useParams();
     const query = new URLSearchParams(search);
     const hash = query.get('hash');
 
@@ -58,7 +58,7 @@ export default function EditPlayer(props: any) {
 
     useEffect(() => {
         if (id && hash) getData();
-        else{
+        else {
             message.error("Player not found");
             return history.go(-1);
         }
@@ -81,12 +81,13 @@ export default function EditPlayer(props: any) {
         <AppLayout>
             <Breadcrumb>
                 <Breadcrumb.Item>AICF PRS</Breadcrumb.Item>
-                <Breadcrumb.Item>New Registration</Breadcrumb.Item>
+                <Breadcrumb.Item>Players</Breadcrumb.Item>
+                <Breadcrumb.Item>Edit</Breadcrumb.Item>
             </Breadcrumb>
             {isloading ? <Loader /> :
-            <Form name="register" onFinish={onFinish} scrollToFirstError={true} layout="vertical" >
-                   <RegisterForm btnLoading={btnLoading} contact={contact} setPassportPhoto={setPassportPhoto} setBirthCertificate={setBirthCertificate} />
-            </Form>}
+                <Form name="register" onFinish={onFinish} scrollToFirstError={true} layout="vertical" >
+                    <RegisterForm btnLoading={btnLoading} contact={contact} setPassportPhoto={setPassportPhoto} setBirthCertificate={setBirthCertificate} />
+                </Form>}
         </AppLayout>
     );
 }

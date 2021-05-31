@@ -11,7 +11,7 @@ export default function Confirm(props: any) {
   const [termCondition, setTermCondition] = useState(false);
   const history = useHistory();
   const { state } = useLocation();
-  const { contact, photo ,order ,location }: any = state;
+  const { contact, photo, order, location }: any = state;
 
   const handleSubmitForm = async () => {
     if (!termCondition) return message.warning("Please accept the declaration");
@@ -32,20 +32,20 @@ export default function Confirm(props: any) {
         <Breadcrumb.Item>Confirm Details</Breadcrumb.Item>
       </Breadcrumb>
 
-      { contact ?
+      {contact ?
         <div>
-          <PlayerDetailCard player={contact} title="Verify Player Information" photo={photo} location={location}/>
+          <PlayerDetailCard player={contact} title="Verify Player Information" photo={photo} location={location} />
 
           <div style={{ margin: '16px 0' }}>
             <Checkbox onChange={onChange}>
               I declare that the particulars given above are true to the best of my knowledge and belief. I shall abide by the rules and regulations and the latest amendments and decisions of the State / District Chess Association / Federation as the case may be and cooperate with the officials in participating in State and National Tournaments / Championships.
-           </Checkbox>
+            </Checkbox>
           </div>
           <Space style={{ margin: '16px 0' }} size="middle">
-            <Button onClick={()=>history.goBack()} size="large">Cancel</Button>
+            <Button onClick={() => history.goBack()} size="large">Cancel</Button>
             <Button type="primary" loading={btnLoading} onClick={() => handleSubmitForm()} size="large">
               Proceed to Pay
-             </Button>
+            </Button>
           </Space>
         </div>
         : <Loader />}

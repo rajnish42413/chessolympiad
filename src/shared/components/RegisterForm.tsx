@@ -23,15 +23,15 @@ import { IContact } from '../../schemas/IContact.d';
 
 const dateFormat = 'DD-MM-YYYY';
 
-interface IProps{
+interface IProps {
   btnLoading: boolean;
-  contact?:IContact;
-  setPassportPhoto:any;
-  setBirthCertificate:any;
+  contact?: IContact;
+  setPassportPhoto: any;
+  setBirthCertificate: any;
 }
 
 export default function RegisterFormItems(props: IProps) {
-  const { btnLoading, contact, setPassportPhoto, setBirthCertificate} = props;
+  const { btnLoading, contact, setPassportPhoto, setBirthCertificate } = props;
   const [playerTypes, setPlayerTypes] = useState<IPlayerType[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -49,19 +49,19 @@ export default function RegisterFormItems(props: IProps) {
         console.log(info.file, info.fileList);
       }
       if (info.file.status === 'done') {
-        const {response} =  info?.file;
+        const { response } = info?.file;
         const image = response?.image;
-        if(image && image?.entity === "contact_passport_birth_certificate"){
+        if (image && image?.entity === "contact_passport_birth_certificate") {
           setBirthCertificate(image.id);
         }
-        if(image && image?.entity === "contact_passport_photo"){
+        if (image && image?.entity === "contact_passport_photo") {
           setPassportPhoto(image.id);
         }
         message.success(`${info.file.name} file uploaded successfully`);
       } else if (info.file.status === 'error') {
-        const {errors} = info?.file?.response;
-        if(errors){
-          const { image} = errors;
+        const { errors } = info?.file?.response;
+        if (errors) {
+          const { image } = errors;
           if (image) message.warning(image?.[0]);
         }
       }
@@ -83,12 +83,12 @@ export default function RegisterFormItems(props: IProps) {
         console.log(info.file, info.fileList);
       }
       if (info.file.status === 'done') {
-        const {response} =  info?.file;
+        const { response } = info?.file;
         const image = response?.image;
-        if(image && image?.entity === "contact_passport_birth_certificate"){
+        if (image && image?.entity === "contact_passport_birth_certificate") {
           setBirthCertificate(image.id);
         }
-        if(image && image?.entity === "contact_passport_photo"){
+        if (image && image?.entity === "contact_passport_photo") {
           setPassportPhoto(image.id);
         }
         message.success(`${info.file.name} file uploaded successfully`);
@@ -108,6 +108,7 @@ export default function RegisterFormItems(props: IProps) {
     getData();
     setIsLoading(false);
   }, [])
+
 
   return isLoading ? <Loader /> :
     <>
@@ -252,8 +253,8 @@ export default function RegisterFormItems(props: IProps) {
       </Row>
 
       <Row gutter={[30, 20]}>
-         <LocationAutoComplete state={contact?.state} city={contact?.city} district={contact?.district} />
-         <Col span={12}>
+        <LocationAutoComplete state={contact?.state} city={contact?.city} district={contact?.district} />
+        <Col span={12}>
           <Form.Item
             name="fide_id"
             label="FIDE ID"
@@ -267,10 +268,10 @@ export default function RegisterFormItems(props: IProps) {
       <Row gutter={[200, 20]} style={{ marginTop: 10, marginBottom: 20 }}>
         <Col>
           <Form.Item
-          name="player_type"
-          label="Player Type"
-          initialValue={contact?.player_type?.split(',')}
-          rules={[{ required: true }]}>
+            name="player_type"
+            label="Player Type"
+            initialValue={contact?.player_type?.split(',')}
+            rules={[{ required: true }]}>
             <Checkbox.Group >
               {playerTypes?.map(item =>
                 <Checkbox value={item.slug} key={item.slug}>{item.name}</Checkbox>
