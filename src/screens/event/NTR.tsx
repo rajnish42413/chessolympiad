@@ -35,7 +35,10 @@ export default function NationalTournamentRegistration() {
     const params = {
       ...values,
       contact_id: playerId,
-      birth_certificate_photo:birthCertificate ? birthCertificate : null,
+      birth_certificate_photo: birthCertificate ? birthCertificate : null,
+      state: values.state ? values.state.value : null,
+      city: values.city ? values.city.value : null,
+      district: values.district ? values.district.value : null,
     };
     const show = message.loading('Saving Values ...', 0);
     try {
@@ -65,7 +68,7 @@ export default function NationalTournamentRegistration() {
         {loading ? (
           <Loader />
         ) : (
-          <NTRFormItems btnLoading={btnLoading} events={events} setPlayerId={setPlayerId} setBirthCertificate={setBirthCertificate}/>
+          <NTRFormItems btnLoading={btnLoading} events={events} setPlayerId={setPlayerId} setBirthCertificate={setBirthCertificate} />
         )}
       </Form>
     </AppLayout>

@@ -3,7 +3,7 @@ import AppLayout from '@layout/app';
 import { Breadcrumb, Form, message } from 'antd';
 import { useHistory, useLocation, useParams } from 'react-router-dom';
 import Axios from 'axios';
-import { IContact } from '../../schemas/IContact';
+import { IContact, IPlayerDetail } from '../../schemas/IContact';
 import Loader from '@components/loader/Loader';
 import RegisterForm from '@components/RegisterForm';
 
@@ -13,6 +13,7 @@ export default function EditPlayer(props: any) {
     const [passportPhoto, setPassportPhoto] = useState(0);
     const [birthCertificate, setBirthCertificate] = useState(0);
     const [contact, setContact] = useState({} as IContact);
+    const [playerDate, setPlayerDate] = useState({} as IPlayerDetail)
     const { search }: any = useLocation();
     const { id }: any = useParams();
     const query = new URLSearchParams(search);
@@ -25,7 +26,10 @@ export default function EditPlayer(props: any) {
             date_of_birth: values?.date_of_birth?.format(dateFormat),
             passport_photo: passportPhoto ? passportPhoto : null,
             birth_certificate_photo: birthCertificate ? birthCertificate : null,
-            id: contact ? contact.id : null
+            id: contact ? contact.id : null,
+            state: values.state ? values.state.value : null,
+            city: values.city ? values.city.value : null,
+            district: values.district ? values.district.value : null,
         };
 
         // console.log(data);
@@ -69,7 +73,10 @@ export default function EditPlayer(props: any) {
         try {
             // &hash=${hash}
             const { data } = await Axios.get(`players/${id}?with_no_hash=1&hash=${hash}`);
-            if (data?.player) setContact(data.player);
+            if (data?.player) {
+                setPlayerDate(data);
+                setContact(data.player);
+            }
             setIsloading(false);
         } catch (error) {
             setIsloading(false);
@@ -86,7 +93,7 @@ export default function EditPlayer(props: any) {
             </Breadcrumb>
             {isloading ? <Loader /> :
                 <Form name="register" onFinish={onFinish} scrollToFirstError={true} layout="vertical" >
-                    <RegisterForm btnLoading={btnLoading} contact={contact} setPassportPhoto={setPassportPhoto} setBirthCertificate={setBirthCertificate} />
+                    <RegisterForm pLocation={playerDate.location} btnLoading={btnLoading} contact={contact} setPassportPhoto={setPassportPhoto} setBirthCertificate={setBirthCertificate} />
                 </Form>}
         </AppLayout>
     );

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Form, Input, Select, Row, Col, Button, DatePicker, Radio, Upload, message } from 'antd';
+import { Form, Input, Select, Row, Col, Button, Radio, Upload, message } from 'antd';
 import moment from 'moment';
 import Loader from './loader/Loader';
 import { IEvent } from '../../schemas/IEvent';

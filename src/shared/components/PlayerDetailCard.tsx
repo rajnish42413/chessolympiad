@@ -56,7 +56,7 @@ export default function PlayerDetailCard({player, title, photo, location}:IProps
     <Descriptions.Item label="Registration Type" span={1}>
       <Badge status="processing" text={player?.player_type} />
     </Descriptions.Item>
-    <Descriptions.Item label="Are you a PIO/OCI">{player?.poi}</Descriptions.Item>
+    <Descriptions.Item label="Are you a PIO/OCI">{player?.poi ? "Yes" : "No"}</Descriptions.Item>
     <Descriptions.Item label="FIDE ID">{player?.fide_id}</Descriptions.Item>
     <Descriptions.Item label="AICF ID">
       {player?.aicf_id }

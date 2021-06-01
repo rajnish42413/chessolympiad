@@ -5,9 +5,14 @@ import { ICity, IIState } from '../../schemas/ILocation';
 import Loader from './loader/Loader';
 
 interface IProps {
-  state?: number;
-  city?: number;
-  district?:number;
+  selectedState?: ISelected;
+  selecteCity?: ISelected;
+  selectedDistrict?: ISelected;
+}
+interface ISelected {
+  value: string;
+  key: string;
+  label: string;
 }
 interface IState {
   loading: boolean;
@@ -31,11 +36,13 @@ class LocationAutoComplete extends Component<IProps, IState> {
 
   getStates = async () => {
     const { data } = await Axios(`states`);
-    this.setState({ states: data, filteredStates: data});
-    if (this.props.state && this.props.city) this.getCities(this.props.state);
+    this.setState({ states: data, filteredStates: data });
+    if (this.props.selectedState) {
+      this.getCities(this.props.selectedState.value);
+    }
   };
 
-  getCities = async (state: number) => {
+  getCities = async (state: string) => {
     const { data } = await Axios(`states/${state}/cities`);
     this.setState({ cities: data, filteredCities: data });
   };
@@ -68,16 +75,17 @@ class LocationAutoComplete extends Component<IProps, IState> {
 
   render() {
     return (
-       this.state.loading ? <Loader /> : <>
+      this.state.loading ? <Loader /> : <>
         {this.state.filteredStates && (
           <Col span={12}>
             <Form.Item
               name="state"
               label="State"
               rules={[{ required: true, message: 'Please input your state!' }]}
-              initialValue={this.props.state}
+              initialValue={this.props.selectedState ? this.props.selectedState : undefined}
             >
               <Select
+                labelInValue={true}
                 style={{ width: '100%' }}
                 showSearch={true}
                 onSearch={this.onSearchState}
@@ -102,9 +110,10 @@ class LocationAutoComplete extends Component<IProps, IState> {
               name="city"
               label="City"
               rules={[{ required: true, message: 'Please input your city!' }]}
-              initialValue={this.props.city}
+              initialValue={this.props.selecteCity ? this.props.selecteCity : undefined}
             >
               <Select
+                labelInValue={true}
                 style={{ width: '100%' }}
                 showSearch={true}
                 onSearch={this.onSearchCity}
@@ -127,10 +136,11 @@ class LocationAutoComplete extends Component<IProps, IState> {
             <Form.Item
               name="district"
               label="District"
-              initialValue={this.props.district}
+              initialValue={this.props.selectedDistrict ? this.props.selectedDistrict : undefined}
               rules={[{ required: true, message: 'Please input your district!' }]}
             >
               <Select
+                labelInValue={true}
                 style={{ width: '100%' }}
                 showSearch={true}
                 onSearch={this.onSearchCity}

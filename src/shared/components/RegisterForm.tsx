@@ -20,6 +20,7 @@ import Loader from './loader/Loader';
 import { IPlayerType } from '../../schemas/IPlayertypes.d';
 import LocationAutoComplete from './LocationAutoComplete';
 import { IContact } from '../../schemas/IContact.d';
+import { ILocation } from '../../schemas/ILocation.d';
 
 const dateFormat = 'DD-MM-YYYY';
 
@@ -28,10 +29,11 @@ interface IProps {
   contact?: IContact;
   setPassportPhoto: any;
   setBirthCertificate: any;
+  pLocation?:ILocation;
 }
 
 export default function RegisterFormItems(props: IProps) {
-  const { btnLoading, contact, setPassportPhoto, setBirthCertificate } = props;
+  const { btnLoading, contact, setPassportPhoto, setBirthCertificate , pLocation} = props;
   const [playerTypes, setPlayerTypes] = useState<IPlayerType[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -232,7 +234,7 @@ export default function RegisterFormItems(props: IProps) {
             name="date_of_birth"
             label="Date of Birth"
             rules={[{ required: true, message: 'Select DOB' }]}
-            initialValue={contact?.date_of_birth ? moment(contact.date_of_birth) : null}
+            initialValue={contact?.date_of_birth ? moment(contact.date_of_birth,'DD-MM-YYYY') : null}
           >
             <DatePicker
               style={{ width: '100%' }}
@@ -253,7 +255,11 @@ export default function RegisterFormItems(props: IProps) {
       </Row>
 
       <Row gutter={[30, 20]}>
-        <LocationAutoComplete state={contact?.state} city={contact?.city} district={contact?.district} />
+        <LocationAutoComplete 
+         selectedState={(contact?.state && pLocation?.state_name) ? {key: `${contact.state}`, value: `${contact.state}`, label: pLocation.state_name}: undefined}
+         selecteCity={(contact?.city && pLocation?.city_name) ? {key: `${contact.city}`, value: `${contact.city}`, label: pLocation.city_name}: undefined}
+         selectedDistrict={(contact?.district && pLocation?.district_name) ? {key: `${contact.district}`, value: `${contact.district}`, label: pLocation.district_name}: undefined}
+        />
         <Col span={12}>
           <Form.Item
             name="fide_id"
@@ -280,7 +286,7 @@ export default function RegisterFormItems(props: IProps) {
           </Form.Item>
         </Col>
         <Col>
-          <Form.Item name="poi" label="Are you a PIO/OCI" initialValue={contact?.poi}>
+          <Form.Item name="poi" label="Are you a PIO/OCI" initialValue={contact?.poi ? true : false}>
             <Radio.Group>
               <Radio value={true}>Yes</Radio>
               <Radio value={false}>No</Radio>

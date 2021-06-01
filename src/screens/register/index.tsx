@@ -13,19 +13,23 @@ export default function Register(props: any) {
   const [passportPhoto, setPassportPhoto] = useState(0);
   const [birthCertificate, setBirthCertificate] = useState(0);
   const [contact, setContact] = useState({} as IContact);
-  const { state }:any = useLocation();
+  const { state }: any = useLocation();
   const contact_id = state?.contact_id;
   // const query = new URLSearchParams(search);
   // const renewMemberShip = query.get('renew-membership');
 
   const [btnLoading, setbtnLoading] = useState(false);
   const onFinish = (values: any) => {
+
     const data = {
       ...values,
       date_of_birth: values?.date_of_birth?.format(dateFormat),
-      passport_photo:passportPhoto ? passportPhoto : null,
-      birth_certificate_photo:birthCertificate ? birthCertificate : null,
-      id: contact ? contact.id : null
+      passport_photo: passportPhoto ? passportPhoto : null,
+      birth_certificate_photo: birthCertificate ? birthCertificate : null,
+      id: contact ? contact.id : null,
+      state: values.state ? values.state.value : null,
+      city: values.city ? values.city.value : null,
+      district: values.district ? values.district.value : null,
     };
     handleSubmitForm(data);
   };
@@ -45,7 +49,7 @@ export default function Register(props: any) {
       setTimeout(show, 0);
       setbtnLoading(false);
       if (error?.response?.data?.errors) {
-        const { email, mobile, player_type, birth_certificate, passport_photo, birth_certificate_photo} = error?.response?.data?.errors;
+        const { email, mobile, player_type, birth_certificate, passport_photo, birth_certificate_photo } = error?.response?.data?.errors;
         if (email) message.warning(email?.[0]);
         if (mobile) message.warning(mobile?.[0]);
         if (player_type) message.warning(birth_certificate?.[0]);
@@ -57,7 +61,7 @@ export default function Register(props: any) {
 
   useEffect(() => {
     setIsloading(true);
-    if(contact_id) getData();
+    if (contact_id) getData();
     setIsloading(false);
   }, [contact_id])
 
@@ -65,7 +69,7 @@ export default function Register(props: any) {
     setIsloading(true);
     try {
       const { data } = await Axios.get(`players/${contact_id}`);
-      if(data?.player) setContact(data.player);
+      if (data?.player) setContact(data.player);
       setIsloading(true);
     } catch (error) {
       setIsloading(false);
@@ -80,7 +84,7 @@ export default function Register(props: any) {
         <Breadcrumb.Item>New Registration</Breadcrumb.Item>
       </Breadcrumb>
       <Form name="register" onFinish={onFinish} scrollToFirstError={true} layout="vertical" >
-        {isloading ?  <Loader /> :
+        {isloading ? <Loader /> :
           <RegisterForm btnLoading={btnLoading} contact={contact} setPassportPhoto={setPassportPhoto} setBirthCertificate={setBirthCertificate} />
         }</Form>
     </AppLayout>
