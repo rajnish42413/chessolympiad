@@ -54,7 +54,7 @@ class LocationAutoComplete extends Component<IProps, IState> {
   }
 
   handleSelectState = (value: any) => {
-    this.getCities(value);
+    if(value.value) this.getCities(value.value);
   };
 
   onSearchState = (keyword: string) => {
