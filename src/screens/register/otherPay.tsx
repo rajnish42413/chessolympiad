@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import AppLayout from '@layout/app';
-import { Breadcrumb, Button, Col, Form, Input, message, Row, Typography} from 'antd';
+import { Breadcrumb, Button, Col, Form, Input, message, Row, Typography, Space} from 'antd';
 import { useHistory } from 'react-router-dom';
 import Axios from 'axios';
 import Loader from '@components/loader/Loader';
+
+const { Text, Link } = Typography;
 
 export default function OtherPayment() {
     const [isloading, setIsloading] = useState(false);
@@ -49,7 +51,11 @@ export default function OtherPayment() {
             </Breadcrumb>
             {isloading ? <Loader /> :
                 <Form name="register" onFinish={onFinish} scrollToFirstError={true} layout="vertical" style={{ marginTop: '1rem' }}>
-                      <Typography.Title>Donate for Checkmate Covid Initiative</Typography.Title>
+                      <Typography.Title>Make a payment to All India Chess Federation</Typography.Title>
+                      <Space direction="vertical">
+                        <Text>This facility allows players, arbiters, trainers or anyone to make payments to AICF, if any custom amount payment is required to make. You can send the snapshot after making the payment along with your subject mail to quickly update in your account.
+                        </Text>
+                      </Space>
                     <>
                         <Row gutter={[30, 20]} >
                             <Col xs={24} sm={24} md={24} lg={24} xl={24}>
@@ -110,16 +116,15 @@ export default function OtherPayment() {
                                     rules={[
                                         { required: true, message: 'Please input your payment for!' },
                                     ]}
-                                    initialValue="Donation for Checkmate Covid"
                                 >
-                                    <Input.TextArea rows={4} />
+                                    <Input.TextArea placeholder="Please mention the purpose like Fee payment or Donation" rows={4} />
                                 </Form.Item>
                             </Col>
                         </Row>
                         <Row style={{ marginTop: '30px' }}>
                             <Col>
                                 <Button type="primary" size="large" htmlType="submit" loading={btnLoading}>
-                                    Donate Now 
+                                    Pay Now
                                 </Button>
                                 <Typography.Paragraph style={{marginTop:'1rem'}}>
                                   <small>(Credit Card, Debit, Netbanking accepted)</small>

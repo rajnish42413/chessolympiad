@@ -62,7 +62,7 @@ const menu = (theme: 'dark' | 'light', selectedKey: Array<string>, onSelect: any
         <Link to="/new-register">Register New</Link>
       </Menu.Item>
       <Menu.Item key="4" icon={<PayCircleFilled />}>
-        <Link to="/pay">Donate</Link>
+        <Link to="/pay">Other Payments</Link>
       </Menu.Item>
       <Menu.Item key="5" icon={<FileTextOutlined />}>
         <Link to="/entry">Online Entry</Link>
