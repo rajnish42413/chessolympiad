@@ -73,7 +73,7 @@ export default function NTRFormItems(props: IProps) {
   ) : (
     <>
       <Row gutter={[30, 20]}>
-        <Col span={24}>
+        <Col xs={24} sm={24} md={8} lg={8} xl={8}>
           <Form.Item
             name="event"
             label="Choose a Tournament to apply for"
@@ -87,7 +87,7 @@ export default function NTRFormItems(props: IProps) {
       </Row>
 
       <Row gutter={[30, 20]}>
-        <Col span={9}>
+        <Col xs={24} sm={24} md={8} lg={12} xl={12}>
           <Form.Item
             name="aicf_id"
             label="Enter AICF ID"
@@ -114,7 +114,7 @@ export default function NTRFormItems(props: IProps) {
 
 
       {selectedEvent && <Row gutter={[30, 20]}>
-        <Col span={24}>
+        <Col xs={24} sm={24} md={8} lg={8} xl={8}>
           <Form.Item
             name="event_fee_id"
             label="Select registration type"
