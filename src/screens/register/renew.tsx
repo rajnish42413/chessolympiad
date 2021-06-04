@@ -3,7 +3,7 @@ import AppLayout from '@layout/app';
 import { Breadcrumb, Form, message } from 'antd';
 import { useHistory, useLocation } from 'react-router-dom';
 import Axios from 'axios';
-import { IContact } from '../../schemas/IContact';
+import { IContact, IPlayerDetail } from '../../schemas/IContact';
 import Loader from '@components/loader/Loader';
 import RenewForm from '@components/RenewForm';
 
@@ -13,6 +13,7 @@ export default function Renew(props: any) {
     const [passportPhoto, setPassportPhoto] = useState(0);
     const [birthCertificate, setBirthCertificate] = useState(0);
     const [contact, setContact] = useState({} as IContact);
+    const [playerDate, setPlayerDate] = useState({} as IPlayerDetail)
     const { state }: any = useLocation();
     const contact_id = state?.contact_id;
     // const query = new URLSearchParams(search);
@@ -26,7 +27,10 @@ export default function Renew(props: any) {
             date_of_birth: values?.date_of_birth?.format(dateFormat),
             passport_photo: passportPhoto ? passportPhoto : null,
             birth_certificate_photo: birthCertificate ? birthCertificate : null,
-            id: contact ? contact.id : null
+            id: contact ? contact.id : null,
+            state: values.state ? values.state.value : null,
+            city: values.city ? values.city.value : null,
+            district: values.district ? values.district.value : null,
         };
 
         // console.log(data);
@@ -39,6 +43,7 @@ export default function Renew(props: any) {
         setbtnLoading(true);
         try {
             const { data } = await Axios.post(`contacts`, values);
+            setPlayerDate(data);
             setTimeout(show, 0);
             if (data?.contact) {
                 message.success("Data stored successfully.");
@@ -85,8 +90,8 @@ export default function Renew(props: any) {
                 <Breadcrumb.Item>AICF PRS</Breadcrumb.Item>
                 <Breadcrumb.Item>New Registration</Breadcrumb.Item>
             </Breadcrumb>
-              {isloading ? <Loader /> : <Form name="register" onFinish={onFinish} scrollToFirstError={true} layout="vertical" >
-                <RenewForm btnLoading={btnLoading} contact={contact} setPassportPhoto={setPassportPhoto} setBirthCertificate={setBirthCertificate} />
+              {isloading ? <Loader /> : <Form name="register" onFinish={onFinish} scrollToFirstError={true} layout="vertical" style={{ marginTop: '1rem' }}>
+                <RenewForm btnLoading={btnLoading} contact={contact} pLocation={playerDate.location} setPassportPhoto={setPassportPhoto} setBirthCertificate={setBirthCertificate} />
             </Form>}
         </AppLayout>
     );

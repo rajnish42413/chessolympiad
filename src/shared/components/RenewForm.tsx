@@ -17,6 +17,7 @@ import Loader from './loader/Loader';
 import { IPlayerType } from '../../schemas/IPlayertypes.d';
 import { IContact } from '../../schemas/IContact.d';
 import LocationAutoComplete from './LocationAutoComplete';
+import { ILocation } from '../../schemas/ILocation.d';
 
 
 interface IProps {
@@ -24,10 +25,11 @@ interface IProps {
   contact?: IContact;
   setPassportPhoto: any;
   setBirthCertificate: any;
+  pLocation?: ILocation;
 }
 
 export default function RenewForm(props: IProps) {
-  const { btnLoading, contact, setPassportPhoto, setBirthCertificate } = props;
+  const { btnLoading, contact, setPassportPhoto, setBirthCertificate, pLocation } = props;
   const [playerTypes, setPlayerTypes] = useState<IPlayerType[]>([]);
   const [selectedPlayerTypes, setSelectedPlayerTypes] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -96,51 +98,53 @@ export default function RenewForm(props: IProps) {
   };
 
   const getData = async () => {
+    setIsLoading(true);
     const { data } = await Axios.get(`types`);
     setPlayerTypes(data);
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 500);
   }
 
-  const getAmount = (types:Array<string>) =>{
-   let amount = 0;
-   types.map(type=>{
-     const ft = playerTypes.find(f => f.slug === type);
-     if(ft) amount+=+ft.amount;
-   });
-   return amount;
+  const getAmount = (types: Array<string>) => {
+    let amount = 0;
+    types.map(type => {
+      const ft = playerTypes.find(f => f.slug === type);
+      if (ft) amount += +ft.amount;
+    });
+    return amount;
   }
 
-  const handleChangePtype =(e:any)=>{
+  const handleChangePtype = (e: any) => {
     setSelectedPlayerTypes(e);
     console.log(getAmount(e))
   }
 
   useEffect(() => {
-    setIsLoading(true);
     getData();
-    setIsLoading(false);
   }, [])
 
   return isLoading ? <Loader /> :
     <>
       <Row gutter={[30, 20]}>
-        {contact?.first_name && <Col xs={24} sm={24} md={8} lg={8} xl={8}>
+        <Col xs={24} sm={24} md={8} lg={8} xl={8}>
           <Form.Item
             name="first_name"
             label="First Name"
-            initialValue={contact.first_name}
+            initialValue={contact?.first_name}
             rules={[{ required: true, message: 'Please input your first name!' }]}
           >
             <Input placeholder="First name" readOnly={true} disabled={true} />
           </Form.Item>
-        </Col>}
+        </Col>
 
-        {contact?.middle_name && <Col xs={24} sm={24} md={8} lg={8} xl={8}>
-          <Form.Item name="middle_name" label="Middle Name" initialValue={contact.middle_name}>
+        <Col xs={24} sm={24} md={8} lg={8} xl={8}>
+          <Form.Item name="middle_name" label="Middle Name" initialValue={contact?.middle_name}>
             <Input placeholder="Middle name" readOnly={true} disabled={true} />
           </Form.Item>
-        </Col>}
+        </Col>
 
-        {contact?.last_name && <Col xs={24} sm={24} md={8} lg={8} xl={8}>
+        <Col xs={24} sm={24} md={8} lg={8} xl={8}>
           <Form.Item
             name="last_name"
             label="Last Name"
@@ -149,30 +153,40 @@ export default function RenewForm(props: IProps) {
           >
             <Input placeholder="Last name" readOnly={true} disabled={true} />
           </Form.Item>
-        </Col>}
+        </Col>
       </Row>
 
       <Row gutter={[30, 20]}>
-        {contact?.fide_id && <Col span={12}>
+        <Col span={12}>
           <Form.Item
             initialValue={contact?.fide_id}
             name="fide_id"
             label="FIDE ID"
           >
-            <Input placeholder="FIDE ID" readOnly={true} disabled={true} />
+            <Input placeholder="FIDE ID" />
           </Form.Item>
-        </Col>}
+        </Col>
 
-        {contact?.aicf_id && <Col span={12}>
+        <Col span={12}>
           <Form.Item
             name="aicf_id"
             initialValue={contact?.aicf_id}
             label="AICF ID"
           >
-            <Input type="text" placeholder="AICF ID" readOnly={true} disabled={true} />
+            <Input type="text" placeholder="AICF ID"  readOnly={true} disabled={true}/>
           </Form.Item>
-        </Col>}
+        </Col>
       </Row>
+
+
+      <Row gutter={[30, 20]}>
+        <LocationAutoComplete
+          selectedState={(contact?.state && pLocation?.state_name) ? { key: `${contact.state}`, value: `${contact.state}`, label: pLocation.state_name } : undefined}
+          selecteCity={(contact?.city && pLocation?.city_name) ? { key: `${contact.city}`, value: `${contact.city}`, label: pLocation.city_name } : undefined}
+          selectedDistrict={(contact?.district && pLocation?.district_name) ? { key: `${contact.district}`, value: `${contact.district}`, label: pLocation.district_name } : undefined}
+        />
+      </Row>
+
 
       <Row gutter={[200, 20]} style={{ marginTop: 10, marginBottom: 20 }}>
         <Col>
@@ -188,7 +202,7 @@ export default function RenewForm(props: IProps) {
           </Form.Item>
         </Col>
         <Col>
-          <Form.Item name="poi" label="Are you a PIO/OCI" initialValue={contact?.poi}>
+          <Form.Item name="poi" label="Are you a PIO/OCI" initialValue={contact?.poi ? true : false}>
             <Radio.Group>
               <Radio value={true}>Yes</Radio>
               <Radio value={false}>No</Radio>
@@ -225,7 +239,7 @@ export default function RenewForm(props: IProps) {
           <Button type="primary" size="large" htmlType="submit" loading={btnLoading}>
             Submit Form
           </Button>
-          {selectedPlayerTypes.length > 0 && <strong style={{ margin:'0 2rem'}}>* Pay INR {getAmount(selectedPlayerTypes)}</strong>}
+          {selectedPlayerTypes.length > 0 && <strong style={{ margin: '0 2rem' }}>* Pay INR {getAmount(selectedPlayerTypes)}</strong>}
         </Col>
       </Row>
     </>
