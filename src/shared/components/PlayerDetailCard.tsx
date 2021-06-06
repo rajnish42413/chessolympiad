@@ -7,8 +7,8 @@ import { ILocation } from '../../schemas/ILocation.d';
 interface IProps{
   player:IContact;
   title:string;
-  photo?:IPhoto
-  location?:ILocation
+  photo?:IPhoto |undefined;
+  location?:ILocation;
 }
 export default function PlayerDetailCard({player, title, photo, location}:IProps) {
 

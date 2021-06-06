@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { Form, Input, Select, Row, Col, Button, Radio, Upload, message } from 'antd';
-import moment from 'moment';
+import { Form, Input, Select, Row, Col, Button, Radio, Upload, message, Checkbox } from 'antd';
 import Loader from './loader/Loader';
 import { IEvent } from '../../schemas/IEvent';
 import Axios from 'axios';
@@ -113,7 +112,7 @@ export default function NTRFormItems(props: IProps) {
       </Row>}
 
 
-      {selectedEvent && <Row gutter={[30, 20]}>
+      {selectedEvent && <Row gutter={[30, 20]} style={{marginTop:'1rem'}}>
         <Col xs={24} sm={24} md={8} lg={8} xl={8}>
           <Form.Item
             name="event_fee_id"
@@ -128,6 +127,18 @@ export default function NTRFormItems(props: IProps) {
           </Form.Item>
         </Col>
       </Row>}
+
+      <Row gutter={[30, 20]}>
+        <Col xs={24} sm={24} md={8} lg={8} xl={8}>
+          <Form.Item
+            name="is_north_eastern_state_player"
+            label=""
+            valuePropName="checked"
+          >
+            <Checkbox >I am a North Eastern State Player</Checkbox>
+          </Form.Item>
+        </Col>
+      </Row>
 
       {(player && !birth_certificate) && <Row >
         <Col xs={24}>
