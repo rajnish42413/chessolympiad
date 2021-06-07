@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Form, Input, Select, Row, Col, Button, Radio, Upload, message, Checkbox } from 'antd';
+import { Form, Input, Select, Row, Col, Button, Radio, Upload, message, Checkbox, notification } from 'antd';
 import Loader from './loader/Loader';
 import { IEvent } from '../../schemas/IEvent';
 import Axios from 'axios';
@@ -15,25 +15,40 @@ interface IProps {
   btnLoading: boolean;
   events: Array<IEvent>;
   setPlayerId: any,
-  setBirthCertificate:any;
+  setBirthCertificate: any;
 }
 
 export default function NTRFormItems(props: IProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [playerData, setPlayerData] = useState({} as IPlayerDetail);
-  const { player, photo, location , birth_certificate} = playerData;
+  const { player, photo, location, birth_certificate } = playerData;
   const [searchloading, setSearchloading] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState({} as IEvent);
 
-  const { events, setPlayerId, setBirthCertificate} = props;
+  const { events, setPlayerId, setBirthCertificate } = props;
 
   const handlePlayerAICFID = async (value: string, event: any) => {
     if (!value) return;
+    setSearchloading(true);
     const { data } = await Axios.get(`aicfid/${value}`);
-    setPlayerData(data);
-    setPlayerId(data?.player?.id);
+    if ((data?.membership_expired === false && data?.order_status === 1)) {
+      setPlayerData(data);
+      setPlayerId(data?.player?.id);
+      setSearchloading(false);
+    }else{
+      openNotificationWithIcon();
+      setSearchloading(false);
+      return;
+    }
   }
-
+  const openNotificationWithIcon = () => {
+    notification.error({
+      message: 'Not AICF Active Member!',
+      duration:10,
+      description:
+        <> <p>Your membership is expired or not activated!, Please renew your membership to proceed futher.</p></>
+    });
+  };
   const handleSelectEvent = (value: string) => {
     if (!value) return;
     const event = events.find(e => e.id === +value);
@@ -55,9 +70,9 @@ export default function NTRFormItems(props: IProps) {
         console.log(info.file, info.fileList);
       }
       if (info.file.status === 'done') {
-        const {response} =  info?.file;
+        const { response } = info?.file;
         const image = response?.image;
-        if(image && image?.entity === "contact_passport_birth_certificate"){
+        if (image && image?.entity === "contact_passport_birth_certificate") {
           setBirthCertificate(image.id);
         }
         message.success(`${info.file.name} file uploaded successfully`);
@@ -112,7 +127,7 @@ export default function NTRFormItems(props: IProps) {
       </Row>}
 
 
-      {selectedEvent && <Row gutter={[30, 20]} style={{marginTop:'1rem'}}>
+      {selectedEvent && <Row gutter={[30, 20]} style={{ marginTop: '1rem' }}>
         <Col xs={24} sm={24} md={8} lg={8} xl={8}>
           <Form.Item
             name="event_fee_id"
@@ -152,9 +167,9 @@ export default function NTRFormItems(props: IProps) {
       </Row>}
 
       {(player && !location?.state_name) &&
-       <Row gutter={[30, 20]}>
-         <LocationAutoComplete  />
-       </Row>
+        <Row gutter={[30, 20]}>
+          <LocationAutoComplete />
+        </Row>
       }
 
       <Row style={{ marginTop: '30px' }}>
