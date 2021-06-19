@@ -332,7 +332,7 @@ export default function NTRSChoolForm(props: IProps) {
       </Spin>}
 
       <Row style={{marginTop:'15px'}}>
-        {(player && !photo) &&  <Col span={12}>
+        {player &&  <Col span={12}>
           <Upload {...IPassportPhotoProps} multiple={false}>
             <Button type="default" icon={<UploadOutlined />} >
               Passport Size Photo
@@ -340,7 +340,7 @@ export default function NTRSChoolForm(props: IProps) {
           </Upload>
         </Col>}
 
-        {(player && !birth_certificate) &&  <Col span={12}>
+        {player &&  <Col span={12}>
           <Upload {...IBirtCertificateProps} multiple={false}>
             <Button type="default" icon={<UploadOutlined />}>
               Birth Certificate
