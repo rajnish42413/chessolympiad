@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Form, Input, Select, Row, Col, Button, Upload, message, notification, DatePicker, Spin } from 'antd';
+import { Form, Input, Checkbox, Select, Row, Col, Button, Upload, message, notification, DatePicker, Spin } from 'antd';
 import Loader from './loader/Loader';
 import Axios from 'axios';
 import { Link } from 'react-router-dom';
@@ -351,7 +351,19 @@ export default function NTRSChoolForm(props: IProps) {
           </Upload>
           <p style={{ marginTop: 20 }}>(PDF, JPEG, JPG, PNG documents only. Maximum size 1000 KB) (Optional)</p>
         </Col>}
-
+        <Row style={{marginTop:'15px'}}>
+          <Col span={12}>
+          <hr></hr>
+            <Form.Item
+                name="accept_terms"
+                label="Rules &amp; Regulations Accept"
+                rules={[{ required: true }]}>
+                  <Checkbox.Group >
+                        <Checkbox value={1} key={1}>I declare that I/my ward will abide by the rules &amp; regulations of the National School Online Chess Championship-2021 set by All India Chess Federation.</Checkbox>
+                    </Checkbox.Group>
+                </Form.Item>
+          </Col>
+        </Row>
         {/* <Col span={12}>
           <Upload {...IBonafideProps} multiple={false}>
             <Button type="default" icon={<UploadOutlined />}>
