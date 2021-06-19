@@ -158,7 +158,6 @@ export default function NTRSChoolForm(props: IProps) {
             <Form.Item
               name="first_name"
               label="First Name"
-              initialValue={player?.first_name}
               rules={[{ required: true, message: 'Please input your first name!' }]}
             >
               <Input placeholder="First name" />
@@ -166,7 +165,7 @@ export default function NTRSChoolForm(props: IProps) {
           </Col>
 
           <Col xs={24} sm={24} md={8} lg={8} xl={8}>
-            <Form.Item name="middle_name" label="Middle Name" initialValue={player?.middle_name}>
+            <Form.Item name="middle_name" label="Middle Name">
               <Input placeholder="Middle name" />
             </Form.Item>
           </Col>
@@ -175,7 +174,6 @@ export default function NTRSChoolForm(props: IProps) {
             <Form.Item
               name="last_name"
               label="Last Name"
-              initialValue={player?.last_name}
               rules={[{ required: true, message: 'Please input your last name!' }]}
             >
               <Input placeholder="Last name" />
@@ -186,7 +184,6 @@ export default function NTRSChoolForm(props: IProps) {
         <Row gutter={[30, 20]}>
           <Col span={12}>
             <Form.Item
-              initialValue={player?.email}
               name="email"
               label="Email"
               rules={[
@@ -194,13 +191,12 @@ export default function NTRSChoolForm(props: IProps) {
                 { type: 'email', message: 'Please enter valid email' }
               ]}
             >
-              <Input placeholder="Email" disabled={true} readOnly={true}/>
+              <Input placeholder="Email" />
             </Form.Item>
           </Col>
           <Col span={12}>
             <Form.Item
               name="mobile"
-              initialValue={player?.mobile}
               label="Mobile Number"
               rules={[
                 { required: true, message: 'Please input your phone number!' },
@@ -217,7 +213,6 @@ export default function NTRSChoolForm(props: IProps) {
             <Form.Item
               name="son_daughter_of"
               label="Son/Daugher of"
-              initialValue={player?.son_daughter_of}
               rules={[
                 {
                   required: true,
@@ -232,7 +227,6 @@ export default function NTRSChoolForm(props: IProps) {
           <Col span={12}>
             <Form.Item
               name="relationship"
-              initialValue={player?.relationship}
               label="Relationship"
               rules={[{ required: true, message: 'Select Relationship' }]}
             >
@@ -253,7 +247,6 @@ export default function NTRSChoolForm(props: IProps) {
             <Form.Item
               name="gender"
               label="Gender"
-              initialValue={player?.gender}
               rules={[{ required: true, message: 'Add Gender' }]}
             >
               <Select options={gender} placeholder="Select Gender" />
@@ -288,16 +281,11 @@ export default function NTRSChoolForm(props: IProps) {
         </Row>
 
         <Row gutter={[30, 20]}>
-          <LocationAutoComplete
-            selectedState={(player?.state && location?.state_name) ? { key: `${player.state}`, value: `${player.state}`, label: location.state_name } : undefined}
-            selecteCity={(player?.city && location?.city_name) ? { key: `${player.city}`, value: `${player.city}`, label: location.city_name } : undefined}
-            selectedDistrict={(player?.district && location?.district_name) ? { key: `${player.district}`, value: `${player.district}`, label: location.district_name } : undefined}
-          />
+          <LocationAutoComplete/>
           <Col span={12}>
             <Form.Item
               name="fide_id"
               label="FIDE ID"
-              initialValue={player?.fide_id}
             >
               <Input placeholder="FIDE ID" />
             </Form.Item>

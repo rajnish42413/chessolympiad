@@ -5,7 +5,7 @@ import { useHistory } from 'react-router-dom';
 import Axios from 'axios';
 import Loader from '@components/loader/Loader';
 
-const { Text, Link } = Typography;
+const { Text} = Typography;
 
 export default function OtherPayment() {
     const [isloading, setIsloading] = useState(false);
@@ -137,6 +137,3 @@ export default function OtherPayment() {
         </AppLayout>
     );
 }
-
-
-const dateFormat = 'DD-MM-YYYY';
