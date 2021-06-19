@@ -260,7 +260,6 @@ export default function NTRSChoolForm(props: IProps) {
               name="date_of_birth"
               label="Date of Birth"
               rules={[{ required: true, message: 'Select DOB' }]}
-              initialValue={player?.date_of_birth ? moment(player.date_of_birth, 'DD-MM-YYYY') : null}
             >
               <DatePicker
                 style={{ width: '100%' }}
@@ -273,7 +272,6 @@ export default function NTRSChoolForm(props: IProps) {
           </Col>
           <Col span={12}>
             <Form.Item
-              initialValue={player?.address}
               name="address" label="Address">
               <Input.TextArea rows={1} placeholder="Address" />
             </Form.Item>
