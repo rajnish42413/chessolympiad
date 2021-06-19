@@ -238,7 +238,7 @@ export default function NTRSChoolForm(props: IProps) {
         <Row gutter={[30, 40]}>
           <Col span={12}>
             <Form.Item
-              name="mother_tounge" label="Mother Tounge" initialValue={player?.mother_tounge}>
+              name="mother_tounge" label="Mother Tounge" >
               <Input placeholder="eg. Hindi ,English or ...." />
             </Form.Item>
           </Col>
@@ -338,6 +338,9 @@ export default function NTRSChoolForm(props: IProps) {
               Passport Size Photo
             </Button>
           </Upload>
+          <p style={{ marginTop: 20 }}>
+            (jpg, png images only. Maximum size 1000 KB)
+          </p>
         </Col>}
 
         {player &&  <Col span={12}>
@@ -349,14 +352,14 @@ export default function NTRSChoolForm(props: IProps) {
           <p style={{ marginTop: 20 }}>(PDF, JPEG, JPG, PNG documents only. Maximum size 1000 KB) (Optional)</p>
         </Col>}
 
-        <Col span={12}>
+        {/* <Col span={12}>
           <Upload {...IBonafideProps} multiple={false}>
             <Button type="default" icon={<UploadOutlined />}>
              Bonafide Certificate
             </Button>
           </Upload>
           <p style={{ marginTop: 20 }}>(PDF, JPEG, JPG, PNG documents only. Maximum size 1000 KB) </p>
-        </Col>
+        </Col> */}
       </Row>
 
       <Row style={{ marginTop: '30px' }}>
