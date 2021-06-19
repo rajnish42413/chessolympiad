@@ -1,34 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import AppLayout from '@layout/app';
 import { Breadcrumb, Form, message } from 'antd';
 import { useHistory } from 'react-router-dom';
 import Axios from 'axios';
-import NTRFormItems from '@components/NTRForm';
-import { IEvent } from '../../schemas/IEvent';
 import Loader from '@components/loader/Loader';
+import NTRSChoolForm from '@components/NTRSchool';
 
-export default function NationalTournamentRegistration() {
+export default function SchoolEntry() {
   const history = useHistory();
-  const [events, setEvents] = useState([] as Array<IEvent>);
   const [loading, setLoading] = useState(false);
   const [btnLoading, setbtnLoading] = useState(false);
   const [playerId, setPlayerId] = useState(0);
+  const [passportPhoto, setPassportPhoto] = useState(0);
   const [birthCertificate, setBirthCertificate] = useState(0);
-
-  const getData = async () => {
-    setLoading(true);
-    try {
-      const { data } = await Axios.get(`events`);
-      setEvents(data);
-      setLoading(false);
-    } catch (error) {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    getData();
-  }, []);
+  const [bonafideCertificate, setBonafideCertificate] = useState(0)
 
   const onFinish = async (values: any) => {
     if (!playerId) return message.error('Player detail required');
@@ -36,6 +21,8 @@ export default function NationalTournamentRegistration() {
       ...values,
       contact_id: playerId,
       birth_certificate_photo: birthCertificate ? birthCertificate : null,
+      passport_photo: passportPhoto ? passportPhoto : null,
+      bonafide_certificate: bonafideCertificate ? bonafideCertificate : null,
       state: values.state ? values.state.value : null,
       city: values.city ? values.city.value : null,
       district: values.district ? values.district.value : null,
@@ -43,12 +30,18 @@ export default function NationalTournamentRegistration() {
     const show = message.loading('Saving Values ...', 0);
     try {
       setbtnLoading(true);
-      const { data } = await Axios.post(`events/${params.event}/register`, params);
+      const { data } = await Axios.post(`events/school`, params);
       setTimeout(show, 0);
       history.push('checkout', { order_id: data?.order?.id });
       setbtnLoading(false);
     } catch (error) {
       setbtnLoading(false);
+      setTimeout(show, 0);
+      setbtnLoading(false);
+      if (error?.response?.data?.errors) {
+        const { bonafide_certificate } = error?.response?.data?.errors;
+        if (bonafide_certificate) message.warning(bonafide_certificate?.[0]);
+      }
     }
   };
 
@@ -56,10 +49,10 @@ export default function NationalTournamentRegistration() {
     <AppLayout>
       <Breadcrumb>
         <Breadcrumb.Item>AICF PRS</Breadcrumb.Item>
-        <Breadcrumb.Item>National Tournament Registration</Breadcrumb.Item>
+        <Breadcrumb.Item>NATIONAL SCHOOL CHESS CHAMPIONSHIP – 2021</Breadcrumb.Item>
       </Breadcrumb>
       <Form
-        name="register"
+        name="entry-school"
         onFinish={onFinish}
         scrollToFirstError={true}
         layout="vertical"
@@ -68,7 +61,13 @@ export default function NationalTournamentRegistration() {
         {loading ? (
           <Loader />
         ) : (
-          <NTRFormItems btnLoading={btnLoading} events={events} setPlayerId={setPlayerId} setBirthCertificate={setBirthCertificate} />
+          <NTRSChoolForm
+            btnLoading={btnLoading}
+            setPlayerId={setPlayerId}
+            setBirthCertificate={setBirthCertificate}
+            setPassportPhoto={setPassportPhoto}
+            setBonafideCertificate={setBonafideCertificate}
+          />
         )}
       </Form>
     </AppLayout>

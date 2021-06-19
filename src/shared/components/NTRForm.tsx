@@ -31,6 +31,8 @@ export default function NTRFormItems(props: IProps) {
     if (!value) return;
     setSearchloading(true);
     const { data } = await Axios.get(`aicfid/${value}`);
+    console.log(data?.membership_expired);
+    console.log(data?.order_status);
     if ((data?.membership_expired === false && data?.order_status === 1)) {
       setPlayerData(data);
       setPlayerId(data?.player?.id);

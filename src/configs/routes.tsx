@@ -5,6 +5,7 @@ import nprogress from 'nprogress';
 import 'nprogress/nprogress.css';
 import Renew from '../screens/register/renew';
 import OtherPayment from '../screens/register/otherPay';
+import SchoolEntry from '../screens/event/School';
 
 // const Home = React.lazy(() => import('../screens/home/Home'));
 const Register = React.lazy(() => import('../screens/register/index'));
@@ -27,7 +28,8 @@ const publicPaths = [
   { exact: true, path: '/players/:id', component: ShowPlayer },
   { exact: true, path: '/nenew-membership', component: Renew },
   { exact: true, path: '/players/:id/edit', component: EditPlayer },
-  { exact: true, path: '/entry', component: TournamentRegistration }
+  { exact: true, path: '/entry', component: TournamentRegistration },
+  { exact: true, path: '/entry-schools', component: SchoolEntry }
 ];
 
 const PublicRoute = ({ path, ...props }: any) => {
