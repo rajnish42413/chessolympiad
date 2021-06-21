@@ -20,7 +20,7 @@ interface IProps {
 export default function NTRSChoolForm(props: IProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [playerData, setPlayerData] = useState({} as IPlayerDetail);
-  const { player, photo, location, birth_certificate} = playerData;
+  const { player} = playerData;
   const [searchloading, setSearchloading] = useState(false);
   const { setPlayerId, setBirthCertificate, setPassportPhoto, setBonafideCertificate} = props;
 
@@ -28,10 +28,6 @@ export default function NTRSChoolForm(props: IProps) {
     if (!value) return;
     setSearchloading(true);
     const { data } = await Axios.get(`aicfid/${value}`);
-    setPlayerData(data);
-    setPlayerId(data?.player?.id);
-    setSearchloading(false);
-    return;
     if ((data?.membership_expired === false && data?.order_status === 1)) {
       setPlayerData(data);
       setPlayerId(data?.player?.id);
