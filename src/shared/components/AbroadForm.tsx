@@ -153,9 +153,16 @@ export default function AbroadForm(props: IProps) {
 
 
 const categories = [
-    { label: 'Under 10', value: 'Under 10' },
-    { label: 'Under 12', value: 'Under 12' },
-    { label: 'Uner 14', value: 'Under 14' },
+    { label: 'U10O', value: 'U10O' },
+    { label: 'U10G', value: 'U10G' },
+    { label: 'U12O', value: 'U12O' },
+    { label: 'U12G', value: 'U12G' },
+    { label: 'U14O', value: 'U14O' },
+    { label: 'U14G', value: 'U14G' },
+    { label: 'U16O', value: 'U16O' },
+    { label: 'U16G', value: 'U16G' },
+    { label: 'U18O', value: 'U18O' },
+    { label: 'U18G', value: 'U18G' },
 ];
 
 const positions = [
