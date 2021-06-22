@@ -39,8 +39,9 @@ export default function SchoolEntry() {
       setTimeout(show, 0);
       setbtnLoading(false);
       if (error?.response?.data?.errors) {
-        const { bonafide_certificate } = error?.response?.data?.errors;
-        if (bonafide_certificate) message.warning(bonafide_certificate?.[0]);
+        const { birth_certificate_photo, passport_photo} = error?.response?.data?.errors;
+        if (passport_photo) message.warning(passport_photo?.[0]);
+        if (birth_certificate_photo) message.warning(birth_certificate_photo?.[0]);
       }
     }
   };
