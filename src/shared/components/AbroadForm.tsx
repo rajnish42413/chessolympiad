@@ -185,6 +185,7 @@ const positions = [
     { label: '17', value: '17' },
     { label: '18', value: '18' },
     { label: '19', value: '19' },
+    { label: '20', value: '20' },
     { label: 'GM', value: 'GM' },
     { label: 'IM', value: 'IM' },
     { label: 'WGM', value: 'WGM' },
