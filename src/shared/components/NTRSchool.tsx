@@ -325,6 +325,17 @@ export default function NTRSChoolForm(props: IProps) {
             </Form.Item>
           </Col>
         </Row>
+        <Row gutter={[30, 20]}>
+        <Col xs={24} sm={24} md={8} lg={8} xl={8}>
+          <Form.Item
+            name="is_north_eastern_state_player"
+            label=""
+            valuePropName="checked"
+          >
+            <Checkbox >I am a North Eastern State Player</Checkbox>
+          </Form.Item>
+        </Col>
+      </Row>
       </Spin>}
 
       <Row style={{marginTop:'15px'}}>
