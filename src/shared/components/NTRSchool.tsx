@@ -133,7 +133,8 @@ export default function NTRSChoolForm(props: IProps) {
     <Loader />
   ) : (
     <>
-      <Row gutter={[30, 20]}>
+
+      {/* <Row gutter={[30, 20]}>
         <Col xs={24} sm={24} md={8} lg={12} xl={12}>
           <Form.Item
             name="aicf_id"
@@ -146,7 +147,7 @@ export default function NTRSChoolForm(props: IProps) {
           </Form.Item>
           <p>** (If you don't remember your AICF ID, please search <Link to="/players">here</Link>) **</p>
         </Col>
-      </Row>
+      </Row> */}
 
       {player && <Spin spinning={searchloading}>
         <Row gutter={[30, 20]} style={{ marginTop: '20px' }}>
@@ -359,7 +360,8 @@ export default function NTRSChoolForm(props: IProps) {
           <p style={{ marginTop: 20 }}>(PDF, JPEG, JPG, PNG documents only. Maximum size 1000 KB) (Optional)</p>
         </Col>}
         <Row style={{marginTop:'15px'}}>
-          <Col span={12}>
+          <p>Entries has been closed for this event on 1st July 2021.</p>
+          {/* <Col span={12}>
           <hr></hr>
             <Form.Item
                 name="accept_terms"
@@ -369,7 +371,7 @@ export default function NTRSChoolForm(props: IProps) {
                         <Checkbox value={1} key={1}>I declare that I/my ward will abide by the rules &amp; regulations of the National School Online Chess Championship-2021 set by All India Chess Federation.</Checkbox>
                     </Checkbox.Group>
                 </Form.Item>
-          </Col>
+          </Col> */}
         </Row>
         {/* <Col span={12}>
           <Upload {...IBonafideProps} multiple={false}>
@@ -381,13 +383,13 @@ export default function NTRSChoolForm(props: IProps) {
         </Col> */}
       </Row>
 
-      <Row style={{ marginTop: '30px' }}>
+      {/* <Row style={{ marginTop: '30px' }}>
         <Col>
           <Button type="primary" size="large" htmlType="submit" disabled={!player}>
             Proceed to Payment
           </Button>
         </Col>
-      </Row>
+      </Row> */}
     </>
   );
 }
