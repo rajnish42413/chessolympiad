@@ -153,16 +153,18 @@ export default function AbroadForm(props: IProps) {
 
 
 const categories = [
-    { label: 'U10O', value: 'U10O' },
-    { label: 'U10G', value: 'U10G' },
-    { label: 'U12O', value: 'U12O' },
-    { label: 'U12G', value: 'U12G' },
-    { label: 'U14O', value: 'U14O' },
-    { label: 'U14G', value: 'U14G' },
-    { label: 'U16O', value: 'U16O' },
-    { label: 'U16G', value: 'U16G' },
-    { label: 'U18O', value: 'U18O' },
-    { label: 'U18G', value: 'U18G' },
+    { label: 'U7O', value: 'U7O' },
+    { label: 'U7G', value: 'U7G' },
+    { label: 'U9O', value: 'U9O' },
+    { label: 'U9G', value: 'U9G' },
+    { label: 'U11O', value: 'U11O' },
+    { label: 'U11G', value: 'U11G' },
+    { label: 'U13O', value: 'U13O' },
+    { label: 'U13G', value: 'U13G' },
+    { label: 'U15O', value: 'U15O' },
+    { label: 'U15G', value: 'U15G' },
+    { label: 'U17O', value: 'U17O' },
+    { label: 'U17G', value: 'U17G' },
 ];
 
 const positions = [
