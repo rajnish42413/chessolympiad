@@ -77,6 +77,7 @@ export default function OfficialEvent() {
         <Breadcrumb.Item>AICF PRS</Breadcrumb.Item>
         <Breadcrumb.Item>Offical Abroad Registration</Breadcrumb.Item>
       </Breadcrumb>
+      <h1>Asian School Chess Registration</h1>
       <Form
         name="register"
         onFinish={onFinish}
