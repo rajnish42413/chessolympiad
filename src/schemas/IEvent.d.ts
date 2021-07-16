@@ -20,6 +20,8 @@
         location: string;
         resource_url: string;
         fees: IFee[];
+        allow_dob_certificate:Number
+        allow_optional_email:Number
     }
 
 

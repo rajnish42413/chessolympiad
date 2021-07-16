@@ -37,7 +37,7 @@ export default function NTRFormItems(props: IProps) {
       setPlayerData(data);
       setPlayerId(data?.player?.id);
       setSearchloading(false);
-    }else{
+    } else {
       openNotificationWithIcon();
       setSearchloading(false);
       return;
@@ -46,7 +46,7 @@ export default function NTRFormItems(props: IProps) {
   const openNotificationWithIcon = () => {
     notification.error({
       message: 'Not AICF Active Member!',
-      duration:10,
+      duration: 10,
       description:
         <> <p>Your membership is expired or not activated!, Please renew your membership to proceed futher.</p></>
     });
@@ -129,7 +129,7 @@ export default function NTRFormItems(props: IProps) {
       </Row>}
 
 
-      {selectedEvent && <Row gutter={[30, 20]} style={{ marginTop: '1rem' }}>
+    {selectedEvent && <Row gutter={[30, 20]} style={{ marginTop: '1rem' }}>
         <Col xs={24} sm={24} md={8} lg={8} xl={8}>
           <Form.Item
             name="event_fee_id"
@@ -145,20 +145,24 @@ export default function NTRFormItems(props: IProps) {
         </Col>
       </Row>}
 
-      <Row gutter={[30, 20]}>
+      {selectedEvent.allow_optional_email === 1 && <Row gutter={[30, 20]}>
         <Col xs={24} sm={24} md={8} lg={8} xl={8}>
           <Form.Item
-            name="is_north_eastern_state_player"
-            label=""
-            valuePropName="checked"
+            name="optional_email"
+            label="Optional Email"
+            rules={[
+              { required: true, message: 'Please input your optional email!' },
+              { type: 'email', message: 'Please enter valid optional email' }
+            ]}
           >
-            <Checkbox >I am a North Eastern State Player</Checkbox>
+            <Input placeholder="Email" />
           </Form.Item>
         </Col>
       </Row>
+      }
 
-      {(player && !birth_certificate) && <Row >
-        <Col xs={24}>
+      {selectedEvent.allow_dob_certificate === 1 && <Row >
+        <Col xs={24} style={{marginTop:'10px'}}>
           <Upload {...IBirtCertificateProps} multiple={false}>
             <Button type="default" icon={<UploadOutlined />}>
               Birth Certificate
@@ -173,6 +177,18 @@ export default function NTRFormItems(props: IProps) {
           <LocationAutoComplete />
         </Row>
       }
+
+      <Row gutter={[30, 20]}>
+        <Col xs={24} sm={24} md={8} lg={8} xl={8}>
+          <Form.Item
+            name="is_north_eastern_state_player"
+            label=""
+            valuePropName="checked"
+          >
+            <Checkbox >I am a North Eastern State Player</Checkbox>
+          </Form.Item>
+        </Col>
+      </Row>
 
       <Row style={{ marginTop: '30px' }}>
         <Col>
