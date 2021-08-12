@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Form, Input, Row, Col, Button, message } from 'antd';
+import { Form, Input, Row, Col, Button, message, Typography } from 'antd';
 import Axios from 'axios';
 import { Link } from 'react-router-dom';
 
@@ -72,14 +72,19 @@ export default function NTRCertificate(props: IProps) {
           </Button>
           {props.dLink && (
             <a
-              className="ant-btn ant-btn-primary ant-btn-lg"
+              className="ant-btn ant-btn-primary"
               href={props.dLink}
               target="_blank"
               rel="noopener noreferrer"
+              download
             >
               View Certificate
             </a>
           )}
+          <Typography.Paragraph>
+            ** If certificate not downloaded or failded to open ,{props.dLink} open this link in new
+            tab
+          </Typography.Paragraph>
         </>
       )}
     </>

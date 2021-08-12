@@ -19,16 +19,17 @@ export default function Certificate() {
       if (data.link) {
         console.log(data.link);
         setDLink(data.link);
+        openInNewTab(data.link);
       }
     } catch (error) {
       setbtnLoading(false);
     }
   };
 
-  // const openInNewTab = (url: any) => {
-  //   const newWindow = window.open(url, '_blank', 'noopener,noreferrer');
-  //   if (newWindow) newWindow.opener = null;
-  // };
+  const openInNewTab = (url: any) => {
+    const newWindow = window.open(url, '_blank', 'noopener,noreferrer');
+    if (newWindow) newWindow.opener = null;
+  };
 
   return (
     <AppLayout>
