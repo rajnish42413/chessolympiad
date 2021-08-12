@@ -17,6 +17,7 @@ export default function Certificate() {
       const { data } = await Axios.post(`verify-otp`, { aicf_id: aicf_id, otp: values.otp });
       setbtnLoading(false);
       if (data.link) {
+        console.log(data.link);
         setDLink(data.link);
       }
     } catch (error) {

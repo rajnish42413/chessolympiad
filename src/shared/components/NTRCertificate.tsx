@@ -67,13 +67,18 @@ export default function NTRCertificate(props: IProps) {
               </Form.Item>
             </Col>
           </Row>
-          <Button htmlType="submit" type="primary">
+          <Button htmlType="submit" type="primary" style={{ marginRight: '15px' }}>
             Verify OTP
           </Button>
           {props.dLink && (
-            <Link to={props.dLink} target="_blank" download>
-              <Button >View Certificate </Button>
-            </Link>
+            <a
+              className="ant-btn ant-btn-primary ant-btn-lg"
+              href={props.dLink}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              View Certificate
+            </a>
           )}
         </>
       )}
