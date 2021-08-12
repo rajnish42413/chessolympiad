@@ -71,14 +71,9 @@ export default function NTRCertificate(props: IProps) {
             Verify OTP
           </Button>
           {props.dLink && (
-            <a
-              className="ant-btn ant-btn-primary ant-btn-lg ant-input-search-button"
-              href={props.dLink}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              View Certificate
-            </a>
+            <Link to={props.dLink} target="_blank" download>
+              <Button >View Certificate </Button>
+            </Link>
           )}
         </>
       )}
