@@ -81,10 +81,6 @@ export default function NTRCertificate(props: IProps) {
               View Certificate
             </a>
           )}
-          {props.dLink && (<Typography.Paragraph>
-            ** If certificate not downloaded or failded to open ,{props.dLink} open this link in new
-            tab
-          </Typography.Paragraph>)}
         </>
       )}
     </>
