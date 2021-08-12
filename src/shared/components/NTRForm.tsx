@@ -178,7 +178,7 @@ export default function NTRFormItems(props: IProps) {
         </Row>
       }
 
-      <Row gutter={[30, 20]}>
+      {/* <Row gutter={[30, 20]}>
         <Col xs={24} sm={24} md={8} lg={8} xl={8}>
           <Form.Item
             name="is_north_eastern_state_player"
@@ -188,7 +188,7 @@ export default function NTRFormItems(props: IProps) {
             <Checkbox >I am a North Eastern State Player</Checkbox>
           </Form.Item>
         </Col>
-      </Row>
+      </Row> */}
 
       <Row style={{ marginTop: '30px' }}>
         <Col>
