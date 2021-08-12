@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 interface IProps {
   btnLoading: boolean;
   setAicf: any;
+  dLink: string;
 }
 
 export default function NTRCertificate(props: IProps) {
@@ -67,8 +68,18 @@ export default function NTRCertificate(props: IProps) {
             </Col>
           </Row>
           <Button htmlType="submit" type="primary">
-            Download Now{' '}
+            Verify OTP
           </Button>
+          {props.dLink && (
+            <a
+              className="ant-btn ant-btn-primary ant-btn-lg ant-input-search-button"
+              href={props.dLink}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              View Certificate
+            </a>
+          )}
         </>
       )}
     </>

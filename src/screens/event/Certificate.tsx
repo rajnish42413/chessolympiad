@@ -1,15 +1,13 @@
 import React, { useState } from 'react';
 import AppLayout from '@layout/app';
-import { Breadcrumb, Form, message } from 'antd';
-import { useHistory } from 'react-router-dom';
+import { Breadcrumb, Form } from 'antd';
 import Axios from 'axios';
-import Loader from '@components/loader/Loader';
 import NTRCertificate from '@components/NTRCertificate';
 
 export default function Certificate() {
-  const history = useHistory();
   const [btnLoading, setbtnLoading] = useState(false);
   const [aicf, setAicf] = useState('');
+  const [dLink, setDLink] = useState('');
 
   const onFinish = async (values: any) => {
     const aicf_id = aicf;
@@ -19,6 +17,7 @@ export default function Certificate() {
       const { data } = await Axios.post(`verify-otp`, { aicf_id: aicf_id, otp: values.otp });
       setbtnLoading(false);
       if (data.link) {
+        setDLink(data.link);
         openInNewTab(data.link);
       }
     } catch (error) {
@@ -44,7 +43,7 @@ export default function Certificate() {
         layout="vertical"
         style={{ marginTop: '10px' }}
       >
-        <NTRCertificate btnLoading={btnLoading} setAicf={setAicf} />
+        <NTRCertificate btnLoading={btnLoading} setAicf={setAicf} dLink={dLink} />
       </Form>
     </AppLayout>
   );
