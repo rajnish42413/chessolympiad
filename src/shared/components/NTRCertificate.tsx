@@ -76,7 +76,7 @@ export default function NTRCertificate(props: IProps) {
           <Row gutter={[30, 20]}>
             <Col xs={24} sm={24} md={8} lg={12} xl={12}>
               <Form.Item
-                name=""
+                name="otp"
                 label="Enter OTP"
                 rules={[
                   { required: true, message: 'Please input your otp!' },
