@@ -14,10 +14,13 @@ export default function Certificate() {
     if (!aicf_id) return;
     try {
       setbtnLoading(true);
-      const { data } = await Axios.post(`verify-otp`, { aicf_id: aicf_id, otp: values.otp });
+      const { data } = await Axios.post(`verify-otp`, {
+        aicf_id: aicf_id,
+        otp: values.otp,
+        event: values.event
+      });
       setbtnLoading(false);
       if (data.link) {
-        console.log(data.link);
         setDLink(data.link);
         openInNewTab(data.link);
       }
