@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Form, Input, Row, Col, Button, message, Typography, Select } from 'antd';
+import { Form, Input, Row, Col, Button, message, Select } from 'antd';
 import Axios from 'axios';
 import { Link } from 'react-router-dom';
 
@@ -42,7 +42,7 @@ export default function NTRCertificate(props: IProps) {
         <Col xs={24} sm={24} md={8} lg={12} xl={12}>
           <Form.Item
             name="event"
-            label="Choose a Tournament to apply for"
+            label="Choose a Event"
             rules={[{ required: true, message: 'Click here to select' }]}
           >
             <Select placeholder="select event" onChange={handleSelectEvent}>
