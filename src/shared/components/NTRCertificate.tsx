@@ -165,23 +165,23 @@ const events = [
       "event_name": "Online National School Under 11 Girls Chess Championship 2021"
     },
     {
-      "event_code": "Sch U13G",
+      "event_code": "U13G",
       "event_name": "Online National School Under 13 Girls Chess Championship 2021"
     },
     {
-      "event_code": "Sch U15G",
+      "event_code": "U15G",
       "event_name": "Online National School Under 15 Girls Chess Championship 2021"
     },
     {
-      "event_code": "Sch U17G",
+      "event_code": "U17G",
       "event_name": "Online National School Under 17 Girls Chess Championship 2021"
     },
     {
-      "event_code": "Senior W",
+      "event_code": "SeniorWomen",
       "event_name": "Online National Senior Women Girls Chess Championship 2021"
     },
     {
-      "event_code": "Junior G",
+      "event_code": "JuniorGirls",
       "event_name": "Online National Junior Girls Chess Championship 2021"
     },
     {
