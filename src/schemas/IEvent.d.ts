@@ -22,6 +22,7 @@
         fees: IFee[];
         allow_dob_certificate:Number
         allow_optional_email:Number
+        allow_north_eastern_state_player:Number
     }
 
 
