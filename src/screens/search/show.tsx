@@ -68,9 +68,9 @@ export default function ShowPlayer() {
                 <Typography>
                   <Typography.Title level={5} style={{ color: '#3F51B5' }}>ALL INDIA CHESS FEDERATION </Typography.Title>
                   <p>Affilate of FIDE & Recognized by the Government of India</p>
-                  <p>Room No. 70, Jawaharlal Nehru Stadium,<br />
-                    Chennai - 600 003,INDIA.<br />
-                    Phone: 044 - 65144966 Fax: 044 - 25382121</p>
+                  <p>101-102, A-Block, Naurang House<br />
+                  21 KG Marg, New Delhi-110001 (INDIA)<br />
+                    Phone: +91-11-23352983</p>
                 </Typography>
               </Col>
             </Row>
