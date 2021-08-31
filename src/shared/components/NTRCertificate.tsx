@@ -200,8 +200,8 @@ const events = [
       "event_code": "U11O",
       "event_name": "Online National School Under 11 Open Chess Championship 2021"
     },
-    {
-      "event_code": "U09G",
-      "event_name": "Online National School Under 9 Girls Chess Championship 2021"
-    }
+    // {
+    //   "event_code": "U09G",
+    //   "event_name": "Online National School Under 9 Girls Chess Championship 2021"
+    // }
 ];
