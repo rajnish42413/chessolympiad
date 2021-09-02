@@ -178,7 +178,7 @@ const events = [
     },
     {
       "event_code": "SeniorWomen",
-      "event_name": "Online National Senior Women Girls Chess Championship 2021"
+      "event_name": "Online National Senior Women Chess Championship 2021"
     },
     {
       "event_code": "JuniorGirls",
