@@ -16,10 +16,10 @@ export default function NTRCertificate(props: IProps) {
 
   const handlePlayerAICFID = async (value: string) => {
     if (!value) return;
-    if(!event) message.error("Please select event");
+    if (!event) message.error("Please select event");
     try {
       setSearchloading(true);
-      const { data } = await Axios.post(`send-otp`, {aicf_id: value, event:event});
+      const { data } = await Axios.post(`send-otp`, { aicf_id: value, event: event });
       if (data) {
         setAicf(data.aicf_id);
         props.setAicf(data.aicf_id);
@@ -108,100 +108,112 @@ export default function NTRCertificate(props: IProps) {
 }
 
 const events = [
-    {
-      "event_code": "U18O",
-      "event_name": "Online National Under 18 Open Chess Championship 2021"
-    },
-    {
-      "event_code": "U18G",
-      "event_name": "Online National Under 18 Girls Chess Championship 2021"
-    },
-    {
-      "event_code": "U16O",
-      "event_name": "Online National Under 16 Open Chess Championship 2021"
-    },
-    {
-      "event_code": "U16G",
-      "event_name": "Online National Under 16 Girls Chess Championship 2021"
-    },
-    {
-      "event_code": "U14O",
-      "event_name": "Online National Under 14 Open Chess Championship 2021"
-    },
-    {
-      "event_code": "U14G",
-      "event_name": "Online National Under 14 Girls Chess Championship 2021"
-    },
-    {
-      "event_code": "U12O",
-      "event_name": "Online National Under 12 Open Chess Championship 2021"
-    },
-    {
-      "event_code": "U12G",
-      "event_name": "Online National Under 12 Girls Chess Championship 2021"
-    },
-    {
-      "event_code": "U10O",
-      "event_name": "Online National Under 10 Open Chess Championship 2021"
-    },
-    {
-      "event_code": "U10G",
-      "event_name": "Online National Under 10 Girls Chess Championship 2021"
-    },
-    {
-      "event_code": "U07O",
-      "event_name": "Online National School Under 7 Open Chess Championship 2021"
-    },
-    {
-      "event_code": "U07G",
-      "event_name": "Online National School Under 7 Girls Chess Championship 2021"
-    },
-    {
-      "event_code": "U09O",
-      "event_name": "Online National School Under 9 Open Chess Championship 2021"
-    },
-    {
-      "event_code": "U11G",
-      "event_name": "Online National School Under 11 Girls Chess Championship 2021"
-    },
-    {
-      "event_code": "U13G",
-      "event_name": "Online National School Under 13 Girls Chess Championship 2021"
-    },
-    {
-      "event_code": "U15G",
-      "event_name": "Online National School Under 15 Girls Chess Championship 2021"
-    },
-    {
-      "event_code": "U17G",
-      "event_name": "Online National School Under 17 Girls Chess Championship 2021"
-    },
-    {
-      "event_code": "SeniorWomen",
-      "event_name": "Online National Senior Women Chess Championship 2021"
-    },
-    {
-      "event_code": "JuniorGirls",
-      "event_name": "Online National Junior Girls Chess Championship 2021"
-    },
-    {
-      "event_code": "U17O",
-      "event_name": "Online National School Under 17 Open Chess Championship 2021"
-    },
-    {
-      "event_code": "U15O",
-      "event_name": "Online National School Under 15 Open Chess Championship 2021"
-    },
-    {
-      "event_code": "U13O",
-      "event_name": "Online National School Under 13 Open Chess Championship 2021"
-    },
-    {
-      "event_code": "U11O",
-      "event_name": "Online National School Under 11 Open Chess Championship 2021"
-    },
-    {
-      "event_code": "U09G",
-      "event_name": "Online National School Under 9 Girls Chess Championship 2021"
-    }
+  {
+    "event_code": "U18O",
+    "event_name": "Online National Under 18 Open Chess Championship 2021"
+  },
+  {
+    "event_code": "U18G",
+    "event_name": "Online National Under 18 Girls Chess Championship 2021"
+  },
+  {
+    "event_code": "U16O",
+    "event_name": "Online National Under 16 Open Chess Championship 2021"
+  },
+  {
+    "event_code": "U16G",
+    "event_name": "Online National Under 16 Girls Chess Championship 2021"
+  },
+  {
+    "event_code": "U14O",
+    "event_name": "Online National Under 14 Open Chess Championship 2021"
+  },
+  {
+    "event_code": "U14G",
+    "event_name": "Online National Under 14 Girls Chess Championship 2021"
+  },
+  {
+    "event_code": "U12O",
+    "event_name": "Online National Under 12 Open Chess Championship 2021"
+  },
+  {
+    "event_code": "U12G",
+    "event_name": "Online National Under 12 Girls Chess Championship 2021"
+  },
+  {
+    "event_code": "U10O",
+    "event_name": "Online National Under 10 Open Chess Championship 2021"
+  },
+  {
+    "event_code": "U10G",
+    "event_name": "Online National Under 10 Girls Chess Championship 2021"
+  },
+  {
+    "event_code": "U07O",
+    "event_name": "Online National School Under 7 Open Chess Championship 2021"
+  },
+  {
+    "event_code": "U07G",
+    "event_name": "Online National School Under 7 Girls Chess Championship 2021"
+  },
+  {
+    "event_code": "U09O",
+    "event_name": "Online National School Under 9 Open Chess Championship 2021"
+  },
+  {
+    "event_code": "U11G",
+    "event_name": "Online National School Under 11 Girls Chess Championship 2021"
+  },
+  {
+    "event_code": "U13G",
+    "event_name": "Online National School Under 13 Girls Chess Championship 2021"
+  },
+  {
+    "event_code": "U15G",
+    "event_name": "Online National School Under 15 Girls Chess Championship 2021"
+  },
+  {
+    "event_code": "U17G",
+    "event_name": "Online National School Under 17 Girls Chess Championship 2021"
+  },
+  {
+    "event_code": "SeniorWomen",
+    "event_name": "Online National Senior Women Chess Championship 2021"
+  },
+  {
+    "event_code": "JuniorGirls",
+    "event_name": "Online National Junior Girls Chess Championship 2021"
+  },
+  {
+    "event_code": "U17O",
+    "event_name": "Online National School Under 17 Open Chess Championship 2021"
+  },
+  {
+    "event_code": "U15O",
+    "event_name": "Online National School Under 15 Open Chess Championship 2021"
+  },
+  {
+    "event_code": "U13O",
+    "event_name": "Online National School Under 13 Open Chess Championship 2021"
+  },
+  {
+    "event_code": "U11O",
+    "event_name": "Online National School Under 11 Open Chess Championship 2021"
+  },
+  {
+    "event_code": "U09G",
+    "event_name": "Online National School Under 9 Girls Chess Championship 2021"
+  },
+  {
+    "event_code": "SeniorOpen",
+    "event_name": "Online National Senior Open Chess Championship 2021",
+  },
+  {
+    "event_code": "JuniorOpen",
+    "event_name": "Online National Junior Open Chess Championship 2021",
+  },
+  {
+    "event_code": "NationalAmateur",
+    "event_name": "Online National Amateur Chess Championship 2021",
+  }
 ];
