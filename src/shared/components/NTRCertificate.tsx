@@ -215,5 +215,17 @@ const events = [
   {
     "event_code": "NationalAmateur",
     "event_name": "Online National Amateur Chess Championship 2021",
+  },
+  {
+    "event_code": "Northeast",
+    "event_name": "Northeast chess championship registration 2021",
+  },
+  {
+    "event_code": "U8O",
+    "event_name": "Online National School Under 8 Open Chess Championship 2021",
+  },
+  {
+    "event_code": "UO8G",
+    "event_name": "Online National School Under 8 Girls Chess Championship 2022",
   }
 ];
