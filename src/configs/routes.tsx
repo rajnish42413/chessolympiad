@@ -3,37 +3,18 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Ploader from '@components/loader/PLoader';
 import nprogress from 'nprogress';
 import 'nprogress/nprogress.css';
-import Renew from '../screens/register/renew';
-import OtherPayment from '../screens/register/otherPay';
-import SchoolEntry from '../screens/event/School';
-import OfficialEvent from '../screens/event/official';
-import Certificate from '../screens/event/Certificate';
 
 // const Home = React.lazy(() => import('../screens/home/Home'));
 const Register = React.lazy(() => import('../screens/register/index'));
-const Checkout = React.lazy(() => import('../screens/order/checkout'));
-const PaymentStatus = React.lazy(() => import('../screens/order/status'));
-const Confirm = React.lazy(() => import('../screens/register/confirm'));
-const SearchPlayers = React.lazy(() => import('../screens/search/index'));
-const ShowPlayer = React.lazy(() => import('../screens/search/show'));
-const TournamentRegistration = React.lazy(() => import('../screens/event/NTR'));
-const EditPlayer = React.lazy(() => import('../screens/register/edit'));
+const Document = React.lazy(() => import('../screens/register/document'));
+const Payment = React.lazy(() => import('../screens/register/payment'));
+const PaymentStatus = React.lazy(() => import('../screens/register/status'));
 
 const publicPaths = [
-  { exact: true, path: '/', component: SearchPlayers },
-  { exact: true, path: '/pay', component: OtherPayment },
-  { exact: true, path: '/new-register', component: Register },
-  { exact: true, path: '/confirm', component: Confirm },
-  { exact: true, path: '/checkout', component: Checkout },
-  { exact: true, path: '/payment/status', component: PaymentStatus },
-  { exact: true, path: '/players', component: SearchPlayers },
-  { exact: true, path: '/players/:id', component: ShowPlayer },
-  { exact: true, path: '/nenew-membership', component: Renew },
-  { exact: true, path: '/players/:id/edit', component: EditPlayer },
-  { exact: true, path: '/entry', component: TournamentRegistration },
-  { exact: true, path: '/entry-schools', component: SchoolEntry },
-  { exact: true, path: '/entry-official', component: OfficialEvent },
-  { exact: true, path: '/certificates/download', component: Certificate }
+  { exact: true, path: '/', component: Register },
+  { exact: true, path: '/upload-documents', component: Document },
+  { exact: true, path: '/payment-deatil', component: Payment },
+  { exact: true, path: '/payment-status', component: PaymentStatus }
 ];
 
 const PublicRoute = ({ path, ...props }: any) => {

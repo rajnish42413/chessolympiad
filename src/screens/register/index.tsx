@@ -1,95 +1,58 @@
 import React, { useEffect, useState } from 'react';
 import AppLayout from '@layout/app';
 import RegisterForm from '@components/RegisterForm';
-import { Breadcrumb, Form, message } from 'antd';
-import { useHistory, useLocation } from 'react-router-dom';
-import Axios from 'axios';
-import { IContact } from '../../schemas/IContact';
+import { Breadcrumb, Divider, Typography } from 'antd';
+import axios from 'axios';
+import { IFederation } from '../../schemas/IFederation';
 import Loader from '@components/loader/Loader';
 
 export default function Register(props: any) {
-  const [isloading, setIsloading] = useState(true);
-  const history = useHistory();
-  const [passportPhoto, setPassportPhoto] = useState(0);
-  const [birthCertificate, setBirthCertificate] = useState(0);
-  const [contact, setContact] = useState({} as IContact);
-  const { state }: any = useLocation();
-  const contact_id = state?.contact_id;
-  // const query = new URLSearchParams(search);
-  // const renewMemberShip = query.get('renew-membership');
+  const [federations, setFederations] = useState([] as Array<IFederation>);
 
-  const [btnLoading, setbtnLoading] = useState(false);
-  const onFinish = (values: any) => {
-
-    const data = {
-      ...values,
-      date_of_birth: values?.date_of_birth?.format(dateFormat),
-      passport_photo: passportPhoto ? passportPhoto : null,
-      birth_certificate_photo: birthCertificate ? birthCertificate : null,
-      id: contact ? contact.id : null,
-      state: values.state ? values.state.value : null,
-      city: values.city ? values.city.value : null,
-      district: values.district ? values.district.value : null,
-    };
-    handleSubmitForm(data);
+  const getFedrations = async () => {
+    const { data } = await axios.get(`federations`);
+    setFederations(data);
   };
-
-  const handleSubmitForm = async (values: JSON) => {
-    const show = message.loading('Saving Values ...', 0);
-    setbtnLoading(true);
-    try {
-      const { data } = await Axios.post(`contacts`, values);
-      setTimeout(show, 0);
-      if (data?.contact) {
-        message.success("Data stored successfully.");
-        setbtnLoading(false);
-        history.push('/confirm', data);
-      }
-    } catch (error) {
-      setTimeout(show, 0);
-      setbtnLoading(false);
-      if (error?.response?.data?.errors) {
-        const { email, mobile, player_type, birth_certificate, passport_photo, birth_certificate_photo } = error?.response?.data?.errors;
-        if (email) message.warning(email?.[0]);
-        if (mobile) message.warning(mobile?.[0]);
-        if (player_type) message.warning(birth_certificate?.[0]);
-        if (passport_photo) message.warning(passport_photo?.[0]);
-        if (birth_certificate_photo) message.warning(birth_certificate_photo?.[0]);
-      }
-    }
-  }
 
   useEffect(() => {
-    setIsloading(true);
-    if (contact_id) getData();
-    setIsloading(false);
-  }, [contact_id])
-
-  const getData = async () => {
-    setIsloading(true);
-    try {
-      const { data } = await Axios.get(`players/${contact_id}`);
-      if (data?.player) setContact(data.player);
-      setIsloading(true);
-    } catch (error) {
-      setIsloading(false);
-    }
-  };
-
+    getFedrations();
+  }, []);
 
   return (
     <AppLayout>
       <Breadcrumb>
-        <Breadcrumb.Item>AICF PRS</Breadcrumb.Item>
-        <Breadcrumb.Item>New Registration</Breadcrumb.Item>
+        <Breadcrumb.Item>Chess Olympiad 2022</Breadcrumb.Item>
+        <Breadcrumb.Item>Team Registration</Breadcrumb.Item>
       </Breadcrumb>
-      <Form name="register" onFinish={onFinish} scrollToFirstError={true} layout="vertical" >
-        {isloading ? <Loader /> :
-          <RegisterForm btnLoading={btnLoading} contact={contact} setPassportPhoto={setPassportPhoto} setBirthCertificate={setBirthCertificate} />
-        }</Form>
+      {federations ? <RegisterForm federations={federations} /> : <Loader />}
+      <Divider />
+      <Typography>
+        <Typography.Title level={4}>
+          Fee to be Paid: <span>7 * 100 euro = 700 euro</span>
+        </Typography.Title>
+        <Typography.Paragraph>
+          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has
+          been the industry's standard dummy text ever since the 1500s, when an unknown printer took
+          a galley of type and scrambled it to make a type specimen book. It has survived not only
+          five centuries, but also the leap into electronic typesetting, remaining essentially
+          unchanged. It was popularised in the 1960s with the release of Letraset sheets containing
+          Lorem Ipsum passages, and more recently with desktop publishing software like Aldus
+          PageMaker including versions of Lorem Ipsum. Why do we use it? It is a long established
+          fact that a reader will be distracted by the readable content of a page when looking at
+          its layout. The point of using Lorem Ipsum is that it has a more-or-less normal
+          distribution of letters, as opposed to using 'Content here, content here', making it look
+          like readable English. Many desktop publishing packages and web page editors now use Lorem
+          Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web
+          sites still in their infancy. Various versions have evolved over the years, sometimes by
+          accident, sometimes on purpose (injected humour and the like). Contrary to popular belief,
+          Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin
+          literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin
+          professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin
+          words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in
+          cl
+        </Typography.Paragraph>
+        <Divider />
+      </Typography>
     </AppLayout>
   );
 }
-
-
-const dateFormat = 'DD-MM-YYYY';
