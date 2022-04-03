@@ -35,8 +35,8 @@ export default function TeamPreview({ team, removePlayer }: IProps) {
     },
     {
       title: 'Player Type',
-      dataIndex: 'player_type',
-      key: 'player_type'
+      dataIndex: 'type_id',
+      key: 'type_id'
     },
     {
       title: 'Gender',

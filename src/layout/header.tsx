@@ -1,6 +1,6 @@
 import React from 'react';
 import { Layout } from 'antd';
-import Headerbanner from '../assets/img/banner-aicf.png';
+import Headerbanner from '../assets/img/top-banner-chess-olympiad.svg';
 
 export default function AppHeader() {
   const style = {

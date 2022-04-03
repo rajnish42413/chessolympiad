@@ -1,7 +1,6 @@
 import React from 'react';
 import {Badge, Descriptions } from 'antd';
 import { IContact, IPhoto } from '../../schemas/IContact';
-import moment from 'moment';
 import { ILocation } from '../../schemas/ILocation.d';
 
 interface IProps{

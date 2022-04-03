@@ -41,10 +41,14 @@ export default function AddPlayerInTeam(props: IProps) {
           </Form.Item>
         </Col>
         <Col xs={24} sm={24} md={24} lg={3} xl={4}>
-          <Form.Item label="Player Type" name="type_id" initialValue={1}>
+          <Form.Item label="Role" name="type_id" initialValue={'Player'}>
             <Select>
-              <Select.Option value={1}>Player</Select.Option>
-              <Select.Option value={2}>Ar</Select.Option>
+              <Select.Option value={'Player'}>Player</Select.Option>
+              <Select.Option value={'Accompanying Person'}>Accompanying Person</Select.Option>
+              <Select.Option value={'Captain'}>Captain</Select.Option>
+              <Select.Option value={'Coach'}>Coach</Select.Option>
+              <Select.Option value={'Doctor'}>Doctor</Select.Option>
+              <Select.Option value={'Head of Delegation'}>Head of Delegation</Select.Option>
             </Select>
           </Form.Item>
         </Col>
@@ -72,7 +76,7 @@ export default function AddPlayerInTeam(props: IProps) {
         <Col xs={24} sm={24} md={24} lg={3} xl={3}>
           <Form.Item style={{ marginLeft: 20 }}>
             <Button type="primary" htmlType="submit">
-              Save
+              Add
             </Button>
           </Form.Item>
         </Col>

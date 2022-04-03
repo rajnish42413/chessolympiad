@@ -1,13 +1,5 @@
 import React, { useState } from 'react';
-import {
-  Form,
-  Select,
-  Row,
-  Col,
-  Button,
-  Space,
-  Table, message, Input, Divider, Typography
-} from 'antd';
+import { Button, message, Divider, Typography } from 'antd';
 import Loader from './loader/Loader';
 import { IFederation } from '../../schemas/IFederation.d';
 import TeamPreview from './TeamPreview';
@@ -32,46 +24,55 @@ interface IPlayer {
 }
 
 export default function RegisterFormItems(props: IProps) {
-  const { federations } = props;
   const [isLoading, setIsLoading] = useState(false);
   const [selectedFedration, setSelectedFedration] = useState(0);
   const [teamPlayers, setTeamPlayers] = useState([] as Array<IPlayer>);
   const history = useHistory();
 
-  const handleSelectEvent = (value: string) => {
-    if (!value) return;
-    setSelectedFedration(+value);
-  }
+  // const handleSelectEvent = (value: string) => {
+  //   if (!value) return;
+  //   setSelectedFedration(+value);
+  // };
 
   const onFinish = () => {
-    if(teamPlayers.length < 2){
-      message.error("Please add players on you team");
+    if (teamPlayers.length < 2) {
+      message.error('Please add players on you team');
       return;
     }
+    let newTeamPlayers: any = [];
+    teamPlayers.map((tp: any) => {
+      let i = tp;
+      i.type_id = 1;
+      newTeamPlayers.push(i);
+    });
     const data = {
-      federation_id : selectedFedration,
-      players: teamPlayers
+      federation_id: 1,
+      players: newTeamPlayers
     };
     handleSubmitForm(data);
   };
 
   const handleSubmitForm = async (values: any) => {
-    const {data} = await axios.post(`teams`, values);
-    if(data){
-      history.push('/upload-documents', data);
+    const { data } = await axios.post(`teams`, values);
+    if (data) {
+      history.push(`/teams/${data.team.id}/upload-documents`, data);
     }
     return;
   };
 
   const addPlayer = (player: IPlayer) => {
-    if(teamPlayers.length >= MAX_PLAYER_ALLOW){
-      message.error("Maximum Player in Team not exceeded than"+MAX_PLAYER_ALLOW);
+    if (teamPlayers.length >= MAX_PLAYER_ALLOW) {
+      message.error('Maximum Player in Team not exceeded than' + MAX_PLAYER_ALLOW);
       return;
     }
     const data = {
       ...player,
-      id: "id" + Math.random().toString(16).slice(2)
-    }
+      id:
+        'id' +
+        Math.random()
+          .toString(16)
+          .slice(2)
+    };
     setTeamPlayers([...teamPlayers, ...[data]]);
   };
 
@@ -85,27 +86,15 @@ export default function RegisterFormItems(props: IProps) {
     <Loader />
   ) : (
     <div>
-      <Row style={{ marginTop: 20 }}>
-        <Col xs={24} sm={24} md={8} lg={8} xl={8} key={1}>
-          <Select placeholder="select federation" onChange={handleSelectEvent} style={{width:'100%'}}>
-            {federations?.map(e => <Select.Option value={e.id} key={e.id}>{e.name}</Select.Option>)}
-          </Select>
-        </Col>
-      </Row>
-
-      {selectedFedration ? 
       <div>
-          <Divider />
-          <Typography.Title level={4}>Team Players</Typography.Title>
-          <TeamPreview
-            team={teamPlayers}
-            removePlayer={removePlayer}
-          />
-          {teamPlayers.length <= MAX_PLAYER_ALLOW && <AddPlayerInTeam addPlayer={addPlayer} />}
-      </div> : <div />}
-
-      <Button type="primary" size="large" onClick={onFinish} style={{margin:"20px 0"}}>
-        Save Team
+        <Divider />
+        <Typography.Title level={4}>Team Players</Typography.Title>
+        <TeamPreview team={teamPlayers} removePlayer={removePlayer} />
+        {teamPlayers.length <= MAX_PLAYER_ALLOW && <AddPlayerInTeam addPlayer={addPlayer} />}
+      </div>{' '}
+      : <div />
+      <Button type="primary" size="large" onClick={onFinish} style={{ margin: '20px 0' }}>
+        Proceed
       </Button>
     </div>
   );

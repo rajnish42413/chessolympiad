@@ -1,5 +1,17 @@
-import React, { useState } from 'react';
-import { Form, Row, Col, Button, message, Input, Breadcrumb, Upload, DatePicker } from 'antd';
+import React from 'react';
+import {
+  Form,
+  Row,
+  Col,
+  Button,
+  message,
+  Input,
+  Upload,
+  DatePicker,
+  PageHeader,
+  Descriptions,
+  Divider
+} from 'antd';
 import AppLayout from '@layout/app';
 import { UploadOutlined } from '@ant-design/icons';
 import { useHistory } from 'react-router-dom';
@@ -36,12 +48,7 @@ export default function PaymentDetail() {
 
   return (
     <AppLayout>
-      <Breadcrumb>
-        <Breadcrumb.Item>Chess Olympiad 2022</Breadcrumb.Item>
-        <Breadcrumb.Item>Team Registration</Breadcrumb.Item>
-        <Breadcrumb.Item>Upload Documents</Breadcrumb.Item>
-        <Breadcrumb.Item>Payment Detail</Breadcrumb.Item>
-      </Breadcrumb>
+      <Divider />
       <div style={{ marginTop: 20 }}>
         <Form
           name="basic"
