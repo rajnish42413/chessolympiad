@@ -3,31 +3,24 @@
 @import 'styles/generic';
 @import 'styles/base';
 @import 'styles/trumps';
-
 body,
 html {
   overflow-x: hidden !important;
 }
-
 @progress-color: #3f51b5;
-
 #nprogress .bar {
   background: @progress-color;
 }
-
 #nprogress .peg {
   box-shadow: 0 0 10px @progress-color, 0 0 5px @progress-color;
 }
-
 #nprogress .spinner-icon {
   border-left-color: @progress-color;
   border-top-color: @progress-color;
 }
-
 .app-main_container {
   min-height: 100vh;
 }
-
 .ant-layout-header {
   background-color: #fff !important;
   height: 180px;
@@ -35,10 +28,9 @@ html {
   margin-bottom: 1rem;
   padding: 0 !important;
   width: 100%;
-  width: 100%;
 }
 .ant-layout .ant-layout-header {
-  background-position: center center;
+  //background-position: ;
 }
 .mobile-navabar-btn {
   display: none;
@@ -46,22 +38,22 @@ html {
   right: 20px;
   top: 34px;
 }
-
 .prs-sidebar {
   .ant-layout-sider {
     height: 100%;
   }
 }
-
 @media (max-width: 992px) {
   .prs-sidebar {
     border: 1px solid saddlebrown;
     display: none;
   }
-  .ant-layout .ant-layout-header {
-    background-position: left;
-  }
   .mobile-navabar-btn {
     display: block;
+  }
+}
+@media (max-width: 1200px) {
+  .ant-layout .ant-layout-header {
+    height: 120px;
   }
 }

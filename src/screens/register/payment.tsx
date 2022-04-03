@@ -48,6 +48,19 @@ export default function PaymentDetail() {
 
   return (
     <AppLayout>
+      <PageHeader
+        style={{ padding: 0 }}
+        ghost={false}
+        onBack={() => window.history.back()}
+        title="Open Section"
+        subTitle="Team Registration"
+        extra={[]}
+      >
+        <Descriptions size="small" column={3}>
+          <Descriptions.Item label="App ID">#OLY2022-0231</Descriptions.Item>
+          <Descriptions.Item label="Creation Time">2022-04-03</Descriptions.Item>
+        </Descriptions>
+      </PageHeader>
       <Divider />
       <div style={{ marginTop: 20 }}>
         <Form
@@ -78,7 +91,7 @@ export default function PaymentDetail() {
 
           <Form.Item>
             <Button type="primary" htmlType="submit">
-              Submit Now
+              Submit Entry
             </Button>
           </Form.Item>
         </Form>

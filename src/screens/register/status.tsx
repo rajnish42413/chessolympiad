@@ -36,15 +36,13 @@ export default function PaymentStatus() {
       <AppHeader />
       <Result
         status={'success'}
-        title={
-          'We saved your team!, we will confirm your payment within 24hr by emil and phone number,'
-        }
+        title={'Awesome, your entry has been submitted to organising committee.'}
         subTitle={
           <p>
             <b>PaymentID:</b> OLYMPD39883737 <br />
-            <b>Federation Name:</b> Indian Chess Federation <br />
-            <b>Amount:</b> Euro 700/- <br />
-            <b>Status:</b> Pending <br />
+            <b>Federation Name:</b> All India Chess Federation <br />
+            <b>Amount:</b> Euro 100/- <br />
+            <b>Status:</b> Submitted for approval <br />
           </p>
         }
         extra={[
