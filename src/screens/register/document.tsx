@@ -147,8 +147,8 @@ export default function UploadDocument() {
         style={{ padding: 0 }}
         ghost={false}
         onBack={() => window.history.back()}
-        title="United States"
-        subTitle="Chess Olympiad Registration"
+        title="India"
+        subTitle="All India Chess Federation"
         extra={[
           <>
             <Button key="1">View entries</Button>

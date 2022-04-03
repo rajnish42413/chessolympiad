@@ -19,8 +19,8 @@ export default function Register(props: any) {
         style={{ padding: 0 }}
         ghost={false}
         onBack={() => window.history.back()}
-        title="United States"
-        subTitle="Chess Olympiad Registration"
+        title="India"
+        subTitle="All India Chess Federation"
         extra={[]}
       >
         <Descriptions size="small" column={3}>
