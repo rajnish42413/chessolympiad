@@ -1,27 +1,25 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import AppLayout from '@layout/app';
-import RegisterForm from '@components/RegisterForm';
-import { Button, Descriptions, Divider, PageHeader, Typography } from 'antd';
-import axios from 'axios';
-import { IFederation } from '../../schemas/IFederation';
-import Loader from '@components/loader/Loader';
+import { Button, Col, Descriptions, Divider, PageHeader, Row, Select, Typography } from 'antd';
+import { Link } from 'react-router-dom';
 
-export default function Register(props: any) {
-  const [federations, setFederations] = useState([] as Array<IFederation>);
-
+export default function Entry(props: any) {
   return (
     <AppLayout>
-      {/* <Breadcrumb>
-        <Breadcrumb.Item>Chess Olympiad 2022</Breadcrumb.Item>
-        <Breadcrumb.Item>Team Registration</Breadcrumb.Item>
-      </Breadcrumb> */}
       <PageHeader
         style={{ padding: 0 }}
         ghost={false}
         onBack={() => window.history.back()}
         title="United States"
         subTitle="Chess Olympiad Registration"
-        extra={[]}
+        extra={[
+          <>
+            <Button key="1">View entries</Button>
+            <Button key="1" type="primary">
+              LogOut
+            </Button>
+          </>
+        ]}
       >
         <Descriptions size="small" column={3}>
           <Descriptions.Item label="Created">Lili Qu</Descriptions.Item>
@@ -36,7 +34,19 @@ export default function Register(props: any) {
         </Descriptions>
       </PageHeader>
       <Divider />
-      {federations ? <RegisterForm federations={federations} /> : <Loader />}
+      <Row style={{ marginTop: 20 }}>
+        <Col xs={24} sm={24} md={8} lg={8} xl={8} key={1}>
+          <label>Choose registration type</label>
+          <Select placeholder="Select registration type" style={{ width: '100%' }}>
+            <Select.Option value="Open Section">Open Section</Select.Option>
+            <Select.Option value="Women Section">Women Section</Select.Option>
+            <Select.Option value="General Assembly">General Assembly</Select.Option>
+            <Select.Option value="Visitors">Visitors</Select.Option>
+            <Select.Option value="Federation Officials">Federation Officials</Select.Option>
+            <Select.Option value="Congress Meetings">Congress Meetings</Select.Option>
+          </Select>
+        </Col>
+      </Row>
       <Divider />
       <Typography>
         <Typography.Title level={4}>
@@ -65,6 +75,11 @@ export default function Register(props: any) {
         </Typography.Paragraph>
         <Divider />
       </Typography>
+      <Link to="/teams/entry">
+        <Button type="primary" size="large" style={{ margin: '20px 0' }}>
+          Add Entry
+        </Button>
+      </Link>
     </AppLayout>
   );
 }
