@@ -88,7 +88,7 @@ export default function RegisterFormItems(props: IProps) {
     <div>
       <div>
         <Divider />
-        <Typography.Title level={4}>Team Players</Typography.Title>
+        <Typography.Title level={4}>Team Players - Add/ Modify</Typography.Title>
         <TeamPreview team={teamPlayers} removePlayer={removePlayer} />
         {teamPlayers.length <= MAX_PLAYER_ALLOW && <AddPlayerInTeam addPlayer={addPlayer} />}
       </div>{' '}

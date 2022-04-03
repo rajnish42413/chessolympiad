@@ -19,23 +19,15 @@ export default function Register(props: any) {
         style={{ padding: 0 }}
         ghost={false}
         onBack={() => window.history.back()}
-        title="India"
-        subTitle="All India Chess Federation"
+        title="Open Section"
+        subTitle="Team Registration"
         extra={[]}
       >
         <Descriptions size="small" column={3}>
-          <Descriptions.Item label="Created">Lili Qu</Descriptions.Item>
-          <Descriptions.Item label="Association">
-            <a>421421</a>
-          </Descriptions.Item>
-          <Descriptions.Item label="Creation Time">2017-01-10</Descriptions.Item>
-          <Descriptions.Item label="Effective Time">2017-10-10</Descriptions.Item>
-          <Descriptions.Item label="Remarks">
-            Gonghu Road, Xihu District, Hangzhou, Zhejiang, China
-          </Descriptions.Item>
+          <Descriptions.Item label="App ID">#OLY2022-0231</Descriptions.Item>
+          <Descriptions.Item label="Creation Time">2022-04-03</Descriptions.Item>
         </Descriptions>
       </PageHeader>
-      <Divider />
       {federations ? <RegisterForm federations={federations} /> : <Loader />}
       <Divider />
       <Typography>
