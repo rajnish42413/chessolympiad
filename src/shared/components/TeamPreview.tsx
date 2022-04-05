@@ -49,7 +49,7 @@ export default function TeamPreview({ team, removePlayer }: IProps) {
       dataIndex: 'rating'
     },
     {
-      title: 'Rank',
+      title: 'Board No.',
       key: 'rank',
       dataIndex: 'rank'
     },
