@@ -12,14 +12,6 @@ export default function Entry(props: any) {
         onBack={() => window.history.back()}
         title="United States"
         subTitle="Chess Olympiad Registration"
-        extra={[
-          <>
-            <Button key="1">View entries</Button>
-            <Button key="1" type="primary">
-              LogOut
-            </Button>
-          </>
-        ]}
       >
         <Descriptions size="small" column={3}>
           <Descriptions.Item label="Created">Lili Qu</Descriptions.Item>

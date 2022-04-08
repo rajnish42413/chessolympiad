@@ -40,7 +40,7 @@ export default function Teams() {
       key: 'id',
       render: (text: any, record: ITeam) => (
         <Space size="middle">
-          <Link to={`teams/${record.id}`}>
+          <Link to={`teams/${record.id}/view`}>
             <Button type="link">#OLY2022-{text}</Button>
           </Link>
         </Space>
@@ -69,7 +69,7 @@ export default function Teams() {
       key: 'action',
       render: (text: any, record: ITeam) => (
         <Space size="middle">
-          <Link to={`teams/${record.id}`}>
+          <Link to={`teams/${record.id}/view`}>
             <Button>View</Button>
           </Link>
         </Space>
