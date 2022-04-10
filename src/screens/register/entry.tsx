@@ -9,6 +9,7 @@ export default function Entry(props: any) {
       <PageHeader
         style={{ padding: 0 }}
         ghost={false}
+<<<<<<< HEAD
         // onBack={() => window.history.back()}
         title="India"
         subTitle="Logged in"
@@ -20,6 +21,11 @@ export default function Entry(props: any) {
             </Button>
           </>
         ]}
+=======
+        onBack={() => window.history.back()}
+        title="United States"
+        subTitle="Chess Olympiad Registration"
+>>>>>>> 3aa23b9aef1b80b63e674fab269ca3be6be98575
       >
         <Descriptions size="small" column={3}>
           <Descriptions.Item label="Country">India</Descriptions.Item>

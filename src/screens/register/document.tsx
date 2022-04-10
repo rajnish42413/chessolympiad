@@ -40,7 +40,9 @@ export default function UploadDocument() {
     const team = data.team;
     let newData: any = [];
     players.map((p: any) => {
-      newData.push({ ...p, photo: "", passport: "", visa: "", other: "", issue_at: "", });
+       if(p.id){
+          newData.push({ ...p, photo: "", passport: "", visa: "", other: "", issue_at: "", id: p.id });
+       }
     });
     setTotalRequiredDocs(newData.length * 3)
     setTeam(team);
@@ -76,7 +78,8 @@ export default function UploadDocument() {
       }
       if (info.file.status === 'done') {
         message.success(`${info.file.name} file uploaded successfully`);
-        setTotalUploadedDocs(+totalUploadedDocs + 1);
+        const total = totalUploadedDocs + 1;
+        setTotalUploadedDocs(total);
       } else if (info.file.status === 'error') {
         console.log(info.file)
         message.error(`${info.file.name} file upload failed.`);
@@ -98,11 +101,11 @@ export default function UploadDocument() {
       title: 'Photo',
       dataIndex: 'photo',
       key: 'photo',
-      render: (p: IPlayer) =>
+      render: (text:any, p: IPlayer) =>
         p.photo ? (
           <img src={p.photo} alt={p.name} />
         ) : (
-          <Upload {...IPhotoProps} data={{ type: "photo" }}>
+          <Upload {...IPhotoProps} data={{ type: "photo", player_id : p.id}}>
             <Button icon={<UploadOutlined />}>Click to Upload</Button>
           </Upload>
         )
@@ -111,11 +114,11 @@ export default function UploadDocument() {
       title: 'Passport',
       dataIndex: 'passport',
       key: 'passport',
-      render: (p: IPlayer) =>
+      render: (text: any, p:any) =>
         p.passport ? (
           <img src={p.passport} alt={p.name} />
         ) : (
-          <Upload {...IPhotoProps} data={{ type: "passport" }}>
+          <Upload {...IPhotoProps} data={{ type: "passport", player_id : p.id}}>
             <Button icon={<UploadOutlined />}>Click to Upload</Button>
           </Upload>
         )
@@ -124,11 +127,11 @@ export default function UploadDocument() {
       title: 'Visa',
       dataIndex: 'visa',
       key: 'visa',
-      render: (p: IPlayer) =>
+      render: (text: any, p:any) =>
         p.visa ? (
           <img src={p.visa} alt={p.name} />
         ) : (
-          <Upload {...IPhotoProps} data={{ type: "visa" }}>
+          <Upload {...IPhotoProps} data={{ type: "visa", player_id: p.id }}>
             <Button icon={<UploadOutlined />}>Click to Upload</Button>
           </Upload>
         )
@@ -137,7 +140,7 @@ export default function UploadDocument() {
       title: 'Passport Issu At',
       dataIndex: 'issue_at',
       key: 'issue_at',
-      render: (p: IPlayer) => (p.issue_at ? <Tag>{p.issue_at}</Tag> : <Input />)
+      render: (issue_at:any) => (issue_at ? <Tag>{issue_at}</Tag> : <Input />)
     }
   ];
 
@@ -147,9 +150,14 @@ export default function UploadDocument() {
         style={{ padding: 0 }}
         ghost={false}
         onBack={() => window.history.back()}
+<<<<<<< HEAD
         title="Open Section"
         subTitle="Team Registration"
         extra={[]}
+=======
+        title="United States"
+        subTitle="Chess Olympiad Registration"
+>>>>>>> 3aa23b9aef1b80b63e674fab269ca3be6be98575
       >
         <Descriptions size="small" column={3}>
           <Descriptions.Item label="App ID">#OLY2022-0231</Descriptions.Item>
