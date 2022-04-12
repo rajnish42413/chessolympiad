@@ -7,7 +7,6 @@ import { PlayerName } from '../../utils/helpers';
 import Loader from '@components/loader/Loader';
 import { IOrderDetail } from '../../schemas/IOrderDetail';
 
-// tslint:disable-next-line:function-name
 function PaymentStatus(props: any) {
   const history = useHistory();
   const { search } = useLocation();

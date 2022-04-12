@@ -12,6 +12,10 @@ import Teams from '../screens/teams';
 import TeamView from '../screens/teams/view';
 import NotFoundPage from '..//screens/notFound';
 import CommingSoon from '../screens/comming';
+import PersonalDetail from '../screens/user/personal';
+import FlightDetail from '../screens/user/flight';
+import TravelDetail from '../screens/user/travel';
+import PreviewReg from '../screens/register/preview';
 
 // const Home = React.lazy(() => import('../screens/home/Home'));
 const Register = React.lazy(() => import('../screens/register/index'));
@@ -26,9 +30,13 @@ const privatePaths = [
   { exact: true, path: '/teams/entry', component: Register },
   { exact: true, path: '/teams', component: Teams },
   { exact: true, path: '/teams/:id/upload-documents', component: Document },
+  { exact: true, path: '/team-preview', component: PreviewReg },
   { exact: true, path: '/payment-detail', component: Payment },
   { exact: true, path: '/payment-status', component: PaymentStatus },
-  { exact: true, path: '/teams/:id/view', component: TeamView }
+  { exact: true, path: '/teams/:id/view', component: TeamView },
+  { exact: true, path: '/personal-detail', component: PersonalDetail },
+  { exact: true, path: '/passport-detail', component: FlightDetail },
+  { exact: true, path: '/travel-detail', component: TravelDetail }
 ];
 
 const PublicRoute = ({ path, ...props }: any) => {

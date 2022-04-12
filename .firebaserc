@@ -1,5 +1,7 @@
 {
   "projects": {
-    "default": "register-olympiad"
-  }
+    "default": "chessolympiad22",
+    "chess": "chessolympiad22"
+  },
+  "targets": {}
 }

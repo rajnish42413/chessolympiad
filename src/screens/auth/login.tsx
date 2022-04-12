@@ -50,6 +50,9 @@ export default function Login() {
           <Card>
             <Typography>
               <Typography.Title level={3}>Sign in to Chess Olympiad</Typography.Title>
+              <Typography.Paragraph>
+                Please Enter the login detail which you received on your email.
+              </Typography.Paragraph>
             </Typography>
             <Divider />
             <Form
@@ -85,6 +88,12 @@ export default function Login() {
                   Submit
                 </Button>
               </Form.Item>
+
+              <Typography>
+                <Typography.Paragraph>
+                  <strong>Contact US</strong> If you facing any issues, please contact us.
+                </Typography.Paragraph>
+              </Typography>
             </Form>
           </Card>
         </Col>
