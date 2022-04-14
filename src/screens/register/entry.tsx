@@ -1,9 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import AppLayout from '@layout/app';
 import { Button, Col, Descriptions, Divider, PageHeader, Row, Select, Typography } from 'antd';
-import { Link } from 'react-router-dom';
+import { APPLICATION_TYPES } from '../../constants/general';
+import { useHistory } from 'react-router-dom';
 
 export default function Entry(props: any) {
+  const history = useHistory();
+  const [typeId, setTypeId] = useState(0);
+
+  const handleSubmit = () => {
+    history.push('/teams/entry', { type: APPLICATION_TYPES.find(i => i.value == typeId) });
+    return;
+  };
+
+  const onChange = (value: any) => {
+    setTypeId(value);
+  };
+
   return (
     <AppLayout>
       <PageHeader
@@ -48,21 +61,21 @@ export default function Entry(props: any) {
       <Row style={{ marginTop: 20 }}>
         <Col xs={24} sm={24} md={8} lg={8} xl={8} key={1}>
           <label>Choose registration type</label>
-          <Select placeholder="Select registration type" style={{ width: '100%' }}>
-            <Select.Option value="Open Section">Open Section</Select.Option>
-            <Select.Option value="Women Section">Women Section</Select.Option>
-            <Select.Option value="General Assembly">General Assembly</Select.Option>
-            <Select.Option value="Visitors">Visitors</Select.Option>
-            <Select.Option value="Federation Officials">Federation Officials</Select.Option>
-            <Select.Option value="Congress Meetings">Congress Meetings</Select.Option>
+          <Select
+            placeholder="Select registration type"
+            style={{ width: '100%' }}
+            inputValue={`${typeId}`}
+            onChange={onChange}
+          >
+            {APPLICATION_TYPES.map(i => (
+              <Select.Option value={i.value}>{i.name}</Select.Option>
+            ))}
           </Select>
         </Col>
       </Row>
-      <Link to="/teams/entry">
-        <Button type="primary" size="large" style={{ margin: '20px 0' }}>
-          Add Entry
-        </Button>
-      </Link>
+      <Button type="primary" size="large" style={{ margin: '20px 0' }} onClick={handleSubmit}>
+        Add Entry
+      </Button>
     </AppLayout>
   );
 }

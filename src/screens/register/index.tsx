@@ -1,26 +1,24 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import AppLayout from '@layout/app';
 import RegisterForm from '@components/RegisterForm';
-import { Button, Descriptions, Divider, PageHeader, Typography } from 'antd';
-import axios from 'axios';
+import { Descriptions, Divider, PageHeader } from 'antd';
 import { IFederation } from '../../schemas/IFederation';
 import Loader from '@components/loader/Loader';
+import { useLocation } from 'react-router-dom';
 
 export default function Register(props: any) {
+  const { state }:any = useLocation();
+  const type = state?.type;
   const [federations, setFederations] = useState([] as Array<IFederation>);
 
   return (
     <AppLayout>
-      {/* <Breadcrumb>
-        <Breadcrumb.Item>Chess Olympiad 2022</Breadcrumb.Item>
-        <Breadcrumb.Item>Team Registration</Breadcrumb.Item>
-      </Breadcrumb> */}
       <PageHeader
         style={{ padding: 0 }}
         ghost={false}
         onBack={() => window.history.back()}
-        title="Open Section"
-        subTitle="Team Registration"
+        title={type?.name}
+        subTitle="Insert Application"
         extra={[]}
       >
         <Descriptions size="small" column={3}>

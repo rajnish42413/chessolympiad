@@ -25,7 +25,7 @@ export default function Login() {
     if (data) {
       authToken.storeToken(data.token);
       openNotification(data);
-      history.push('/teams/register');
+      history.push('/applications/add');
     }
     return;
   };

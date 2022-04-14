@@ -26,7 +26,7 @@ const PaymentStatus = React.lazy(() => import('../screens/register/status'));
 const publicPaths = [{ exact: true, path: '/', component: Login }];
 
 const privatePaths = [
-  { exact: true, path: '/teams/register', component: Entry },
+  { exact: true, path: '/applications/add', component: Entry },
   { exact: true, path: '/teams/entry', component: Register },
   { exact: true, path: '/teams', component: Teams },
   { exact: true, path: '/teams/:id/upload-documents', component: Document },
