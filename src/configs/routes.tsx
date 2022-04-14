@@ -28,8 +28,10 @@ const publicPaths = [{ exact: true, path: '/', component: Login }];
 const privatePaths = [
   { exact: true, path: '/applications/add', component: Entry },
   { exact: true, path: '/teams/entry', component: Register },
+  { exact: true, path: '/teams/entry/:id', component: Register },
   { exact: true, path: '/teams', component: Teams },
   { exact: true, path: '/teams/:id/upload-documents', component: Document },
+  { exact: true, path: '/teams/individual-register', component: Document },
   { exact: true, path: '/team-preview', component: PreviewReg },
   { exact: true, path: '/payment-detail', component: Payment },
   { exact: true, path: '/payment-status', component: PaymentStatus },
@@ -47,7 +49,11 @@ const PublicRoute = ({ path, ...props }: any) => {
       nprogress.start();
     };
   });
-  return <Route key={path} path={path} {...props} />;
+  return authToken.get() ? (
+    <Redirect to={{ pathname: '/applications/add' }} />
+  ) : (
+    <Route key={path} path={path} {...props} />
+  );
 };
 
 const PrivateRoute = ({ path, ...props }: any) => {

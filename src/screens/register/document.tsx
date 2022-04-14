@@ -15,13 +15,17 @@ export default function UploadDocument() {
   const history = useHistory();
   const [team, setTeam] = useState({} as ITeam)
   const [teamPlayers, setTeamPlayers] = useState([] as Array<ITeamPlayer>);
-  let { id }: any = useParams();
+  let  {id} : any = useParams();
   const [loading, setLoading] = useState(false);
   const [totalRequiredDocs, setTotalRequiredDocs] = useState(0);
   const [totalUploadedDocs, setTotalUploadedDocs] = useState(0);
 
   useEffect(() => {
-    getPlayers()
+    if(id){
+      console.log(id)
+
+      getPlayers()
+    }
   }, [])
 
 
@@ -162,6 +166,46 @@ export default function UploadDocument() {
             ** Required {totalRequiredDocs} Documnets. **
           </Typography.Paragraph>}
         </div>} */}
+        {!id?
+        <>
+          <PersonalDetail/>
+          <Divider/>
+          <Typography>
+              <Typography.Title level={4}> Documents</Typography.Title>
+            </Typography>
+            <Card title="IDENTITY DOCUMENTS">
+              <Row>
+                <Col span={6}>
+                  <Typography.Paragraph>Passport Back</Typography.Paragraph>
+                  <Upload {...IPhotoProps} data={{ type: "passport-front" }}>
+                    <Button icon={<UploadOutlined />}>Click to Upload</Button>
+                  </Upload>
+                </Col>
+                <Col span={6}>
+                  <Typography.Paragraph>Passport Front</Typography.Paragraph>
+                  <Upload {...IPhotoProps} data={{ type: "passport-back" }}>
+                    <Button icon={<UploadOutlined />}>Click to Upload</Button>
+                  </Upload>
+                </Col>
+                <Col span={6}>
+                  <Typography.Paragraph>Photo</Typography.Paragraph>
+                  <Upload {...IPhotoProps} data={{ type: "photo" }}>
+                    <Button icon={<UploadOutlined />}>Click to Upload</Button>
+                  </Upload>
+                </Col>
+                <Col span={6}>
+                  <Typography.Paragraph>Visa Photo</Typography.Paragraph>
+                  <Upload {...IPhotoProps} data={{ type: "visa" }}>
+                    <Button icon={<UploadOutlined />}>Click to Upload</Button>
+                  </Upload>
+                </Col>
+              </Row>
+            </Card>
+            <HealthDetail />
+            <TravelDetail />
+            <PersonalDetail />
+              <Button size="large" type="primary" style={{width:'10vw', margin: 20}} onClick={handleNextPage}>Next</Button>
+        </>:
       <Tabs defaultActiveKey="1" tabPosition="left">
         {teamPlayers?.map(p => (
           <TabPane tab={`${p.name}`} key={p.id} >
@@ -202,7 +246,7 @@ export default function UploadDocument() {
               <Button size="large" type="primary" style={{width:'10vw', margin: 20}} onClick={handleNextPage}>Next</Button>
           </TabPane>
         ))}
-      </Tabs>
+      </Tabs>}
     </AppLayout>
   );
 }

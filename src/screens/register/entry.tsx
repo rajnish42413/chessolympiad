@@ -9,6 +9,10 @@ export default function Entry(props: any) {
   const [typeId, setTypeId] = useState(0);
 
   const handleSubmit = () => {
+    if (typeId == 4 || typeId == 5) {
+      history.push('/teams/individual-register');
+      return;
+    }
     history.push('/teams/entry', { type: APPLICATION_TYPES.find(i => i.value == typeId) });
     return;
   };
