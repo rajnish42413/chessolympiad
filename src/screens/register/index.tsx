@@ -4,13 +4,14 @@ import RegisterForm from '@components/RegisterForm';
 import { Descriptions, Divider, PageHeader } from 'antd';
 import { IFederation } from '../../schemas/IFederation';
 import Loader from '@components/loader/Loader';
-import { useLocation } from 'react-router-dom';
+import { useLocation,useParams } from 'react-router-dom';
 
 export default function Register(props: any) {
   const { state }:any = useLocation();
   const type = state?.type;
   const [federations, setFederations] = useState([] as Array<IFederation>);
-
+  const {id}:any = useParams();
+  
   return (
     <AppLayout>
       <PageHeader

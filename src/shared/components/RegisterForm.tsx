@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, message, Divider, Typography } from 'antd';
+import { Button, message, Divider, Typography, Alert } from 'antd';
 import Loader from './loader/Loader';
 import { IFederation } from '../../schemas/IFederation.d';
 import TeamPreview from './TeamPreview';
@@ -7,6 +7,7 @@ import AddPlayerInTeam from './AddPlayerInTeam';
 import { useHistory } from 'react-router-dom';
 import { MAX_PLAYER_ALLOW } from '../../constants/general';
 import axios from 'axios';
+import { useEffect } from 'hoist-non-react-statics/node_modules/@types/react';
 
 interface IProps {
   federations: Array<IFederation>;
@@ -28,6 +29,8 @@ export default function RegisterFormItems(props: IProps) {
   const [selectedFedration, setSelectedFedration] = useState(0);
   const [teamPlayers, setTeamPlayers] = useState([] as Array<IPlayer>);
   const history = useHistory();
+  const [save, setSave] = useState(false);
+  const [Data, setdata] = useState<any>(null);
 
   // const handleSelectEvent = (value: string) => {
   //   if (!value) return;
@@ -49,11 +52,12 @@ export default function RegisterFormItems(props: IProps) {
       federation_id: 1,
       players: newTeamPlayers
     };
-    handleSubmitForm(data);
+    setSave(true);
+    setdata(data);
   };
 
-  const handleSubmitForm = async (values: any) => {
-    const { data } = await axios.post(`teams`, values);
+  const handleSubmitForm = async () => {
+    const { data } = await axios.post(`teams`, Data);
     if (data) {
       history.push(`/teams/${data.team.id}/upload-documents`, data);
     }
@@ -61,6 +65,7 @@ export default function RegisterFormItems(props: IProps) {
   };
 
   const addPlayer = (player: IPlayer) => {
+    setSave(false);
     if (teamPlayers.length >= MAX_PLAYER_ALLOW) {
       message.error('Maximum Player in Team not exceeded than' + MAX_PLAYER_ALLOW);
       return;
@@ -89,13 +94,38 @@ export default function RegisterFormItems(props: IProps) {
       <div>
         <Divider />
         <Typography.Title level={4}>Team Players - Add/ Modify</Typography.Title>
+        {teamPlayers.length > 0 && (
+          <Alert
+            message="You have unsaved teammates ,press save button to save "
+            type="error"
+            style={{ marginTop: 20, marginBottom: 20 }}
+          />
+        )}
         <TeamPreview team={teamPlayers} removePlayer={removePlayer} />
         {teamPlayers.length <= MAX_PLAYER_ALLOW && <AddPlayerInTeam addPlayer={addPlayer} />}
       </div>{' '}
       : <div />
-      <Button type="primary" size="large" onClick={onFinish} style={{ margin: '20px 0' }}>
-        Proceed
-      </Button>
+      {save ? (
+        <Button
+          key="save"
+          type="primary"
+          size="large"
+          onClick={handleSubmitForm}
+          style={{ margin: '20px 0' }}
+        >
+          Proceed
+        </Button>
+      ) : (
+        <Button
+          key="proceed"
+          type="primary"
+          size="large"
+          onClick={onFinish}
+          style={{ margin: '20px 0' }}
+        >
+          Save
+        </Button>
+      )}
     </div>
   );
 }

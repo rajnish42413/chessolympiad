@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Button, Table, Tabs, message, Col, Upload, Tag, Typography, Divider, Descriptions, PageHeader, Card, Row, Space } from 'antd';
 import AppLayout from '@layout/app';
 import { UploadOutlined } from '@ant-design/icons';
-import { useHistory, useParams } from 'react-router-dom';
+import { useHistory, useParams, useLocation } from 'react-router-dom';
 import { API_URL } from '../../constants/general';
 import axios from 'axios';
 import { ITeam, ITeamPlayer } from '../../schemas/ITeam';
@@ -13,6 +13,9 @@ const { TabPane } = Tabs;
 
 export default function UploadDocument() {
   const history = useHistory();
+  const { state }:any = useLocation();
+  console.log(state,"state")
+
   const [team, setTeam] = useState({} as ITeam)
   const [teamPlayers, setTeamPlayers] = useState([] as Array<ITeamPlayer>);
   let  {id} : any = useParams();
@@ -138,8 +141,8 @@ export default function UploadDocument() {
         style={{ padding: 0 }}
         ghost={false}
         onBack={() => window.history.back()}
-        title="Upload Team Documents"
-        subTitle="Team Registration"
+        title={state?.type?.name}
+        subTitle={"Registration"}
         extra={[]}
       >
         <Descriptions size="small" column={3}>
