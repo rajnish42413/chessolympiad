@@ -9,11 +9,17 @@ export default function Entry(props: any) {
   const [typeId, setTypeId] = useState(0);
 
   const handleSubmit = () => {
+    const type = APPLICATION_TYPES.find(i => i.value == typeId);
+    console.log(type, 'type we are getting');
     if (typeId == 4 || typeId == 5) {
-      history.push('/teams/individual-register');
+      history.push(`/teams/individual-register?type=${type?.value}`,{
+        type: APPLICATION_TYPES.find(i => i.value == typeId)
+      });
       return;
     }
-    history.push('/teams/entry', { type: APPLICATION_TYPES.find(i => i.value == typeId) });
+    history.push(`/teams/entry?type=${type?.value}`, {
+      type: APPLICATION_TYPES.find(i => i.value == typeId)
+    });
     return;
   };
 

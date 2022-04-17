@@ -7,8 +7,8 @@ export const MAX_PLAYER_ALLOW = 8;
 export const APPLICATION_TYPES = [
   { value: 0, name: 'Open Section' },
   { value: 1, name: 'Women Section' },
-  { value: 2, name: 'General Assembly' },
+  { value: 2, name: 'Arbiters' },
   { value: 3, name: 'Visitors' },
-  { value: 4, name: 'Federation Officials' },
+  { value: 4, name: 'Media' },
   { value: 5, name: 'Congress Meetings' }
 ];
